@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────────────────────
+#  Large downloaded data — recreatable by re-running notebooks
+# ─────────────────────────────────────────────────────────────
+#  RATIONALE:
+#  - Ignore raw satellite NetCDFs (multi-GB, freely re-downloadable from CMEMS/ERA5).
+#  - KEEP the small derived CSVs, JSON, and model files — they're the numbers the
+#    website reads and let a reviewer verify results without re-running the pipeline.
+
+# NetCDF / GRIB downloads
+*.nc
+*.nc4
+*.grib
+*.grib2
+
+# Raw data directory (7+ GB for the 3-year run, would be ~100 GB for full record)
+**/data/raw/
+
+# Zarr stores (folder-format)
+*.zarr/
+
+# ─────────────────────────────────────────────────────────────
+#  Python
+# ─────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Notebook execution artefacts we don't want in commits
+*.nbconvert.ipynb
+
+# ─────────────────────────────────────────────────────────────
+#  Node / Vite (website/)
+# ─────────────────────────────────────────────────────────────
+node_modules/
+website/dist/
+website/dist-ssr/
+website/.vite/
+*.local
+
+# ─────────────────────────────────────────────────────────────
+#  Editor & OS
+# ─────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
