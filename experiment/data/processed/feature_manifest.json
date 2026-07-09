@@ -1,0 +1,53 @@
+{
+  "meta_cols": [
+    "time",
+    "latitude",
+    "longitude",
+    "month"
+  ],
+  "target_cols": [
+    "target_h1",
+    "target_h2",
+    "target_h3",
+    "target_h4",
+    "target_h5",
+    "target_h6",
+    "target_h7"
+  ],
+  "feature_cols": [
+    "log_chl_t0",
+    "log_chl_lag1",
+    "log_chl_lag2",
+    "log_chl_lag3",
+    "log_chl_lag7",
+    "log_chl_lag14",
+    "log_chl_roll7_mean",
+    "log_chl_roll7_std",
+    "sst_t0",
+    "sst_lag1",
+    "sst_roll7_mean",
+    "depth_m",
+    "doy_sin",
+    "doy_cos",
+    "gap_age"
+  ],
+  "horizons": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "lags": [
+    1,
+    2,
+    3,
+    7,
+    14
+  ],
+  "roll_window": 7,
+  "use_3day_target": false,
+  "n_rows_sample": 120000
+}

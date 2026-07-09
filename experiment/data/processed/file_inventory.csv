@@ -1,0 +1,67 @@
+category,file,bytes
+raw data,data\raw\bathy_malta.nc,1633664
+raw data,data\raw\chl_malta_2021_2023.nc,235919370
+raw data,data\raw\era5_wind_2021_2023.nc,849905
+raw data,data\raw\oc_kd490.nc,235918346
+raw data,data\raw\phy_cur.nc,5039483404
+raw data,data\raw\phy_mld.nc,17895344
+raw data,data\raw\phy_sal.nc,2519754308
+raw data,data\raw\phy_ssh.nc,17895344
+raw data,data\raw\sst_malta_2021_2023.nc,6167464
+processed,data\processed\baseline_scores.csv,850
+processed,data\processed\bloom_skill.csv,2419
+processed,data\processed\coverage_daily.parquet,20402
+processed,data\processed\coverage_decision.txt,38
+processed,data\processed\coverage_monthly.csv,117
+processed,data\processed\feature_manifest.json,777
+processed,data\processed\feature_manifest_v2.json,1819
+processed,data\processed\group_importance.csv,1019
+processed,data\processed\supervised_sample.parquet,12222243
+processed,data\processed\supervised_sample_v2.parquet,22465242
+processed,data\processed\walk_forward_scores.csv,3390
+processed,data\processed\walk_forward_summary.csv,641
+processed,data\processed\xgb_scores.csv,453
+models,models\xgb_h1.json,1839062
+models,models\xgb_h2.json,1606376
+models,models\xgb_h3.json,1351097
+models,models\xgb_h4.json,1296470
+models,models\xgb_h5.json,1110190
+models,models\xgb_h6.json,1054814
+models,models\xgb_h7.json,1221238
+models,models\xgb_v2_h1.json,2009460
+models,models\xgb_v2_h2.json,1774728
+models,models\xgb_v2_h3.json,1230738
+models,models\xgb_v2_h4.json,2171923
+models,models\xgb_v2_h5.json,1527845
+models,models\xgb_v2_h6.json,1350399
+models,models\xgb_v2_h7.json,1157467
+figures,figs\01_chl_sample_day.png,114165
+figures,figs\02_coverage_atlas.png,37784
+figures,figs\02_coverage_map.png,112367
+figures,figs\03_sst_and_bathy.png,264477
+figures,figs\05_baselines.png,78240
+figures,figs\06_xgb_vs_baselines.png,108292
+figures,figs\07_error_by_month.png,47272
+figures,figs\07_error_map_h3.png,88906
+figures,figs\07_residual_diagnostics_h3.png,235421
+figures,figs\07_shap_bar_h1_h7.png,53457
+figures,figs\07_shap_h1.png,109349
+figures,figs\07_shap_h7.png,121671
+figures,figs\08_correlation_heatmap.png,146732
+figures,figs\08_group_importance.png,50080
+figures,figs\09_bloom_skill.png,128682
+figures,figs\10_walk_forward.png,90005
+figures,figs\10_walk_forward_per_fold.png,186021
+notebooks,00-Environment-Setup.ipynb,6168
+notebooks,01-Data-Acquisition.ipynb,173903
+notebooks,02-Coverage-Atlas.ipynb,159593
+notebooks,03-Covariates.ipynb,226448
+notebooks,04-Build-Supervised.ipynb,26431
+notebooks,05-Baselines.ipynb,81436
+notebooks,06-XGBoost-Chrono.ipynb,108820
+notebooks,07-Interpretability.ipynb,562504
+notebooks,08a-Download-Covariates.ipynb,27777
+notebooks,08b-Group-Importance-Ablation.ipynb,215083
+notebooks,09-Bloom-Detection.ipynb,138941
+notebooks,10-Walk-Forward.ipynb,262781
+notebooks,11-Scale-Up.ipynb,18151
