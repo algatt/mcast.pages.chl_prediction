@@ -9,6 +9,7 @@ const primary = [
   { to: '/primer',      label: 'Primer' },
   { to: '/methodology', label: 'Methodology' },
   { to: '/data',        label: 'Data' },
+  { to: '/forecast',    label: 'Forecast' },
 ]
 const findings = [
   { to: '/findings/l3-vs-l4',        label: 'L3 vs L4',       short: 'L3/L4' },

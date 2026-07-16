@@ -9,6 +9,7 @@ const routes = [
   { path: '/primer',        name: 'primer',        component: () => import('./pages/Primer.vue') },
   { path: '/methodology',   name: 'methodology',   component: () => import('./pages/Methodology.vue') },
   { path: '/data',          name: 'data',          component: () => import('./pages/Data.vue') },
+  { path: '/forecast',      name: 'forecast',      component: () => import('./pages/Forecast.vue') },
   { path: '/findings/l3-vs-l4',        name: 'l3-vs-l4',        component: () => import('./pages/FindingL3.vue') },
   { path: '/findings/group-ablation',  name: 'group-ablation',  component: () => import('./pages/FindingAblation.vue') },
   { path: '/findings/walk-forward',    name: 'walk-forward',    component: () => import('./pages/FindingWalkForward.vue') },
