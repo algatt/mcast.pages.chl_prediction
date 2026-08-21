@@ -14,7 +14,14 @@ Git.prototype.rm = function removePublishedTree() {
 
 const dist = path.resolve(__dirname, '..', 'dist')
 
-ghPages.publish(dist, { dotfiles: true, nojekyll: true })
+const publish = new Promise((resolve, reject) => {
+  ghPages.publish(dist, { dotfiles: true, nojekyll: true }, (error) => {
+    if (error) reject(error)
+    else resolve()
+  })
+})
+
+publish
   .then(() => process.stdout.write('Published\n'))
   .catch((error) => {
     process.stderr.write(`${error.stack || error}\n`)
