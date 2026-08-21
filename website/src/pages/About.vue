@@ -2,103 +2,77 @@
 import SectionHeader from '../components/SectionHeader.vue'
 
 const limitations = [
-  { title: '3-year window is narrow', body: 'Inter-annual variability (2017 heatwave, 2003 bloom) is not represented. Walk-forward error bars reflect within-year variation, not multi-decadal.' },
-  { title: 'gap_age was a dud',       body: 'By filtering to rows where log_chl_t0 is valid, gap_age becomes structurally 0. Confirmed via SHAP; dropped in Stage 8.' },
-  { title: 'ERA5 is coarse',           body: '~31 km wind can\'t resolve coastal upwelling scales. The ablation ΔR² for wind is probably an underestimate of true importance.' },
-  { title: 'No waves, no PAR',         body: 'Both are physically plausible bloom drivers. Deferred to a follow-up.' },
-  { title: 'BGC nutrients omitted',   body: 'CMEMS BGC model has nutrients and modelled chl. Using the model\'s own chl-a would be circular; using only nutrients is acceptable but likely marginal at these leads.' },
-  { title: 'Single region',            body: 'Malta–Sicily Channel only. Generalisation to Aegean, Levantine, Western Med not tested — the methodology is region-agnostic in principle.' },
-  { title: 'No deep-learning baseline', body: 'XGBoost chosen for native NaN + interpretability. A ConvLSTM/U-Net could capture sub-1 km coastal features. Separate study.' },
+  { title: 'Three years cannot sample climate regimes', body: 'The 2021–2023 record supports seasonal stress tests, but not multi-year or decadal generalisation.' },
+  { title: 'Fold SD is descriptive', body: 'Eight folds overlap in training data. Mean ± SD shows quarter-to-quarter spread; it is not a confidence interval.' },
+  { title: 'Evaluation is sampled', body: 'The supervised table contains 360,000 sampled pixel-days. Diagnostic maps use aggregation and are not dense operational forecast fields.' },
+  { title: 'One region only', body: 'The model has not been transferred beyond the Malta–Sicily Channel.' },
+  { title: 'Rare-event false alarms are high', body: 'At H+3 the P90 detector has FAR = 0.545, which prevents an operational warning claim.' },
+  { title: 'Some physical drivers are absent', body: 'Waves, PAR, nutrients, and a deep-learning baseline were not evaluated.' },
+  { title: 'Predictor resolution and gaps remain', body: 'ERA5 is coarser than the target grid; KD490 representative domain coverage is 46.16%, while salinity, currents, SSH, and MLD reach 96.97%.' },
+  { title: 'No full-record extension was run', body: 'Scaling beyond 2021–2023 requires a separate preflight for availability, versions, cost, storage, and compute.' },
 ]
 </script>
 
 <template>
   <div class="container-page py-12 md:py-16">
     <SectionHeader
-      eyebrow="About the project"
-      title="What we did and what we didn't"
-      lead="Twelve validation gates, eleven notebooks, one methodology you can defend at a viva. This section lists what the project is honest about not doing."
+      eyebrow="Limitations & reproducibility"
+      title="What the evidence supports—and where it stops"
+      lead="The pipeline is complete for its 2021–2023 methodology experiment. It is not an operational forecast service and it has not been validated as a multi-decadal or cross-region model."
     />
 
-    <!-- What it is -->
-    <div class="card mb-8">
-      <h2 class="text-xl font-bold text-slate-900 mb-3">What this project is</h2>
-      <div class="prose prose-slate max-w-none">
-        <p>
-          A complete, methodology-first instance of daily chlorophyll-a forecasting in the Malta–Sicily
-          Channel. The project's central bet is that <strong>using non-interpolated L3 ocean-colour data
-          as target</strong> — with cloud gaps preserved as <span class="kbd">NaN</span> and handled
-          natively by a tree-based model — is at least as good as the standard L4 + interpolation approach,
-          and considerably more honest about what the operational system will actually see.
-        </p>
-        <p>
-          Everything is reproducible from twelve numbered notebooks. Every notebook ends with a validation
-          gate — a programmatic check that the stage produced the science it was supposed to. Gates are the
-          scientific contract; failures are findings.
-        </p>
+    <section class="card mb-10">
+      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+        <div>
+          <div class="label-caps">Reproducibility unit</div>
+          <h2 class="mt-2 text-2xl font-semibold text-ink-950">Thirteen ordered notebooks</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600">Stages 00–11 include separate 08a and 08b notebooks. Each stage declares an artifact and a validation gate before downstream work proceeds.</p>
+        </div>
+        <dl class="grid sm:grid-cols-3 gap-4">
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4"><dt class="label-caps">Rows</dt><dd class="mt-2 text-2xl font-semibold tabular-nums">360,000</dd></div>
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4"><dt class="label-caps">Features</dt><dd class="mt-2 text-2xl font-semibold tabular-nums">32</dd></div>
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4"><dt class="label-caps">Horizons</dt><dd class="mt-2 text-2xl font-semibold tabular-nums">7</dd></div>
+        </dl>
       </div>
-    </div>
+    </section>
 
-    <!-- Repo layout -->
-    <div class="card mb-8">
-      <h2 class="text-xl font-bold text-slate-900 mb-3">Repository layout</h2>
-      <pre class="text-xs font-mono bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto leading-relaxed">
-experiment/
-├── PLAN.md                     # the original methodological plan
-├── EXPLANATION.md              # long-form walkthrough (this site is derived from it)
-├── SCALE_UP_RUNBOOK.md         # runbook for the 1998–2024 full-record extension
-├── requirements.txt            # pip freeze
-├── 00-Environment-Setup.ipynb
-├── 01-Data-Acquisition.ipynb
-├── 02-Coverage-Atlas.ipynb              ← Gate 2 (daily vs 3-day decision)
-├── 03-Covariates.ipynb
-├── 04-Build-Supervised.ipynb            ← Gate 4 (leakage assert)
-├── 05-Baselines.ipynb
-├── 06-XGBoost-Chrono.ipynb
-├── 07-Interpretability.ipynb
-├── 08a-Download-Covariates.ipynb
-├── 08b-Group-Importance-Ablation.ipynb  ← Gate 8b (group ablation)
-├── 09-Bloom-Detection.ipynb             ← Gate 9 (F1 or Isolation Forest fallback)
-├── 10-Walk-Forward.ipynb                ← Gate 10 (publication-grade numbers)
-├── 11-Scale-Up.ipynb                    ← Gate 11 (deliverable complete)
-├── data/{raw,processed}/
-├── models/                     # 7 v1 + 7 v2 XGBoost models
-└── figs/                       # 18 PNGs, all reused in this site</pre>
-    </div>
-
-    <!-- Limitations -->
-    <h2 class="text-2xl font-bold text-slate-900 mb-4">Limitations we own</h2>
-    <div class="grid md:grid-cols-2 gap-4 mb-10">
-      <div v-for="(l, i) in limitations" :key="i" class="card">
-        <h3 class="font-bold text-slate-900 mb-2">{{ l.title }}</h3>
-        <p class="text-sm text-slate-600 leading-relaxed">{{ l.body }}</p>
+    <section class="mb-12">
+      <div class="section-intro">
+        <div><div class="label-caps">Candid boundary conditions</div><h2>Limitations we own</h2></div>
+        <p>These are not footnotes to hide. They determine what a reviewer—and a future user—should do with the results.</p>
       </div>
-    </div>
-
-    <!-- The bar -->
-    <div class="card bg-gradient-to-br from-ocean-50 to-white border-ocean-200 mb-10">
-      <h2 class="text-xl font-bold text-slate-900 mb-3">The scale-up bar</h2>
-      <div class="prose prose-slate max-w-none">
-        <p>
-          The 3-year window (2021–2023) was always the methodology vehicle. The next step —
-          <em>extending to the full 1998–2024 record</em> — is engineering, not science. Storage budget:
-          ~100 GB. Runtime: many hours (dominated by ERA5 queue and 3D CMEMS PHY downloads). The recipe
-          is locked in <span class="kbd">SCALE_UP_RUNBOOK.md</span>.
-        </p>
-        <p class="mb-0">
-          Every validation gate stays in place at full scale. A gate that fails at full scale is a finding
-          to investigate, not a reason to skip.
-        </p>
+      <div class="mt-6 grid md:grid-cols-2 gap-4">
+        <article v-for="item in limitations" :key="item.title" class="card">
+          <h3 class="font-semibold text-ink-950">{{ item.title }}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ item.body }}</p>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <div class="mt-10 flex flex-wrap gap-3 justify-between">
-      <router-link to="/findings/bloom-detection" class="px-5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors">
-        ← Finding 04
-      </router-link>
-      <router-link to="/" class="px-5 py-2.5 rounded-lg bg-ocean-600 text-white font-semibold hover:bg-ocean-700 transition-colors">
-        Home
-      </router-link>
+    <section class="grid lg:grid-cols-2 gap-6 mb-10">
+      <article class="card">
+        <div class="label-caps">What is frozen</div>
+        <h2 class="mt-2 text-xl font-semibold text-ink-950">Methodology record</h2>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
+          <li>• Product identifiers and versions are recorded in the data ledger.</li>
+          <li>• Coverage, leakage, feature-set, model-set, and evaluation gates are explicit.</li>
+          <li>• Walk-forward persistence is recomputed on exactly matched test rows.</li>
+          <li>• Single-split and walk-forward results are labelled separately.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="label-caps">What comes next</div>
+        <h2 class="mt-2 text-xl font-semibold text-ink-950">Scale-up is a new experiment</h2>
+        <p class="mt-4 text-sm leading-relaxed text-slate-700">
+          Extending the record is not a direct rerun. It needs a preflight for historical product continuity, version drift, target-domain comparability, download limits, storage, and compute. The same validation gates should remain, but their thresholds may need prospective justification.
+        </p>
+      </article>
+    </section>
+
+    <div class="flex flex-wrap gap-3">
+      <router-link to="/methodology" class="button-dark">Inspect every pipeline gate</router-link>
+      <router-link to="/data" class="button-light">Review the source ledger</router-link>
     </div>
   </div>
 </template>
+

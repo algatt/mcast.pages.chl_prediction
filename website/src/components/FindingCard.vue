@@ -5,32 +5,29 @@ defineProps({ finding: { type: Object, required: true } })
 <template>
   <router-link
     :to="'/findings/' + finding.slug"
-    class="group block relative overflow-hidden rounded-2xl shadow-sm border border-slate-200 bg-white card-hover"
+    class="group evidence-card"
   >
-    <!-- gradient stripe -->
-    <div :class="'h-2 bg-gradient-to-r ' + finding.color" />
+    <div class="evidence-card__top" :data-tone="finding.tone">
+      <span class="evidence-card__number">{{ finding.number }}</span>
+      <span class="evidence-card__eyebrow">{{ finding.eyebrow }}</span>
+      <span aria-hidden="true" class="evidence-card__arrow">↗</span>
+    </div>
 
-    <div class="p-6">
-      <div class="flex items-start justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <span class="text-3xl">{{ finding.icon }}</span>
-          <span class="text-xs font-mono font-bold text-slate-400">Finding {{ finding.number }}</span>
-        </div>
-        <span class="text-sm text-ocean-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-      </div>
-
-      <h3 class="text-lg font-bold text-slate-900 leading-tight mb-2">
+    <div class="p-6 md:p-7">
+      <h3 class="text-xl font-semibold text-ink-950 leading-snug mb-2">
         {{ finding.title }}
       </h3>
-      <p class="text-sm text-slate-500 mb-4">{{ finding.tagline }}</p>
-      <p class="text-sm text-slate-700 mb-5 leading-relaxed">{{ finding.summary }}</p>
+      <p class="text-sm font-medium text-slate-500 mb-4">{{ finding.tagline }}</p>
+      <p class="text-[15px] text-slate-700 mb-6 leading-relaxed">{{ finding.summary }}</p>
 
-      <div class="pt-4 border-t border-slate-100 flex items-baseline justify-between">
+      <div class="pt-5 border-t border-slate-200/80 grid grid-cols-[1fr_auto] gap-4 items-end">
         <div>
-          <div class="text-xs uppercase tracking-wide text-slate-400 font-semibold">{{ finding.metric.label }}</div>
-          <div class="text-2xl font-bold tabular-nums text-slate-900">{{ finding.metric.value }}</div>
+          <div class="label-caps">{{ finding.metric.label }}</div>
+          <div class="mt-1 text-2xl font-semibold tabular-nums text-ink-950">{{ finding.metric.value }}</div>
         </div>
-        <div class="text-xs text-slate-500 max-w-[150px] text-right">{{ finding.metric.vs }}</div>
+        <div class="text-xs text-slate-500 max-w-[150px] text-right leading-relaxed">
+          {{ finding.metric.vs }}
+        </div>
       </div>
     </div>
   </router-link>

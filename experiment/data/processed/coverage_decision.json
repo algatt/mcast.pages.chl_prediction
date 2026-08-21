@@ -1,0 +1,19 @@
+{
+  "decision": "DAILY",
+  "decision_threshold_fraction": 0.25,
+  "winter_djf_coverage_fraction": 0.5047224268334368,
+  "coverage_denominator": "observable target-domain pixels",
+  "domain_pixels": 46158,
+  "zero_coverage_days": 87,
+  "below_threshold_days": 302,
+  "longest_zero_coverage_run_days": 4,
+  "longest_below_threshold_run_days": 13,
+  "winter_zero_coverage_days": 9,
+  "winter_below_threshold_days": 78,
+  "composite_definition_if_triggered": {
+    "window": "t+h through t+h+2",
+    "space": "linear CHL",
+    "minimum_observed_days": 2,
+    "log_transform": "after compositing"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "reference_period": {
+    "start": "2021-01-01",
+    "end": "2022-12-31"
+  },
+  "calibration_period": {
+    "start": "2022-01-01",
+    "end": "2022-12-31"
+  },
+  "test_period": {
+    "start": "2023-01-01",
+    "end": "2023-12-31"
+  },
+  "climatology": "per-pixel calendar-month statistics; minimum 5 observations per pixel-month",
+  "definitions": {
+    "median5": "forecast or truth exceeds 1.05 times the per-pixel annual median; auxiliary regime diagnostic, not treated as rare",
+    "percentile": "forecast or truth exceeds the per-pixel calendar-month P90",
+    "zscore": "calendar-month standardized anomaly exceeds 1.5 for truth; forecast cutoff calibrated on 2022"
+  },
+  "forecast_cutoff_calibration": "cutoffs maximize F1 using only 2022 validation predictions from models fitted only on 2021",
+  "headline_definition": "percentile",
+  "headline_h3": {
+    "POD": 0.5759835025380711,
+    "FAR": 0.5452439100757718,
+    "CSI": 0.3406990382359841,
+    "F1": 0.50824089302586,
+    "N": 71687
+  },
+  "cumulative_sum_status": "deferred to full-grid annual inference; not valid on the sparse supervised sample",
+  "calibrated_cutoffs": {
+    "1": {
+      "median5": 0.0004950761795043945,
+      "percentile": -0.03170633316040039,
+      "zscore": 0.9651807546615601
+    },
+    "2": {
+      "median5": 0.003601670265197754,
+      "percentile": -0.049204111099243164,
+      "zscore": 0.8060463666915894
+    },
+    "3": {
+      "median5": 0.009467720985412598,
+      "percentile": -0.035952866077423096,
+      "zscore": 0.7712720036506653
+    },
+    "4": {
+      "median5": 0.011497139930725098,
+      "percentile": -0.04324495792388916,
+      "zscore": 0.8494020700454712
+    },
+    "5": {
+      "median5": 0.012485504150390625,
+      "percentile": -0.09902149438858032,
+      "zscore": 0.6615617871284485
+    },
+    "6": {
+      "median5": 0.014871835708618164,
+      "percentile": -0.09484267234802246,
+      "zscore": 0.7553548216819763
+    },
+    "7": {
+      "median5": 0.02129042148590088,
+      "percentile": -0.1044456958770752,
+      "zscore": 0.9157736301422119
+    }
+  }
+}

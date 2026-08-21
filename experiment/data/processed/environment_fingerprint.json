@@ -1,8 +1,10 @@
 {
+  "created_utc": "2026-08-21T13:49:41.307970+00:00",
   "python_version": "3.14.2",
-  "python_executable": "c:\\GIT\\mcast.pages.ai.v2\\.venv\\Scripts\\python.exe",
-  "platform": "win32",
+  "python_executable": "C:\\GIT\\mcast.pages.ai.v2\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
   "n_packages": 162,
-  "requirements_sha256": "6e5b30fe0c7fcfd9",
-  "total_bytes": 8134919323
+  "requirements_sha256": "6e5b30fe0c7fcfd97ddfddd5b046714a796122119493a1bce938c38c1592eec7",
+  "git_commit": "e441c6c2eeaf629557fcdfde9a7ede34c7743cca",
+  "git_worktree_dirty": true
 }

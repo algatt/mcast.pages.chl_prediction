@@ -48,6 +48,13 @@
     14
   ],
   "roll_window": 7,
+  "target_mode": "DAILY",
   "use_3day_target": false,
-  "n_rows_sample": 120000
+  "coverage_decision_file": "data\\processed\\coverage_decision.json",
+  "sampling_strata": "year-month",
+  "sample_per_year_month": 10000,
+  "sampling_eligibility": "at least one target horizon observed; feature NaNs retained",
+  "n_rows_sample": 360000,
+  "study_start": "2021-01-01 00:00:00",
+  "study_end": "2023-12-30 00:00:00"
 }

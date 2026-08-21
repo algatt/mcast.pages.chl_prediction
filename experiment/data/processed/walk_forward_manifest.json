@@ -1,0 +1,10 @@
+{
+  "n_folds": 8,
+  "n_horizons": 7,
+  "primary_evaluation_scope": "common_persistence_mask",
+  "secondary_evaluation_scope": "all_observed_targets",
+  "fold_policy": "expanding quarters; immediately preceding quarter for early stopping; refit all permissible pre-test rows",
+  "purge_rule": "issue time plus label offset must not exceed its fitting or validation period end",
+  "feature_manifest": "data\\processed\\feature_manifest_v2.json",
+  "sample": "data\\processed\\supervised_sample_v2.parquet"
+}

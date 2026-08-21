@@ -1,0 +1,14 @@
+copernicusmarine
+xarray 
+netCDF4 
+dask 
+numpy 
+pandas 
+scikit-learn 
+xgboost
+matplotlib 
+shap 
+cdsapi 
+pyarrow 
+seaborn
+xarray

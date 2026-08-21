@@ -1,34 +1,19 @@
-<script setup>
-  // TODO: fill in your repo URL when the project is pushed to GitHub.
-  const REPO_URL = "https://algatt.github.io/mcast.pages.chl_prediction";
-  const links = [
-    { label: "PLAN.md", href: "../experiment/PLAN.md" },
-    { label: "EXPLANATION.md", href: "../experiment/EXPLANATION.md" },
-    { label: "GitHub", href: REPO_URL },
-  ];
-</script>
-
 <template>
-  <footer class="border-t border-slate-200 bg-white mt-16">
-    <div
-      class="container-page py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500"
-    >
-      <p>
-        <span class="font-medium text-slate-700">Chl-a Forecasting</span> ·
-        Malta–Sicily Channel
-        <span class="text-slate-400 mx-1">·</span>
-        Methodology explained.
-      </p>
-      <div class="flex items-center gap-4">
-        <a
-          v-for="l in links"
-          :key="l.label"
-          :href="l.href"
-          class="hover:text-ocean-700 transition-colors"
-        >
-          {{ l.label }}
-        </a>
+  <footer class="mt-20 border-t border-slate-200 bg-[#07171e] text-slate-300">
+    <div class="container-page py-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <div class="label-caps !text-cyan-200">Observed Ocean</div>
+        <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-400">
+          A reviewer-facing companion to a 13-notebook chlorophyll forecasting pipeline for the Malta–Sicily Channel. Results cover 2021–2023 and are research evidence, not an operational warning service.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <router-link to="/methodology" class="hover:text-white">Pipeline</router-link>
+        <router-link to="/data" class="hover:text-white">Evidence</router-link>
+        <router-link to="/about" class="hover:text-white">Limitations</router-link>
+        <router-link to="/glossary" class="hover:text-white">Glossary</router-link>
       </div>
     </div>
   </footer>
 </template>
+

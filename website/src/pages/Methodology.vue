@@ -1,122 +1,175 @@
 <script setup>
+import { computed, ref } from 'vue'
 import SectionHeader from '../components/SectionHeader.vue'
-import FigureCard from '../components/FigureCard.vue'
-import ExplainerBox from '../components/ExplainerBox.vue'
-import Term from '../components/Term.vue'
-import { stages } from '../data/stages.js'
+import { phases, stages } from '../data/stages.js'
+
+const activePhase = ref('All')
+const visibleStages = computed(() => activePhase.value === 'All'
+  ? stages
+  : stages.filter(stage => stage.phase === activePhase.value))
 </script>
 
 <template>
-  <div class="container-page py-12 md:py-16">
-    <SectionHeader
-      eyebrow="Pipeline walkthrough"
-      title="Twelve stages, twelve validation gates"
-      lead="Each notebook ends with a programmatic check that must pass before moving on. Gates are scientific assertions, not unit tests — a gate that fails is a finding, not an inconvenience."
-    />
+  <div>
+    <section class="border-b border-slate-200 bg-white">
+      <div class="container-page py-12 md:py-16">
+        <SectionHeader
+          eyebrow="Methods · 13 notebooks · 13 gates"
+          title="A pipeline built as a chain of falsifiable contracts"
+          lead="Every stage answers one scientific question, checks the answer programmatically, and leaves a named artifact for the next notebook. Select a phase for a shorter view or read the full sequence."
+        />
 
-    <!-- Reader onboarding -->
-    <ExplainerBox title="What is a 'validation gate' and why do we care?" tone="primer" :open="true">
-      <p>
-        A <Term slug="gate">validation gate</Term> is a small, automated check we run at the end of each
-        notebook. It asks a question like <em>"did the model actually beat persistence at H+3?"</em> or
-        <em>"are the target values aligned in time so we do not have leakage?"</em> — and either says
-        <span class="badge badge-pass ml-1">PASS</span> or <span class="badge badge-warn ml-1">FAIL</span>.
-      </p>
-      <p>
-        Gates are the scientific contract. If a gate fails, the pipeline stops until we understand why.
-        A failed gate is not embarrassing — it is diagnostic. Every gate in this pipeline is designed to
-        catch a specific kind of mistake that would otherwise pass silently and inflate our numbers.
-      </p>
-      <p>
-        All 12 gates below passed. Some of them almost failed and taught us something (see especially
-        Gate 8b and Gate 10).
-      </p>
-    </ExplainerBox>
-
-    <!-- Legend -->
-    <div class="flex flex-wrap gap-3 items-center mb-8 text-sm">
-      <span class="badge badge-pass">PASS = gate satisfied</span>
-      <span class="badge badge-info">📊 has a figure</span>
-      <span class="badge badge-warn">🎯 methodological decision</span>
-    </div>
-
-    <!-- Vertical timeline of stages -->
-    <ol class="relative border-l-2 border-ocean-200 space-y-8 ml-4">
-      <li v-for="s in stages" :key="s.n" class="ml-8 relative">
-        <!-- Node -->
-        <div class="absolute -left-[46px] top-1 flex items-center justify-center w-9 h-9 rounded-full bg-white border-2 border-ocean-500 text-ocean-700 font-bold text-sm">
-          {{ s.n }}
+        <div class="method-contract">
+          <div>
+            <span class="method-contract__n">01</span>
+            <p><strong>No invented target continuity.</strong> L3 chlorophyll gaps remain missing observations.</p>
+          </div>
+          <div>
+            <span class="method-contract__n">02</span>
+            <p><strong>No temporal leakage.</strong> Labels crossing fit or validation boundaries are purged.</p>
+          </div>
+          <div>
+            <span class="method-contract__n">03</span>
+            <p><strong>No mismatched comparison.</strong> Model and persistence use identical rows.</p>
+          </div>
+          <div>
+            <span class="method-contract__n">04</span>
+            <p><strong>No hidden scale-up.</strong> The three-year run is frozen; expansion needs a new preflight.</p>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <article class="card card-hover">
-          <!-- Header: title + goal subtitle + notebook code chip -->
-          <header class="mb-5">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="text-xl md:text-2xl font-bold text-slate-900">
-                Stage {{ s.n }} — {{ s.title }}
-              </h3>
-              <code class="text-xs text-slate-500 font-mono bg-slate-50 px-2 py-1 rounded border border-slate-200 whitespace-nowrap">
-                {{ s.notebook }}
-              </code>
-            </div>
-            <p class="text-slate-500 italic mt-1 text-sm md:text-base">{{ s.goal }}</p>
-          </header>
+    <section class="container-page py-12 md:py-16">
+      <div class="phase-filter" aria-label="Filter pipeline by phase">
+        <button
+          v-for="phase in ['All', ...phases]"
+          :key="phase"
+          type="button"
+          :class="{ active: activePhase === phase }"
+          @click="activePhase = phase"
+        >
+          {{ phase }}
+        </button>
+      </div>
 
-          <div class="grid md:grid-cols-5 gap-6">
-            <!-- Left: elaborate "What we did" prose gets the room -->
-            <div class="md:col-span-3">
-              <div class="text-xs uppercase tracking-widest font-semibold text-ocean-600 mb-2">What we did</div>
-              <p class="text-slate-700 leading-relaxed">{{ s.what }}</p>
+      <ol class="pipeline-list mt-9">
+        <li v-for="stage in visibleStages" :key="stage.n" class="pipeline-stage">
+          <div class="pipeline-stage__rail">
+            <span>{{ stage.n }}</span>
+            <i></i>
+          </div>
 
-              <!-- Compact Gate + Result strip -->
-              <div class="mt-5 rounded-xl bg-slate-50 border border-slate-200 p-4 space-y-3">
-                <div class="flex items-start gap-3">
-                  <span class="badge badge-info shrink-0 mt-0.5">Gate</span>
-                  <p class="text-slate-700 text-sm leading-relaxed"
-                     v-html="s.gate.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></p>
+          <article>
+            <header class="pipeline-stage__header">
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="stage-phase">{{ stage.phase }}</span>
+                  <code>{{ stage.notebook }}</code>
                 </div>
-                <div class="flex items-start gap-3 pt-3 border-t border-slate-200">
-                  <span class="badge badge-pass shrink-0 mt-0.5">PASS</span>
-                  <p class="text-slate-800 text-sm leading-relaxed">
-                    {{ s.result.replace(/^PASS\.?\s*/, '') }}
-                  </p>
+                <h2>{{ stage.title }}</h2>
+                <p class="pipeline-stage__question">{{ stage.question }}</p>
+              </div>
+              <div class="pipeline-stage__metric">{{ stage.metric }}</div>
+            </header>
+
+            <div class="pipeline-stage__body" :class="{ 'has-figure': stage.figure }">
+              <div class="space-y-5">
+                <div>
+                  <div class="label-caps">Method</div>
+                  <p>{{ stage.method }}</p>
                 </div>
-                <div v-if="s.keyMetric" class="flex items-center gap-3 pt-3 border-t border-slate-200">
-                  <span class="text-xs uppercase tracking-widest font-semibold text-ocean-600 shrink-0">Key metric</span>
-                  <span class="text-base font-bold text-ocean-900 tabular-nums">{{ s.keyMetric }}</span>
+                <div class="gate-box">
+                  <div class="gate-box__label"><span></span> Validation gate</div>
+                  <p>{{ stage.gate }}</p>
+                </div>
+                <div class="result-box">
+                  <div>
+                    <span>Outcome</span>
+                    <strong>{{ stage.result }}</strong>
+                  </div>
+                  <div v-if="stage.artifact">
+                    <span>Handoff artifact</span>
+                    <code>{{ stage.artifact }}</code>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Right: figure or placeholder -->
-            <div v-if="s.figure" class="md:col-span-2 flex items-start">
-              <figure class="w-full">
-                <img :src="`figs/${s.figure}`" :alt="s.title"
-                     class="rounded-lg border border-slate-200 shadow-sm w-full h-auto"
-                     loading="lazy" />
-                <figcaption class="text-xs text-slate-500 mt-2 text-center">
-                  From {{ s.notebook }}
+              <figure v-if="stage.figure" class="pipeline-figure">
+                <img :src="`figs/${stage.figure}`" :alt="`Stage ${stage.n}: ${stage.title}`" loading="lazy" />
+                <figcaption>
+                  Visual evidence from {{ stage.notebook }}. The captioned method and gate specify what the figure can—and cannot—support.
                 </figcaption>
               </figure>
             </div>
-            <div v-else class="md:col-span-2 hidden md:flex items-center justify-center text-slate-300 text-sm italic bg-slate-50 rounded-lg border border-dashed border-slate-200 min-h-[150px]">
-              (no figure — text-only stage)
-            </div>
-          </div>
-        </article>
-      </li>
-    </ol>
+          </article>
+        </li>
+      </ol>
 
-    <!-- Bottom navigation -->
-    <div class="mt-12 flex flex-wrap gap-3 justify-center">
-      <router-link to="/findings/l3-vs-l4"
-        class="px-5 py-2.5 rounded-lg bg-ocean-600 text-white font-semibold hover:bg-ocean-700 transition-colors">
-        Read Finding 01 — L3 vs L4 →
-      </router-link>
-      <router-link to="/data"
-        class="px-5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors">
-        See the data sources
-      </router-link>
-    </div>
+      <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-8">
+        <p class="text-sm text-slate-500">Next: inspect source identity, coverage and feature provenance.</p>
+        <router-link to="/data" class="button-dark">Open data & evidence →</router-link>
+      </div>
+    </section>
   </div>
 </template>
+
+<style scoped>
+.method-contract {
+  @apply grid md:grid-cols-2 xl:grid-cols-4 border border-slate-200 rounded-2xl overflow-hidden;
+}
+.method-contract > div {
+  @apply p-5 bg-[#f8faf9] border-b md:border-r border-slate-200 last:border-0;
+}
+.method-contract__n {
+  @apply font-mono text-[10px] text-teal-700;
+}
+.method-contract p {
+  @apply mt-2 text-sm leading-relaxed text-slate-600;
+}
+.method-contract strong { @apply text-ink-950 font-semibold; }
+.phase-filter {
+  @apply flex gap-2 overflow-x-auto pb-2;
+  scrollbar-width: thin;
+}
+.phase-filter button {
+  @apply shrink-0 px-3.5 py-2 rounded-full border border-slate-300 bg-white text-xs font-medium text-slate-600 hover:border-teal-300 hover:text-teal-800 transition-colors;
+}
+.phase-filter button.active {
+  @apply border-ink-950 bg-ink-950 text-white;
+}
+.pipeline-list { @apply space-y-7; }
+.pipeline-stage { @apply grid grid-cols-[2.7rem_1fr] gap-3 md:grid-cols-[4rem_1fr] md:gap-5; }
+.pipeline-stage__rail { @apply flex flex-col items-center; }
+.pipeline-stage__rail span {
+  @apply w-10 h-10 md:w-12 md:h-12 rounded-full border border-teal-300 bg-white grid place-items-center font-mono text-xs font-semibold text-teal-800;
+}
+.pipeline-stage__rail i { @apply w-px flex-1 bg-slate-300 mt-2; }
+.pipeline-stage:last-child .pipeline-stage__rail i { @apply hidden; }
+.pipeline-stage article {
+  @apply mb-1 rounded-2xl border border-slate-200 bg-white overflow-hidden;
+  box-shadow: 0 14px 46px rgba(15, 23, 42, 0.05);
+}
+.pipeline-stage__header {
+  @apply p-5 md:p-7 grid md:grid-cols-[1fr_auto] gap-5 border-b border-slate-200 bg-slate-50/60;
+}
+.stage-phase { @apply font-mono text-[10px] uppercase tracking-[0.12em] font-semibold text-teal-700; }
+.pipeline-stage__header code { @apply font-mono text-[10px] text-slate-400; }
+.pipeline-stage__header h2 { @apply mt-3 text-2xl font-semibold tracking-[-0.025em] text-ink-950; }
+.pipeline-stage__question { @apply mt-2 text-sm md:text-base text-slate-600 leading-relaxed; }
+.pipeline-stage__metric { @apply self-start rounded-lg border border-teal-200 bg-teal-50 px-3 py-2 font-mono text-[11px] font-semibold text-teal-900 tabular-nums; }
+.pipeline-stage__body { @apply p-5 md:p-7; }
+.pipeline-stage__body.has-figure { @apply grid xl:grid-cols-[1.05fr_.95fr] gap-7 items-start; }
+.pipeline-stage__body p { @apply mt-2 text-sm leading-relaxed text-slate-700; }
+.gate-box { @apply rounded-xl border border-amber-200 bg-amber-50/60 p-4; }
+.gate-box__label { @apply flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] font-semibold text-amber-800; }
+.gate-box__label span { @apply w-1.5 h-1.5 rounded-full bg-amber-500; }
+.result-box { @apply grid sm:grid-cols-2 gap-4 pt-1; }
+.result-box > div { @apply rounded-xl border border-slate-200 p-4; }
+.result-box span { @apply block font-mono text-[9px] uppercase tracking-[0.12em] text-slate-400; }
+.result-box strong { @apply block mt-2 text-sm leading-relaxed font-semibold text-ink-950; }
+.result-box code { @apply block mt-2 text-xs text-teal-800 break-all; }
+.pipeline-figure { @apply rounded-xl border border-slate-200 bg-[#f8faf9] p-3; }
+.pipeline-figure img { @apply w-full h-auto rounded-lg; }
+.pipeline-figure figcaption { @apply mt-3 text-[11px] leading-relaxed text-slate-500; }
+</style>

@@ -2,20 +2,18 @@
 import { ref } from 'vue'
 const open = ref(false)
 
-// Two-tier nav so 10 items don't try to sit on one row.
-// Primary = the reading path. Secondary = reference/meta.
 const primary = [
-  { to: '/',            label: 'Home' },
+  { to: '/',            label: 'Overview' },
   { to: '/primer',      label: 'Primer' },
-  { to: '/methodology', label: 'Methodology' },
-  { to: '/data',        label: 'Data' },
-  { to: '/forecast',    label: 'Forecast' },
+  { to: '/methodology', label: 'Pipeline' },
+  { to: '/data',        label: 'Data & evidence' },
+  { to: '/forecast',    label: 'Visual diagnostics' },
 ]
 const findings = [
-  { to: '/findings/l3-vs-l4',        label: 'L3 vs L4',       short: 'L3/L4' },
-  { to: '/findings/group-ablation',  label: 'Ablation',       short: 'Ablate' },
-  { to: '/findings/walk-forward',    label: 'Walk-Forward',   short: 'WF' },
-  { to: '/findings/bloom-detection', label: 'Blooms',         short: 'Blooms' },
+  { to: '/findings/observation-contract', label: 'Observation contract' },
+  { to: '/findings/group-ablation',  label: 'Feature evidence' },
+  { to: '/findings/walk-forward',    label: 'Temporal robustness' },
+  { to: '/findings/bloom-detection', label: 'Bloom events' },
 ]
 const secondary = [
   { to: '/glossary',    label: 'Glossary' },
@@ -24,30 +22,33 @@ const secondary = [
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 backdrop-blur bg-white/90 border-b border-slate-200">
-    <div class="container-page flex items-center justify-between h-14 gap-4">
+  <header class="sticky top-0 z-40 backdrop-blur bg-[#f6f8f7]/95 border-b border-slate-200/90">
+    <div class="container-page flex items-center justify-between h-16 gap-4">
       <!-- Brand -->
-      <router-link to="/" class="flex items-center gap-2 font-semibold text-ocean-900 shrink-0 whitespace-nowrap">
-        <span class="w-7 h-7 rounded-md bg-grad-hero flex items-center justify-center text-white text-sm shrink-0">🌊</span>
-        <span class="hidden sm:inline text-sm md:text-[15px]">Chl-a Forecasting</span>
-        <span class="hidden 2xl:inline text-slate-300 font-normal">·</span>
-        <span class="hidden 2xl:inline text-slate-500 font-normal text-xs">Malta–Sicily Channel</span>
+      <router-link to="/" class="flex items-center gap-3 text-ink-950 shrink-0 whitespace-nowrap">
+        <span class="relative w-8 h-8 rounded-full border border-teal-700 grid place-items-center shrink-0" aria-hidden="true">
+          <span class="w-2.5 h-2.5 rounded-full bg-lime-400"></span>
+        </span>
+        <span>
+          <span class="block text-sm font-semibold leading-none">Observed Ocean</span>
+          <span class="hidden sm:block mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-slate-500">Chlorophyll forecasting</span>
+        </span>
       </router-link>
 
       <!-- Desktop nav -->
-      <nav class="hidden xl:flex items-center gap-1 text-sm">
+      <nav class="hidden xl:flex items-center gap-1 text-[13px]">
         <router-link
           v-for="n in primary" :key="n.to" :to="n.to"
-          class="px-2.5 py-1.5 whitespace-nowrap text-slate-600 rounded-md hover:text-ocean-700 hover:bg-ocean-50 transition-colors"
-          active-class="text-ocean-700 bg-ocean-50 font-semibold"
+          class="px-2.5 py-2 whitespace-nowrap text-slate-600 rounded-md hover:text-teal-800 hover:bg-white transition-colors"
+          active-class="text-teal-800 bg-white font-semibold"
         >
           {{ n.label }}
         </router-link>
 
         <!-- Findings dropdown -->
         <div class="relative group">
-          <button class="px-2.5 py-1.5 whitespace-nowrap text-slate-600 rounded-md hover:text-ocean-700 hover:bg-ocean-50 transition-colors inline-flex items-center gap-1">
-            Findings
+          <button class="px-2.5 py-2 whitespace-nowrap text-slate-600 rounded-md hover:text-teal-800 hover:bg-white transition-colors inline-flex items-center gap-1">
+            Findings & limits
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
@@ -55,8 +56,8 @@ const secondary = [
           <div class="absolute right-0 top-full mt-1 w-52 rounded-lg border border-slate-200 bg-white shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity">
             <router-link
               v-for="f in findings" :key="f.to" :to="f.to"
-              class="block px-3 py-2 text-slate-700 hover:bg-ocean-50 hover:text-ocean-700 first:rounded-t-lg last:rounded-b-lg"
-              active-class="text-ocean-700 bg-ocean-50 font-semibold"
+              class="block px-3 py-2.5 text-slate-700 hover:bg-teal-50 hover:text-teal-800 first:rounded-t-lg last:rounded-b-lg"
+              active-class="text-teal-800 bg-teal-50 font-semibold"
             >
               {{ f.label }}
             </router-link>
@@ -65,8 +66,8 @@ const secondary = [
 
         <router-link
           v-for="n in secondary" :key="n.to" :to="n.to"
-          class="px-2.5 py-1.5 whitespace-nowrap text-slate-600 rounded-md hover:text-ocean-700 hover:bg-ocean-50 transition-colors"
-          active-class="text-ocean-700 bg-ocean-50 font-semibold"
+          class="px-2.5 py-2 whitespace-nowrap text-slate-600 rounded-md hover:text-teal-800 hover:bg-white transition-colors"
+          active-class="text-teal-800 bg-white font-semibold"
         >
           {{ n.label }}
         </router-link>

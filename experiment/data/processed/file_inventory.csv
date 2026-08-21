@@ -1,67 +1,130 @@
-category,file,bytes
-raw data,data\raw\bathy_malta.nc,1633664
-raw data,data\raw\chl_malta_2021_2023.nc,235919370
-raw data,data\raw\era5_wind_2021_2023.nc,849905
-raw data,data\raw\oc_kd490.nc,235918346
-raw data,data\raw\phy_cur.nc,5039483404
-raw data,data\raw\phy_mld.nc,17895344
-raw data,data\raw\phy_sal.nc,2519754308
-raw data,data\raw\phy_ssh.nc,17895344
-raw data,data\raw\sst_malta_2021_2023.nc,6167464
-processed,data\processed\baseline_scores.csv,850
-processed,data\processed\bloom_skill.csv,2419
-processed,data\processed\coverage_daily.parquet,20402
-processed,data\processed\coverage_decision.txt,38
-processed,data\processed\coverage_monthly.csv,117
-processed,data\processed\feature_manifest.json,777
-processed,data\processed\feature_manifest_v2.json,1819
-processed,data\processed\group_importance.csv,1019
-processed,data\processed\supervised_sample.parquet,12222243
-processed,data\processed\supervised_sample_v2.parquet,22465242
-processed,data\processed\walk_forward_scores.csv,3390
-processed,data\processed\walk_forward_summary.csv,641
-processed,data\processed\xgb_scores.csv,453
-models,models\xgb_h1.json,1839062
-models,models\xgb_h2.json,1606376
-models,models\xgb_h3.json,1351097
-models,models\xgb_h4.json,1296470
-models,models\xgb_h5.json,1110190
-models,models\xgb_h6.json,1054814
-models,models\xgb_h7.json,1221238
-models,models\xgb_v2_h1.json,2009460
-models,models\xgb_v2_h2.json,1774728
-models,models\xgb_v2_h3.json,1230738
-models,models\xgb_v2_h4.json,2171923
-models,models\xgb_v2_h5.json,1527845
-models,models\xgb_v2_h6.json,1350399
-models,models\xgb_v2_h7.json,1157467
-figures,figs\01_chl_sample_day.png,114165
-figures,figs\02_coverage_atlas.png,37784
-figures,figs\02_coverage_map.png,112367
-figures,figs\03_sst_and_bathy.png,264477
-figures,figs\05_baselines.png,78240
-figures,figs\06_xgb_vs_baselines.png,108292
-figures,figs\07_error_by_month.png,47272
-figures,figs\07_error_map_h3.png,88906
-figures,figs\07_residual_diagnostics_h3.png,235421
-figures,figs\07_shap_bar_h1_h7.png,53457
-figures,figs\07_shap_h1.png,109349
-figures,figs\07_shap_h7.png,121671
-figures,figs\08_correlation_heatmap.png,146732
-figures,figs\08_group_importance.png,50080
-figures,figs\09_bloom_skill.png,128682
-figures,figs\10_walk_forward.png,90005
-figures,figs\10_walk_forward_per_fold.png,186021
-notebooks,00-Environment-Setup.ipynb,6168
-notebooks,01-Data-Acquisition.ipynb,173903
-notebooks,02-Coverage-Atlas.ipynb,159593
-notebooks,03-Covariates.ipynb,226448
-notebooks,04-Build-Supervised.ipynb,26431
-notebooks,05-Baselines.ipynb,81436
-notebooks,06-XGBoost-Chrono.ipynb,108820
-notebooks,07-Interpretability.ipynb,562504
-notebooks,08a-Download-Covariates.ipynb,27777
-notebooks,08b-Group-Importance-Ablation.ipynb,215083
-notebooks,09-Bloom-Detection.ipynb,138941
-notebooks,10-Walk-Forward.ipynb,262781
-notebooks,11-Scale-Up.ipynb,18151
+category,file,bytes,modified_utc,sha256,hash_mode
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_01.nc,562255,2026-08-20T14:44:02.251697+00:00,27089b8ddd36f595eea8351bbd6d3984e193404aa203076f7bbf8033ae7a9c42,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_02.nc,516351,2026-08-20T14:45:21.237581+00:00,131025492a2e687fc40c8e2a6b2daa70dec8c9ff7c74ed0fc2eedf529a206a1b,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_03.nc,563870,2026-08-20T14:46:38.876902+00:00,ffa72706440019ca9ddf027e4591cd1b6d71e9552a977608929439aa0918bcc5,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_04.nc,552933,2026-08-20T14:48:39.676935+00:00,0a91dfaa971bf9a192ce6cc6dcec398d8ec3c6828a05666ba8b7498e4d00ab25,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_05.nc,575274,2026-08-20T14:50:37.222909+00:00,41b87f2ccf122105182f583490f161a3eda991d2996031defcf52695cc214292,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_06.nc,561604,2026-08-20T14:51:54.694143+00:00,f71f2de08e8e3fa56993839dc710bcdf80e839feca7b44daca4367cef3b6d1ca,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_07.nc,578180,2026-08-20T14:53:53.201519+00:00,9cc521dffd6dc8e45840e8bca4f99a70336c8622e79d42597d17b35342116c96,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_08.nc,576552,2026-08-20T14:56:47.490384+00:00,d2b864f84777c19f02e961c325f4947f3fcc1819bbd26a23cc0aecc0992c1547,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_09.nc,555819,2026-08-20T14:58:48.812185+00:00,4b086976d9027ef1952a183d27e933b8f5326fc3ecfbbab7c0834f8f41f16971,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_10.nc,568646,2026-08-20T15:00:46.425888+00:00,4c2de5420cf726b69172f43f0a7839e41e9bac18ab8bdb38ee240cc019c7740e,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_11.nc,559638,2026-08-20T15:02:45.518746+00:00,1b76de2bb4d4830382039be2c368fd5f53b22c1b8ef0b552b929290eac84f7c7,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2021_12.nc,562709,2026-08-20T15:04:46.841234+00:00,69af5a5c2063e310c55af004dc0d4bc882d3eaaeb8d6e0606fe153119001a3be,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_01.nc,566882,2026-08-20T15:06:44.655805+00:00,c9023b6fb8bd6620fc1fed2a5754d5ce4b7beacaefda0c1f169f6c8fe8f5cde1,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_02.nc,517055,2026-08-20T15:08:42.279087+00:00,221029328046a4c19115d6bacad04e90a2d23520721eb3a24787cecf9f457617,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_03.nc,565831,2026-08-20T15:11:38.764305+00:00,2fa515753c7452fe140e8be517b59dfec40c0234dd131347afa7ffdca63d60f9,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_04.nc,553208,2026-08-20T15:13:35.748068+00:00,8e76ecf61d1a94aca614b92344c2a24c0967c21522df958e21f9156ee2b4da2e,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_05.nc,574248,2026-08-20T15:15:32.638686+00:00,e412cb628b7ce7b10af37f5f4180232a1fd1dae0ecd5c4d8f96a095e5c921be9,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_06.nc,559045,2026-08-20T15:17:29.142979+00:00,94f1c736b07d1c16cef19f62250f3171972d62f9bed72df4eb0c528240e68162,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_07.nc,576249,2026-08-20T15:19:26.530201+00:00,879c760ba5e32402d6e0970ea534dca0ba5bc4250b9fe41831ce14324d66e8e6,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_08.nc,577548,2026-08-20T15:21:23.589037+00:00,34620719457a1255e12bd7e767855971f9b9fe78fb8fa61631192cd4e50ef470,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_09.nc,555517,2026-08-20T15:22:42.962185+00:00,45c65d4201e4fc2de5c10ff697cfcb45d04febea6cacf7574c865f44d09187ed,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_10.nc,572709,2026-08-20T15:24:39.578079+00:00,aff6a4235170fdccf0724f6a940fa68ceab7f7777fb7a97d9338aff9c2ddc10b,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_11.nc,553229,2026-08-20T15:26:35.817748+00:00,0f72e567a14f09d868979f0154150b2d951d833628a5bbd88736a31d09deec34,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2022_12.nc,569730,2026-08-20T15:28:35.867827+00:00,2db28183af16f215fd54dccd9a1ff88b6e537a700cf03265e1be423da881da3b,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_01.nc,564878,2026-08-20T15:30:34.159268+00:00,e95224f3f7a7bc2611d255616864e26c9584a244ba1396f517e27bbd3b65facc,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_02.nc,523683,2026-08-20T15:32:31.170257+00:00,bd528b302ece71081cb693ffe49db87dc0fae259fdef83611624e354f0a183f3,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_03.nc,567288,2026-08-20T15:35:25.742350+00:00,529ecc501be28dd8a64170cf9a7d8a8f9d057056e10d33ecf7eaa51bc5e3c3d8,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_04.nc,552493,2026-08-20T15:37:22.632896+00:00,486a927a98106fae3f192998adcb7ee9d6c76cd0ba5c4a5e9a170de8ac6ba76f,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_05.nc,576314,2026-08-20T15:41:45.550352+00:00,c82bd8c335651cb3349a26faba4a165ae25b66e2880a0d3bf364ae02019de00d,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_06.nc,555742,2026-08-20T15:43:07.488610+00:00,5ac971831d4405d14e0b7730114e4cd22f5026ab993beb720afc4c1f5ab97db9,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_07.nc,574837,2026-08-20T15:47:30.545607+00:00,86b1e5a6eb470a33ce452746f3c926939a66a5134fad329b37f4230635532839,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_08.nc,576017,2026-08-20T15:50:25.875152+00:00,d1c540ce846a092e37f470cfbdab8072270db499b4ea0ea1e618146cc24402df,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_09.nc,558108,2026-08-20T15:52:22.034878+00:00,a3928b9ea9f1f1b421f3fdc6c288cdf926fb12c146fa79fd8f300bc3729d6a6e,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_10.nc,572224,2026-08-20T15:53:40.609118+00:00,11fc3edb7fc867766e74ff48166364f5f576b77d318639505742c14d7646428a,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_11.nc,551326,2026-08-20T15:55:00.077069+00:00,1d42ec110e852d9a155e92ee2ec9cfa4efb2d8b09d6f710f307e27d4fa1e07f4,file_bytes
+acquisition cache,data/raw/era5_hourly_parts/era5_wind_2023_12.nc,563870,2026-08-20T15:56:17.632554+00:00,cc518eba480da7a4773a10aa82dbffad15588d5388178541d598d52ad680691d,file_bytes
+figures,figs/01_chl_sample_day.png,122052,2026-08-20T10:42:39.765555+00:00,fcaa60d01b6448a81e4ce9fb7368ea805a086e506f177e4a19dea4e5b16971fd,file_bytes
+figures,figs/02_coverage_atlas.png,46720,2026-08-20T11:03:10.183771+00:00,993fb780ace785923cbc849f56b05504e07ddea5d43444c2ce50f6b736e13955,file_bytes
+figures,figs/02_coverage_map.png,121900,2026-08-20T11:04:05.452043+00:00,fc8d77d7c26fb363416cd5c2d231204e8dbe9c5522c55eb31fef8569da26ac3c,file_bytes
+figures,figs/03_sst_and_bathy.png,271403,2026-08-20T11:32:39.847179+00:00,7a6dc87f8638689d9ba3dbb55efbe67bb4f467788c720909868b644805ef10ae,file_bytes
+figures,figs/05_baselines.png,64793,2026-08-20T14:12:43.501114+00:00,c8d84b8b0edc1ca1c6f7d3f50377b529db0ef3a23546f44f52ffcba0cf6124b3,file_bytes
+figures,figs/06_xgb_vs_baselines.png,98896,2026-08-20T14:19:42.600317+00:00,0ecf95b5c521ec674bf7abfce9e682f66945ea59ca20d36f35ee0cb38b4b8e87,file_bytes
+figures,figs/07_error_by_month.png,54464,2026-08-20T14:26:22.703573+00:00,2cb992767be90b9bcda2383ddeb6aaa7647ecaa12a138f180a59ce87e9f3bfc4,file_bytes
+figures,figs/07_error_map_h3.png,107217,2026-08-20T14:26:09.651680+00:00,309f3159fe485c70fa66b1ecbe4bdb1b8c78ce73e773ace311e6b36db4ba8c7c,file_bytes
+figures,figs/07_residual_diagnostics_h3.png,240647,2026-08-20T14:26:33.999177+00:00,f124bcb59414ce4c501024cb430ea2c821762668a9d0d6695c2c717fbd46afd0,file_bytes
+figures,figs/07_shap_bar_h1_h7.png,74553,2026-08-20T14:25:43.310816+00:00,235eced30c9d8e8300e8dedd76b90d3984d5602118bbcfb65361d3cf80bf0b96,file_bytes
+figures,figs/07_shap_h1.png,118661,2026-08-20T14:25:33.639794+00:00,fdc20749f65b1743f743175145b69eebfb5dc72dfd4302200461e80a7f496e21,file_bytes
+figures,figs/07_shap_h7.png,124585,2026-08-20T14:25:37.905375+00:00,b5e110ee5fa4a84e24c31489c0fd90040b0bc9a542b8bd9f2b31fc2bb96fb953,file_bytes
+figures,figs/08_correlation_heatmap.png,151175,2026-08-20T18:15:08.664600+00:00,77f12803f27e6492e6a463478b701d2f3341253c4ffdb1ff9533d7b446652f78,file_bytes
+figures,figs/08_group_importance.png,49442,2026-08-20T18:19:37.761966+00:00,afc338d3caa9192190853559bd4248b3bee7445b4cd73b5c36c7cda4eb507120,file_bytes
+figures,figs/09_bloom_skill.png,147310,2026-08-21T11:23:56.504058+00:00,a6c18a52eceb40fdccdb25ccc3183911e3afdf733f98158bff4cc33a61505bbf,file_bytes
+figures,figs/10_walk_forward.png,88365,2026-08-21T13:29:35.790261+00:00,c36b6904b1b18470b7a05c9df2dcbb6c934a557ec848ce161c93639b57c44a08,file_bytes
+figures,figs/10_walk_forward_per_fold.png,169785,2026-08-21T13:29:36.555173+00:00,4fe5e8da648c6eb14e4012fde0cd959386d8efc8187a2dd0ec2352bec1fe1aae,file_bytes
+figures,figs/11_headline.png,150120,2026-08-21T13:49:42.969062+00:00,5db4559360993a7f06acfc6b185d1c832c5b6006b527d23556dc6f6de2da32e6,file_bytes
+models,models/xgb_h1.json,1163504,2026-08-20T14:19:56.735316+00:00,0b5623d0a5438d09f46db019296b7ac93e0b8b4934864a61ecb649bfd795c064,file_bytes
+models,models/xgb_h2.json,1025006,2026-08-20T14:19:56.766092+00:00,c96450c2bcdd718b99a064f764258340aea7bae30febe32bb5a7aaee7ebb0050,file_bytes
+models,models/xgb_h3.json,1044047,2026-08-20T14:19:56.814944+00:00,c203d86f88a77789817da2330492fa13cd497ae7e7d01bfdd5571e6e6a20dcc2,file_bytes
+models,models/xgb_h4.json,939268,2026-08-20T14:19:56.859199+00:00,bff953cfe54634548b06012fe8f64b9534ce814410888cd89a7cf2e20c1c2598,file_bytes
+models,models/xgb_h5.json,984864,2026-08-20T14:19:56.938225+00:00,09fe66b6d3704851c78c25168af6d7aac2f8c32d61ecb029cbb13cba2e61973d,file_bytes
+models,models/xgb_h6.json,1071152,2026-08-20T14:19:56.977530+00:00,6fd19043edbdf86b688b1d8439400bf19341946b7bb730e73181c912074c9a20,file_bytes
+models,models/xgb_h7.json,1093714,2026-08-20T14:19:57.016181+00:00,e31b02561472cc5d572be37eb9bc5d7258423df25f8c898fd699322d324cdc74,file_bytes
+models,models/xgb_v2_h1.json,1521916,2026-08-20T18:19:53.816677+00:00,44f3af43171e81b804c81f1e6057e5f783a1bd04be680338255257fc3e16dd16,file_bytes
+models,models/xgb_v2_h2.json,1592576,2026-08-20T18:19:53.850075+00:00,ed9fdbd60e926749c3299b265ed88fa41ad0640754dfbf2b6fad9eb3daac6ea6,file_bytes
+models,models/xgb_v2_h3.json,1452041,2026-08-20T18:19:53.881714+00:00,161fb1ccc85150ebd078693be29c0a8e27cb89d275e67c7692635709dc97bd50,file_bytes
+models,models/xgb_v2_h4.json,1313046,2026-08-20T18:19:53.911127+00:00,eb995324bb2cc8c70f27c13ed022e188733674dc60d6bb6e0533aeb9c9120f71,file_bytes
+models,models/xgb_v2_h5.json,1036940,2026-08-20T18:19:53.932862+00:00,44ebea5c08052da64b5a1803101ed0ba08e1e62c342e8700fd53b8eac52867fc,file_bytes
+models,models/xgb_v2_h6.json,1425466,2026-08-20T18:19:53.964936+00:00,8a8ff0ad925bdf510ee8bc1265ffc84496cab91b5a090d5aeb0f5e9c38c35be4,file_bytes
+models,models/xgb_v2_h7.json,896008,2026-08-20T18:19:53.988621+00:00,4e0a23adce834eac69fa91bf15ce2ffcd5530fbb45c357b77f171a9c60cc6994,file_bytes
+notebooks,00-Environment-Setup.ipynb,10997,2026-08-17T11:18:40.608172+00:00,4d8351fa9066dee78116a8e0a2ee73118670dd1a2f1d641497230b867dbd3ca1,notebook_source_without_outputs
+notebooks,01-Data-Acquisition.ipynb,215284,2026-08-20T10:42:48.519429+00:00,3b45db9f78a828138f1286c8c72164372589dbedff4080cd0a32c388c918038b,notebook_source_without_outputs
+notebooks,02-Coverage-Atlas.ipynb,192839,2026-08-20T11:04:20.644408+00:00,82218ae19d1c0ae0dcff75ca3e2e7c5ea8249adedc1ec9c481fccb8a05679bcc,notebook_source_without_outputs
+notebooks,03-Covariates.ipynb,232591,2026-08-20T11:33:51.940085+00:00,df7305742c86c6b81a90c9c75dbf9bb8fdf6cf53684044919b575dd7830cbc70,notebook_source_without_outputs
+notebooks,04-Build-Supervised.ipynb,34999,2026-08-20T11:44:26.387632+00:00,7bfffd744ff75410e78e3a539b370849034ff15c72533d2b1893030854c6d73e,notebook_source_without_outputs
+notebooks,05-Baselines.ipynb,80113,2026-08-20T14:13:16.634766+00:00,9b79d199fd08e699e3a2188321b6bc56ea99ee20e935dc8ce1804e48147f088a,notebook_source_without_outputs
+notebooks,06-XGBoost-Chrono.ipynb,118289,2026-08-20T14:20:01.043640+00:00,e57372f1be20045b488fac2b57dbeca828c7c8485448311b712128344cc1c223,notebook_source_without_outputs
+notebooks,07-Interpretability.ipynb,617181,2026-08-20T14:32:47.890659+00:00,2f4b9388ee3b28e4235c00a8744f3d7e36b2482ab932db714c261ed26be98d18,notebook_source_without_outputs
+notebooks,08a-Download-Covariates.ipynb,39896,2026-08-20T17:08:43.984878+00:00,02a51155f04c7792c967143da0166e44d1a1985c2361cf52455cb3c263090909,notebook_source_without_outputs
+notebooks,08b-Group-Importance-Ablation.ipynb,231188,2026-08-20T18:20:35.575153+00:00,fc27e4df062c2ed8a9da682434aca7ad00749bf5187b23dcade8d8d86b1cf457,notebook_source_without_outputs
+notebooks,09-Bloom-Detection.ipynb,171656,2026-08-21T13:20:51.207283+00:00,58bfa95abfa5fe330a262f1cfbff8b25c89466da3d534a64441f164712ab0a68,notebook_source_without_outputs
+notebooks,10-Walk-Forward.ipynb,259940,2026-08-21T13:30:17.343851+00:00,10641f07cfd2ec2c561d0bc29a97ef37362d40ea5a99749779f6656dc1566d37,notebook_source_without_outputs
+notebooks,11-Scale-Up.ipynb,34076,2026-08-21T13:49:03.544789+00:00,4370edd21b389824f896e9ec6cce17726e8a3b1374d3956ee1a2c031f86494ba,notebook_source_without_outputs
+processed,data/processed/baseline_scores.csv,1211,2026-08-20T14:12:48.752675+00:00,07f4e6f353552e4dbcf5d27fb5b9086ee4d7e681d614fc2cbe53ae7db3f15f56,file_bytes
+processed,data/processed/bloom_calibration.csv,1692,2026-08-21T11:23:57.150854+00:00,bb0f14f7808be67ea548a553a8b0942a9be396a6aa88de66dcdff6e718cad905,file_bytes
+processed,data/processed/bloom_detection_manifest.json,2155,2026-08-21T11:23:57.151856+00:00,f98f2ca98a7ced769837ee9b2ec1a21e0d61c1045e14756c73491fd2b6c0050f,file_bytes
+processed,data/processed/bloom_skill.csv,2426,2026-08-21T11:23:57.148856+00:00,7d271badd75ab21d1dce094d4ceb6c72d08caa35ea55f9c6121c24ba0e67ab3c,file_bytes
+processed,data/processed/chl_target_domain.nc,70240,2026-08-20T10:41:03.781861+00:00,9eca99572763ffbba1188864a32685f72993c9b5bd59b6a1e152507d608bcf4e,file_bytes
+processed,data/processed/covariate_acquisition_manifest.json,2397,2026-08-20T17:08:23.768253+00:00,5d055690af89c5485f6795e3ef4a6946bad2c5628c30bd0287fd531134144e9e,file_bytes
+processed,data/processed/coverage_daily.parquet,27729,2026-08-20T11:02:57.329056+00:00,a87f200e05fc93cec9e559ed2a50cd394fb7907e85107e82850877282d125998,file_bytes
+processed,data/processed/coverage_decision.json,615,2026-08-20T11:03:43.454439+00:00,47895e560904f503b576648891fd6830539ff36baf6f29afb084759942a91524,file_bytes
+processed,data/processed/coverage_decision.txt,76,2026-08-20T11:03:43.455822+00:00,fbc856641a389ce320d4d85b4159bf84e272a4f075b13a81d0993a07748d8d71,file_bytes
+processed,data/processed/coverage_monthly.csv,1146,2026-08-20T11:02:57.332066+00:00,e4c4968216f2cd8631739e09e86ffa2aa5f21fa6c1891265103abf3eecc796f8,file_bytes
+processed,data/processed/coverage_pair_availability.csv,787,2026-08-20T11:02:25.152705+00:00,08ec11bffc7190cb4be205e3295c302da9ec5006b882fa7905a1956fab0bef08,file_bytes
+processed,data/processed/coverage_year_month.csv,2986,2026-08-20T11:02:57.334063+00:00,b61289b3d635e0c45b83cba7f467ea917655122c10483e64fdc08e65a75993d2,file_bytes
+processed,data/processed/environment_fingerprint.json,422,2026-08-21T13:49:41.327375+00:00,821f174c200404e8009a72aeaf0768b7b9a7cbae172af2e9118276d5f42c7285,file_bytes
+processed,data/processed/feature_manifest.json,1117,2026-08-20T11:44:14.394959+00:00,1a2dd807d86fd112a85ca872e9a702a12870184e0e752edb60533826d4e9839d,file_bytes
+processed,data/processed/feature_manifest_v2.json,3269,2026-08-20T18:19:54.003153+00:00,3f48ceff0f6e86634724eaca47fcbd45a036ce490f0ba1210c9a350077df1f53,file_bytes
+processed,data/processed/final_results_manifest.json,803,2026-08-21T13:49:43.287412+00:00,f359e88a8062b8f82090e1d8e82e87008ffd7dc88e896bb907f0b43e98ea312e,file_bytes
+processed,data/processed/group_importance.csv,1170,2026-08-20T18:19:37.195598+00:00,002d9010b66cbffa5becda631f3df1db671387d278435f74ba14d507b9d5b894,file_bytes
+processed,data/processed/headline_results.csv,2995,2026-08-21T13:49:41.537418+00:00,18a272941409906703cdc27f26b36ff63a9670fafe39f82e8c8200d35e8b7f3b,file_bytes
+processed,data/processed/interpretability_summary.json,514,2026-08-20T14:27:19.164416+00:00,6709ec88670d4a3cc6758f413f5b6bd3a264a05ea70adf4bf6d6145d8f99f35f,file_bytes
+processed,data/processed/split_manifest.json,514,2026-08-20T14:12:48.752675+00:00,e4d20d135c84a0cddd0542f5dcc5e5a99d2cffa66f8bb6ed95028d9bfdb4e3ef,file_bytes
+processed,data/processed/supervised_sample.parquet,31719939,2026-08-20T11:43:56.195387+00:00,71eaeae73e3b5cd1742fb27e1fd3442697cdc7381b3a630128a8d70afed5698e,file_bytes
+processed,data/processed/supervised_sample_v2.parquet,63882062,2026-08-20T18:14:30.299303+00:00,8640a9f4a9aea2f17fa67644761da01104e1c1e4b6700b7e050b50319d6f10d4,file_bytes
+processed,data/processed/walk_forward_manifest.json,514,2026-08-21T13:29:37.537714+00:00,2dd1a72310e16780d50d84485847f37d9cc81a29f0778ee0dda4ae63391ed6a7,file_bytes
+processed,data/processed/walk_forward_persistence.csv,3203,2026-08-21T13:29:37.531197+00:00,a4a4a4e8478d6497635cb035f3bd8ea51eee728c3443367a4221a34254e57b90,file_bytes
+processed,data/processed/walk_forward_scores.csv,5952,2026-08-21T13:29:37.523164+00:00,0777d528b88904dd2d59ebd70c96d244c7e0a942e52b2d8461c14dda0b39ba54,file_bytes
+processed,data/processed/walk_forward_summary.csv,643,2026-08-21T13:29:37.534715+00:00,c72e6b1c32a55cf860132419553ad8dde3c15eedd3c62ec8c1979c4449e8e4eb,file_bytes
+processed,data/processed/walk_forward_summary_all_targets.csv,637,2026-08-21T13:29:37.536714+00:00,f254a983b68d088a9e875a9a725a8e7b856e4460447743673d6466358b9296e1,file_bytes
+processed,data/processed/walk_forward_training_audit.csv,6455,2026-08-21T13:29:37.528690+00:00,2e830c78b76ea1d58cd4d4f746cf0c702a36f249ecf2387226ae0440959dbb9d,file_bytes
+processed,data/processed/xgb_model_manifest.json,533,2026-08-20T14:19:57.051704+00:00,1e65378e679273fe7251225bd28791a0910947c37ab7ec65c4dadef6538a5930,file_bytes
+processed,data/processed/xgb_scores.csv,639,2026-08-20T14:19:57.032708+00:00,0dcce26aa602b2df1280c68336cb577dbbb4fc2f3d98948d87dd4876e38ab5f7,file_bytes
+processed,data/processed/xgb_scores_all_targets.csv,617,2026-08-20T14:19:57.037227+00:00,5689e69deb1aa25d0b2c610a109582fc222c5c4dd9f776b9fa0621344e700539,file_bytes
+processed,data/processed/xgb_training_audit.csv,694,2026-08-20T14:19:57.040747+00:00,c19e34f2b890063b851025ab87c2c10480865c275408e1282c82a1cf03b789b3,file_bytes
+processed,data/processed/xgb_v2_model_manifest.json,575,2026-08-20T18:19:54.006152+00:00,fb41e614d024d65d3178063d6af6cd39824a02401ddcb4d9f6d47fda9c5b5043,file_bytes
+processed,data/processed/xgb_v2_scores.csv,661,2026-08-20T18:19:53.992278+00:00,1f536ad0d973585efd91780760e0cda195f1cb44ab70b3667cda247fc0a265c0,file_bytes
+processed,data/processed/xgb_v2_scores_all_targets.csv,638,2026-08-20T18:19:53.994295+00:00,0418e6476f7cdf5b75470fc4e6a8b706e0c88cab51916793e6c34b61271f5c66,file_bytes
+processed,data/processed/xgb_v2_training_audit.csv,491,2026-08-20T18:19:53.999630+00:00,996cb5d553e8767fbafa19afcb1503bbd04fd161fd83be6f2e2a6813a11e5ad0,file_bytes
+project,PLAN.md,39194,2026-05-29T16:40:48.157664+00:00,f8c638fc2381de29d0f5b80975e8fcaaa8102a74d6f3e314cbace080254986f3,file_bytes
+project,SCALE_UP_RUNBOOK.md,2448,2026-08-21T13:49:43.224299+00:00,0e08d1ff8e401f2a0caf858a1b56c976f1da6786d1a654218e323a2b47cf8314,file_bytes
+project,requirements.txt,3069,2026-08-21T13:49:41.165397+00:00,6e5b30fe0c7fcfd97ddfddd5b046714a796122119493a1bce938c38c1592eec7,file_bytes
+raw inputs,data/raw/bathy_malta.nc,1633664,2026-05-29T17:49:20.811261+00:00,7372d23e5f79b5675ed014c731a6f09857d32e9cbb0b80fc6a61c12707a77609,file_bytes
+raw inputs,data/raw/chl_malta_2021_2023.nc,943600488,2026-08-20T10:36:24.531983+00:00,77ab7e999cb62def4f318b613c3e0d83c0d5050557c62efef26235fe67b83741,file_bytes
+raw inputs,data/raw/era5_wind_2021_2023.nc,1221738,2026-08-20T17:01:27.544368+00:00,a26a205e23cefd03a7fead18314293b44c0996e0dce88a3bc60e5bd9b6f95c0d,file_bytes
+raw inputs,data/raw/oc_kd490.nc,235918346,2026-06-18T05:04:47.437470+00:00,3533cb30c96f440121c24307f83dab1fcdd7a280e4a4e64baea0a81b9ca68c22,file_bytes
+raw inputs,data/raw/phy_cur.nc,40571824,2026-08-20T14:33:58.102623+00:00,2d75cfae000df371303d9bbf15ac856198d17bf57cb70000a33a1fbead8ce413,file_bytes
+raw inputs,data/raw/phy_mld.nc,20295584,2026-08-20T14:34:23.531845+00:00,e89cf1daff067b818d1df7f0595dc2dc9739b1af8a08549e3a7162a8545e0999,file_bytes
+raw inputs,data/raw/phy_sal.nc,20298488,2026-08-20T14:33:43.137897+00:00,16eb09214a4f0b762ca0d4c491ebf34110cae3a5bada277df4d5753f5d634ab7,file_bytes
+raw inputs,data/raw/phy_ssh.nc,20295584,2026-08-20T14:34:10.768999+00:00,bc218c5a80044fc975cdbd7a4e73c32768268d01b0f5600a9550633f66cd9668,file_bytes
+raw inputs,data/raw/sst_malta_2021_2023.nc,6658040,2026-08-20T11:31:45.425499+00:00,7fffb447c9bf05dfd417361fd28ac7ff0c1bca371a8b0fb7aaab73a3b0a01373,file_bytes

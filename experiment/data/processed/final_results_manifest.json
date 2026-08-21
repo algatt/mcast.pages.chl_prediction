@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-08-21T13:49:43.286152+00:00",
+  "raw_input_period": {
+    "start": "2021-01-01",
+    "end": "2023-12-31"
+  },
+  "supervised_issue_time_period": {
+    "start": "2021-01-01",
+    "end": "2023-12-30"
+  },
+  "primary_evaluation": "eight-quarter walk-forward, common persistence mask",
+  "h3": {
+    "model_r2_mean": 0.6540991067886353,
+    "model_r2_std": 0.120822817525143,
+    "persistence_r2_mean": 0.5452468395233154,
+    "persistence_r2_std": 0.14631981374434616,
+    "percentile_bloom_f1": 0.50824089302586,
+    "percentile_bloom_far": 0.5452439100757718
+  },
+  "environment_fingerprint": "data/processed/environment_fingerprint.json",
+  "artifact_inventory": "data/processed/file_inventory.csv",
+  "scale_up_status": "preflight required; not executed"
+}

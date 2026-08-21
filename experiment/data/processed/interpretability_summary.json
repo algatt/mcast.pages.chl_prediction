@@ -1,0 +1,15 @@
+{
+  "test_start": "2023-01-01 00:00:00",
+  "test_end": "2023-12-30 00:00:00",
+  "reference_horizon": 3,
+  "diagnostic_rows": 71709,
+  "h3_mae": 0.08577360212802887,
+  "h3_bias": -0.006152998190373182,
+  "residual_prediction_correlation": -0.1271758793793957,
+  "winter_mae": 0.12636084854602814,
+  "summer_mae": 0.06282439082860947,
+  "winter_summer_ratio": 2.0113342426312064,
+  "top_h1_feature": "log_chl_roll7_mean",
+  "calendar_h1_shap_share": 0.1421533056719847,
+  "adequate_spatial_bins": 602
+}

@@ -1,0 +1,26 @@
+{
+  "feature_manifest": "data\\processed\\feature_manifest_v2.json",
+  "split_manifest": "data\\processed\\split_manifest.json",
+  "retained_groups": [
+    "chl_history",
+    "sst",
+    "static_time",
+    "salinity",
+    "currents_ssh",
+    "mld",
+    "optics",
+    "wind"
+  ],
+  "n_features": 32,
+  "best_rounds": {
+    "1": 209,
+    "2": 218,
+    "3": 197,
+    "4": 178,
+    "5": 139,
+    "6": 194,
+    "7": 120
+  },
+  "score_file": "data\\processed\\xgb_v2_scores.csv",
+  "all_target_score_file": "data\\processed\\xgb_v2_scores_all_targets.csv"
+}

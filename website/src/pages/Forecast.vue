@@ -1,60 +1,84 @@
 <script setup>
 import SectionHeader from '../components/SectionHeader.vue'
-import PredictionPlayer from '../components/PredictionPlayer.vue'
-import ExplainerBox from '../components/ExplainerBox.vue'
-import Term from '../components/Term.vue'
+import FigureCard from '../components/FigureCard.vue'
+import PredictionSlider from '../components/PredictionSlider.vue'
+
+const diagnostics = [
+  {
+    src: '07_residual_diagnostics_h3.png',
+    title: 'H+3 residual diagnostics',
+    caption: 'Distribution and calibration checks for sampled, observed targets. The all-target diagnostic set contains 71,709 rows; MAE is 0.0858 log10 mg m⁻³ and mean bias is −0.0062.',
+  },
+  {
+    src: '07_error_map_h3.png',
+    title: 'Spatial error at H+3',
+    caption: 'Errors are aggregated into 602 spatial bins. This reveals geography in the residuals without pretending that missing target pixels were observed.',
+  },
+  {
+    src: '07_error_by_month.png',
+    title: 'Seasonal error profile',
+    caption: 'Winter MAE is 0.1264 versus 0.0628 in summer—a 2.01× ratio that helps explain quarter-to-quarter variation.',
+  },
+  {
+    src: '07_shap_bar_h1_h7.png',
+    title: 'Drivers change with forecast lead',
+    caption: 'CHL history dominates short leads; calendar and environmental context gain relative influence at longer leads. SHAP is diagnostic association, not causation.',
+  },
+]
 </script>
 
 <template>
   <div class="container-page py-12 md:py-16">
     <SectionHeader
-      eyebrow="Forecast explorer"
-      title="Actual vs. predicted, day by day"
-      lead="Scrub through the test period and watch the model's forecast track the real satellite chlorophyll field — and where it goes wrong. Every pixel of the Malta–Sicily Channel is predicted; the error map on the right is the honest scorecard."
+      eyebrow="Visual diagnostics"
+      title="See what the aggregate score hides"
+      lead="Notebook figures connect headline skill to residual shape, geography, season, and model dependence. These are diagnostics—not a dense operational forecast product."
     />
 
-    <ExplainerBox title="How to read this" tone="primer" :open="true">
-      <p>
-        Each frame shows one day of the held-out <Term slug="train-val-test">test set</Term>. The
-        <strong>left</strong> panel is the actual satellite <Term slug="chl-a">chlorophyll</Term>
-        field (blank pixels are cloud gaps). The <strong>middle</strong> panel is what the model
-        predicted that far ahead (<Term slug="forecast-horizon">horizon</Term> H+1 to H+7). The
-        <strong>right</strong> panel is the error — predicted minus
-        actual — so you can see not just <em>how</em> accurate the forecast is, but <em>where</em>.
-      </p>
-      <p>
-        Use <strong>Play</strong> to animate through time, drag the <strong>Day</strong> slider to
-        jump to a date, and switch <strong>Horizon</strong> to compare a one-day-ahead forecast (H+1)
-        against a week-ahead forecast (H+7). Longer horizons blur and drift — that's forecast skill
-        decaying with lead time, made visible.
-      </p>
-      <p>
-        The <strong>Reference</strong> toggle switches what the forecast is measured against.
-        <strong>L3 obs</strong> is the real satellite field with cloud gaps — the honest error, but
-        full of holes. <strong>L4 gap-free</strong> is the conventional
-        <Term slug="dineof">DINEOF</Term>-interpolated product: it fills the gaps so the error map is
-        complete, but it is <em>itself</em> a model, so treat it as a comparison, not truth. Watching
-        the forecast track L4 — when it was only ever trained on gappy L3 — is
-        <router-link to="/findings/l3-vs-l4" class="text-ocean-600 underline">Finding 01</router-link>
-        made visible.
-      </p>
-    </ExplainerBox>
+    <div class="rounded-2xl border border-cyan-200 bg-cyan-50/60 p-6 mb-10 grid gap-4 md:grid-cols-[auto_1fr]">
+      <div class="w-10 h-10 rounded-full bg-white border border-cyan-200 grid place-items-center font-mono text-cyan-800">i</div>
+      <div>
+        <h2 class="font-semibold text-ink-950">How these visuals were produced</h2>
+        <p class="mt-1 text-sm leading-relaxed text-slate-700">
+          They come from the validated notebook outputs and use sampled rows or aggregated bins. Blank satellite targets remain unscored; no map on this page should be read as proof of gap-free coverage.
+        </p>
+      </div>
+    </div>
 
-    <PredictionPlayer class="mb-10" />
+    <PredictionSlider class="mb-12" />
 
-    <div class="prose prose-slate max-w-none">
-      <h3>Why the forecast looks smoother than reality</h3>
-      <p>
-        The model predicts the conditional mean, so it naturally damps the sharpest filaments and
-        eddies — a well-known trait of least-squares forecasts. The error map makes the trade-off
-        explicit: broad basin-scale structure is captured well (pale error), while narrow frontal
-        features are where residuals concentrate.
-      </p>
-      <p>
-        These are dense, every-pixel forecasts rebuilt over the test period in
-        <span class="kbd">experiment/07-Interpretability.ipynb</span> (section 7.7) and exported to
-        static frames — the same maps as the notebook's interactive player, made portable.
-      </p>
+    <FigureCard
+      class="mb-6"
+      src="11_headline.png"
+      title="The complete evidence summary"
+      caption="Read the walk-forward mean and spread as the primary forecasting result. The single-split score remains a useful diagnostic, but it is not the generalisation estimate."
+    />
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <FigureCard v-for="figure in diagnostics" :key="figure.src" v-bind="figure" />
+    </div>
+
+    <section class="mt-12 grid md:grid-cols-3 gap-4">
+      <article class="card">
+        <div class="label-caps">Residual correlation</div>
+        <div class="mt-2 text-3xl font-semibold tabular-nums text-ink-950">−0.127</div>
+        <p class="mt-2 text-sm text-slate-600">Small remaining association with the target at H+3; inspect alongside bias and error distribution.</p>
+      </article>
+      <article class="card">
+        <div class="label-caps">Top H+1 feature</div>
+        <div class="mt-2 font-mono text-sm font-semibold text-teal-800">log_chl_roll7_mean</div>
+        <p class="mt-2 text-sm text-slate-600">Recent chlorophyll history is the strongest short-lead signal.</p>
+      </article>
+      <article class="card">
+        <div class="label-caps">Calendar SHAP share</div>
+        <div class="mt-2 text-3xl font-semibold tabular-nums text-ink-950">0.142</div>
+        <p class="mt-2 text-sm text-slate-600">Seasonal timing matters, but this number does not imply a causal effect.</p>
+      </article>
+    </section>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <router-link to="/findings/walk-forward" class="button-dark">Inspect temporal robustness</router-link>
+      <router-link to="/about" class="button-light">Read limitations</router-link>
     </div>
   </div>
 </template>

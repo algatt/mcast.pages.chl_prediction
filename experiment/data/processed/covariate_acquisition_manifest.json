@@ -1,0 +1,90 @@
+{
+  "study_start": "2021-01-01T00:00:00",
+  "study_end": "2023-12-31T00:00:00",
+  "target_box": {
+    "minimum_longitude": 12.0,
+    "maximum_longitude": 15.5,
+    "minimum_latitude": 35.5,
+    "maximum_latitude": 37.5
+  },
+  "phy_download_box": {
+    "minimum_longitude": 11.9,
+    "maximum_longitude": 15.6,
+    "minimum_latitude": 35.4,
+    "maximum_latitude": 37.6
+  },
+  "cmems_jobs": [
+    {
+      "dataset_id": "cmems_mod_med_phy-sal_my_4.2km_P1D-m",
+      "dataset_version": "202511",
+      "dataset_part": "default",
+      "variables": [
+        "so"
+      ],
+      "filename": "phy_sal.nc",
+      "label": "salinity",
+      "surface_only": true
+    },
+    {
+      "dataset_id": "cmems_mod_med_phy-cur_my_4.2km_P1D-m",
+      "dataset_version": "202511",
+      "dataset_part": "default",
+      "variables": [
+        "uo",
+        "vo"
+      ],
+      "filename": "phy_cur.nc",
+      "label": "currents",
+      "surface_only": true
+    },
+    {
+      "dataset_id": "cmems_mod_med_phy-ssh_my_4.2km_P1D-m",
+      "dataset_version": "202511",
+      "dataset_part": "default",
+      "variables": [
+        "zos"
+      ],
+      "filename": "phy_ssh.nc",
+      "label": "ssh",
+      "surface_only": false
+    },
+    {
+      "dataset_id": "cmems_mod_med_phy-mld_my_4.2km_P1D-m",
+      "dataset_version": "202511",
+      "dataset_part": "default",
+      "variables": [
+        "mlotst"
+      ],
+      "filename": "phy_mld.nc",
+      "label": "mld",
+      "surface_only": false
+    },
+    {
+      "dataset_id": "cmems_obs-oc_med_bgc-transp_my_l3-multi-1km_P1D",
+      "dataset_version": "202311",
+      "dataset_part": "default",
+      "variables": [
+        "KD490"
+      ],
+      "filename": "oc_kd490.nc",
+      "label": "kd490",
+      "surface_only": false
+    }
+  ],
+  "era5": {
+    "source_dataset": "reanalysis-era5-single-levels",
+    "raw_frequency": "hourly",
+    "downloaded_hours_per_day": 24,
+    "aggregation": "daily arithmetic mean",
+    "hourly_parts_directory": "data\\raw\\era5_hourly_parts",
+    "hourly_part_count": 36,
+    "daily_file": "data\\raw\\era5_wind_2021_2023.nc"
+  },
+  "representative_domain_coverage": {
+    "salinity": 0.9696693964209888,
+    "currents": 0.9696693964209888,
+    "ssh": 0.9696693964209888,
+    "mld": 0.9696693964209888,
+    "kd490": 0.46158845703886653
+  }
+}

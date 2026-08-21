@@ -7,7 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Ocean-themed palette — feels appropriate for a chlorophyll-a project
+        ink: {
+          50: '#f6f8f9',
+          100: '#e9eef0',
+          700: '#243943',
+          800: '#172b34',
+          900: '#0d2028',
+          950: '#07171e',
+        },
         ocean: {
           50:  '#f0f9ff',
           100: '#e0f2fe',
@@ -30,8 +37,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Manrope"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },
       backgroundImage: {
         'grad-hero': 'linear-gradient(135deg, #082f49 0%, #0369a1 50%, #0891b2 100%)',

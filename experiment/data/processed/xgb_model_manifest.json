@@ -1,0 +1,17 @@
+{
+  "protocol": "early stopping on train 2021 / validation 2022; refit using 2021-2022; final test on 2023",
+  "feature_manifest": "data\\processed\\feature_manifest.json",
+  "split_manifest": "data\\processed\\split_manifest.json",
+  "primary_evaluation_scope": "common_persistence_mask",
+  "secondary_evaluation_scope": "all_observed_targets",
+  "strongest_baseline_tolerance_fraction": 0.005,
+  "best_rounds": {
+    "1": 158,
+    "2": 138,
+    "3": 140,
+    "4": 126,
+    "5": 133,
+    "6": 144,
+    "7": 148
+  }
+}

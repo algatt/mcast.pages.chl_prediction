@@ -1,93 +1,113 @@
-// All numbers pulled from the actual notebook runs.
-// See experiment/data/processed/*.csv and EXPLANATION.md for provenance.
+// Validated artifacts from experiment/data/processed.
+// Values are rounded only at presentation time; source arrays retain useful precision.
 
 export const HORIZONS = [1, 2, 3, 4, 5, 6, 7]
 
-// ── Baselines (Notebook 5) ───────────────────────────────────────
 export const persistence = {
-  rmse: [0.097, 0.109, 0.119, 0.123, 0.129, 0.139, 0.135],
-  r2:   [0.804, 0.736, 0.690, 0.678, 0.635, 0.574, 0.630],
+  rmse: [0.103714, 0.122415, 0.133184, 0.137528, 0.146672, 0.153573, 0.155870],
+  r2: [0.849708, 0.798845, 0.754198, 0.734706, 0.689298, 0.661958, 0.665030],
 }
+
 export const climatology = {
-  rmse: [0.144, 0.145, 0.143, 0.148, 0.134, 0.140, 0.144],
-  r2:   [0.527, 0.516, 0.535, 0.515, 0.568, 0.565, 0.571],
+  rmse: [0.134987, 0.135934, 0.134730, 0.134754, 0.134610, 0.133454, 0.133892],
+  r2: [0.745405, 0.751962, 0.748456, 0.745297, 0.738298, 0.744729, 0.752832],
 }
 
-// ── XGB v1 single-split (Notebook 6) ─────────────────────────────
 export const xgbV1 = {
-  rmse: [0.088, 0.097, 0.105, 0.104, 0.107, 0.114, 0.113],
-  r2:   [0.838, 0.792, 0.761, 0.770, 0.749, 0.710, 0.741],
+  rmse: [0.096787, 0.111842, 0.118405, 0.122331, 0.128105, 0.132451, 0.133593],
+  r2: [0.869112, 0.832092, 0.805721, 0.790097, 0.762980, 0.748551, 0.753936],
 }
 
-// ── XGB v2 single-split (Notebook 8b) ────────────────────────────
 export const xgbV2Single = {
-  rmse: [0.088, 0.097, 0.105, 0.104, 0.107, 0.114, 0.113],
-  r2:   [0.864, 0.805, 0.784, 0.783, 0.759, 0.727, 0.751],
+  rmse: [0.093183, 0.109616, 0.116887, 0.120543, 0.125278, 0.129324, 0.130643],
+  r2: [0.878679, 0.838709, 0.810672, 0.796186, 0.773326, 0.760283, 0.764683],
 }
 
-// ── XGB v2 walk-forward (Notebook 10) ────────────────────────────
 export const xgbV2WalkForward = {
-  rmse_mean: [0.092, 0.108, 0.115, 0.119, 0.123, 0.133, 0.132],
-  rmse_std:  [0.025, 0.033, 0.034, 0.036, 0.038, 0.044, 0.044],
-  r2_mean:   [0.776, 0.698, 0.653, 0.608, 0.575, 0.506, 0.530],
-  r2_std:    [0.077, 0.103, 0.117, 0.137, 0.139, 0.162, 0.153],
+  rmse_mean: [0.091411, 0.106142, 0.113115, 0.120881, 0.123557, 0.127666, 0.128395],
+  rmse_std: [0.026972, 0.032082, 0.034454, 0.040372, 0.037687, 0.038317, 0.039716],
+  r2_mean: [0.774537, 0.702032, 0.654099, 0.581885, 0.556905, 0.530902, 0.535544],
+  r2_std: [0.079302, 0.099414, 0.120823, 0.186914, 0.144140, 0.139922, 0.148504],
 }
 
-// Per-fold breakdown at H+3 (Notebook 10 per-fold CSV)
+export const walkForwardPersistence = {
+  rmse_mean: [0.100497, 0.118107, 0.130063, 0.135844, 0.142577, 0.149590, 0.152872],
+  rmse_std: [0.028986, 0.034862, 0.038302, 0.039557, 0.043019, 0.042548, 0.044991],
+  r2_mean: [0.728811, 0.634374, 0.545247, 0.479079, 0.414325, 0.357001, 0.337664],
+  r2_std: [0.088809, 0.109511, 0.146320, 0.170009, 0.180564, 0.170021, 0.203829],
+}
+
 export const perFoldH3 = [
-  { quarter: '2022Q1', r2: 0.460, kind: 'winter' },
-  { quarter: '2022Q2', r2: 0.711, kind: 'spring' },
-  { quarter: '2022Q3', r2: 0.658, kind: 'summer' },
-  { quarter: '2022Q4', r2: 0.784, kind: 'autumn' },
-  { quarter: '2023Q1', r2: 0.519, kind: 'winter' },
-  { quarter: '2023Q2', r2: 0.647, kind: 'spring' },
-  { quarter: '2023Q3', r2: 0.649, kind: 'summer' },
-  { quarter: '2023Q4', r2: 0.795, kind: 'autumn' },
+  { quarter: '2022Q1', r2: 0.451060, persistence: 0.278508, kind: 'winter' },
+  { quarter: '2022Q2', r2: 0.682393, persistence: 0.611462, kind: 'spring' },
+  { quarter: '2022Q3', r2: 0.668944, persistence: 0.586640, kind: 'summer' },
+  { quarter: '2022Q4', r2: 0.780242, persistence: 0.671860, kind: 'autumn' },
+  { quarter: '2023Q1', r2: 0.503406, persistence: 0.412561, kind: 'winter' },
+  { quarter: '2023Q2', r2: 0.683938, persistence: 0.519053, kind: 'spring' },
+  { quarter: '2023Q3', r2: 0.666298, persistence: 0.540997, kind: 'summer' },
+  { quarter: '2023Q4', r2: 0.796513, persistence: 0.740895, kind: 'autumn' },
 ]
 
-// ── Bloom-detection F1 (Notebook 9) ──────────────────────────────
 export const bloomSkill = {
-  siegel:     [0.694, 0.635, 0.634, 0.591, 0.604, 0.589, 0.588],
-  percentile: [0.713, 0.667, 0.668, 0.647, 0.647, 0.639, 0.631],
-  zscore:     [0.709, 0.670, 0.667, 0.646, 0.641, 0.635, 0.627],
+  median5: [0.912178, 0.901017, 0.892624, 0.885437, 0.877304, 0.869981, 0.858614],
+  percentile: [0.608334, 0.537742, 0.508241, 0.483597, 0.408522, 0.403603, 0.388098],
+  zscore: [0.584558, 0.527718, 0.485683, 0.455582, 0.410674, 0.398133, 0.386857],
 }
+
 export const bloomPOD = {
-  siegel:     [0.693, 0.645, 0.685, 0.615, 0.600, 0.610, 0.627],
-  percentile: [0.723, 0.685, 0.716, 0.682, 0.658, 0.659, 0.673],
-  zscore:     [0.716, 0.682, 0.713, 0.670, 0.646, 0.649, 0.657],
+  median5: [0.910220, 0.895650, 0.882729, 0.871722, 0.858448, 0.847748, 0.829056],
+  percentile: [0.679729, 0.678966, 0.575984, 0.576572, 0.777582, 0.730797, 0.756622],
+  zscore: [0.674030, 0.638869, 0.607128, 0.526176, 0.549902, 0.485312, 0.418519],
 }
+
 export const bloomFAR = {
-  siegel:     [0.306, 0.375, 0.411, 0.431, 0.392, 0.430, 0.447],
-  percentile: [0.296, 0.349, 0.373, 0.385, 0.364, 0.380, 0.406],
-  zscore:     [0.299, 0.342, 0.374, 0.376, 0.363, 0.379, 0.401],
+  median5: [0.085855, 0.093552, 0.097257, 0.100410, 0.102993, 0.106589, 0.109643],
+  percentile: [0.449489, 0.554849, 0.545244, 0.583556, 0.722965, 0.721215, 0.739017],
+  zscore: [0.483944, 0.550488, 0.595275, 0.598311, 0.672296, 0.662495, 0.640350],
 }
 
-// ── Group importance (Notebook 8b) ───────────────────────────────
+export const bloomRates = {
+  median5: [0.509068, 0.505507, 0.506373, 0.501965, 0.501042, 0.497823, 0.497555],
+  percentile: [0.175487, 0.174927, 0.175876, 0.178216, 0.175990, 0.179464, 0.178776],
+  zscore: [0.135915, 0.136283, 0.136984, 0.137039, 0.136241, 0.136695, 0.137804],
+}
+
 export const groupImportance = [
-  { group: 'chl_history',  perm: 0.1102, abl: -0.0063, cols: 8, core: true  },
-  { group: 'static_time',  perm: 0.0073, abl: -0.0169, cols: 3, core: true  },
-  { group: 'optics',       perm: 0.0099, abl: -0.0016, cols: 2, core: false },
-  { group: 'sst',          perm: 0.0034, abl: -0.0030, cols: 3, core: true  },
-  { group: 'wind',         perm: 0.0002, abl: -0.0037, cols: 6, core: false },
-  { group: 'salinity',     perm: 0.0014, abl: -0.0033, cols: 2, core: false },
-  { group: 'currents_ssh', perm: 0.0010, abl: -0.0035, cols: 4, core: false },
-  { group: 'mld',          perm: 0.0003, abl: -0.0012, cols: 3, core: false },
+  { group: 'chl_history', perm: 0.129632, permStd: 0.000420, abl: -0.013778, cols: 9, core: true },
+  { group: 'static_time', perm: 0.040604, permStd: 0.000193, abl: -0.018150, cols: 3, core: true },
+  { group: 'sst', perm: 0.018574, permStd: 0.000154, abl: -0.007672, cols: 3, core: true },
+  { group: 'optics', perm: 0.016491, permStd: 0.000163, abl: -0.003394, cols: 2, core: false },
+  { group: 'wind', perm: 0.004141, permStd: 0.000056, abl: -0.008050, cols: 6, core: false },
+  { group: 'salinity', perm: 0.001502, permStd: 0.000055, abl: -0.005006, cols: 2, core: false },
+  { group: 'currents_ssh', perm: 0.000830, permStd: 0.000023, abl: -0.000991, cols: 4, core: false },
+  { group: 'mld', perm: 0.000358, permStd: 0.000053, abl: -0.001006, cols: 3, core: false },
 ]
 
-// ── Coverage atlas (Notebook 2) ──────────────────────────────────
 export const monthlyCoverage = [
-  { month: 'Jan', coverage: 40.7 }, { month: 'Feb', coverage: 49.4 },
-  { month: 'Mar', coverage: 47.3 }, { month: 'Apr', coverage: 42.0 },
-  { month: 'May', coverage: 46.2 }, { month: 'Jun', coverage: 47.3 },
-  { month: 'Jul', coverage: 63.5 }, { month: 'Aug', coverage: 62.1 },
-  { month: 'Sep', coverage: 46.6 }, { month: 'Oct', coverage: 53.5 },
-  { month: 'Nov', coverage: 44.2 }, { month: 'Dec', coverage: 40.3 },
+  { month: 'Jan', coverage: 47.47 }, { month: 'Feb', coverage: 57.60 },
+  { month: 'Mar', coverage: 55.15 }, { month: 'Apr', coverage: 49.06 },
+  { month: 'May', coverage: 53.93 }, { month: 'Jun', coverage: 55.22 },
+  { month: 'Jul', coverage: 74.09 }, { month: 'Aug', coverage: 72.47 },
+  { month: 'Sep', coverage: 54.41 }, { month: 'Oct', coverage: 62.38 },
+  { month: 'Nov', coverage: 51.52 }, { month: 'Dec', coverage: 47.03 },
 ]
 
-// ── Headline stats for the hero ──────────────────────────────────
+export const studyFacts = {
+  period: '2021–2023',
+  rows: 360000,
+  features: 32,
+  groups: 8,
+  horizons: 7,
+  folds: 8,
+  targetDomainPixels: 46158,
+  djfCoverage: 50.47,
+  zeroCoverageDays: 87,
+  modelCount: 7,
+}
+
 export const headlineStats = [
-  { label: 'R² @ H+1',        value: '0.78',   detail: '± 0.08 walk-forward' },
-  { label: 'R² @ H+3',        value: '0.65',   detail: '± 0.12 walk-forward' },
-  { label: 'Bloom F1 @ H+3',  value: '0.67',   detail: 'percentile definition' },
-  { label: 'Walk-forward folds', value: '8',   detail: 'quarterly, expanding window' },
+  { label: 'Walk-forward R² · H+3', value: '0.654', detail: '±0.121 across 8 quarters' },
+  { label: 'Matched persistence · H+3', value: '0.545', detail: 'same rows, same quarters' },
+  { label: 'Rare-event F1 · H+3', value: '0.508', detail: 'P90 detector; FAR 0.545' },
+  { label: 'Validated feature set', value: '32', detail: '8 groups · 360,000 rows' },
 ]

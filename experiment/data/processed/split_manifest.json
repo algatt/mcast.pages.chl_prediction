@@ -1,0 +1,12 @@
+{
+  "train_start": "2021-01-01",
+  "train_end": "2021-12-31",
+  "validation_start": "2022-01-01",
+  "validation_end": "2022-12-31",
+  "test_start": "2023-01-01",
+  "test_end": "2023-12-31",
+  "max_horizon_days": 7,
+  "model_policy": "early stopping on train 2021 / validation 2022; refit using 2021-2022; final test on 2023",
+  "purge_rule": "for horizon h, fitting rows must have target time no later than the end of their fitting period",
+  "comparison_mask": "finite target_h and finite log_chl_t0"
+}

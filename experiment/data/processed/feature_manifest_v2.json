@@ -29,6 +29,43 @@
     "depth_m",
     "doy_sin",
     "doy_cos",
+    "gap_age",
+    "salinity",
+    "salinity_roll7",
+    "current_u",
+    "current_v",
+    "current_speed",
+    "ssh",
+    "mld",
+    "mld_lag1",
+    "mld_roll7",
+    "kd490",
+    "kd490_roll7",
+    "wind_speed",
+    "wind_speed_roll3",
+    "wind_speed_roll7",
+    "wind_stress_curl",
+    "wind_u",
+    "wind_v"
+  ],
+  "base_feature_cols": [
+    "log_chl_t0",
+    "log_chl_lag1",
+    "log_chl_lag2",
+    "log_chl_lag3",
+    "log_chl_lag7",
+    "log_chl_lag14",
+    "log_chl_roll7_mean",
+    "log_chl_roll7_std",
+    "sst_t0",
+    "sst_lag1",
+    "sst_roll7_mean",
+    "depth_m",
+    "doy_sin",
+    "doy_cos",
+    "gap_age"
+  ],
+  "new_feature_cols": [
     "salinity",
     "salinity_roll7",
     "current_u",
@@ -56,7 +93,8 @@
       "log_chl_lag7",
       "log_chl_lag14",
       "log_chl_roll7_mean",
-      "log_chl_roll7_std"
+      "log_chl_roll7_std",
+      "gap_age"
     ],
     "sst": [
       "sst_t0",
@@ -104,5 +142,23 @@
     5,
     6,
     7
-  ]
+  ],
+  "base_feature_manifest": "data\\processed\\feature_manifest.json",
+  "sampling": "exact Notebook 4 sample keys",
+  "n_rows_sample": 360000,
+  "retained_groups": [
+    "chl_history",
+    "sst",
+    "static_time",
+    "salinity",
+    "currents_ssh",
+    "mld",
+    "optics",
+    "wind"
+  ],
+  "dropped_groups": [],
+  "group_selection_rule": "Retain core groups; retain new groups when ablation delta R2 is negative and grouped permutation delta RMSE exceeds twice its repeat standard deviation.",
+  "split_manifest": "data\\processed\\split_manifest.json",
+  "model_policy": "early stopping on train 2021 / validation 2022; refit using 2021-2022; final test on 2023",
+  "primary_evaluation_scope": "common_persistence_mask"
 }
