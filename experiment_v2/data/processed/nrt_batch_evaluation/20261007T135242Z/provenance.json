@@ -1,0 +1,56 @@
+{
+  "saved_utc": "2026-10-07T13:52:42.172459+00:00",
+  "issue_dates": [
+    "2026-09-23",
+    "2026-09-24",
+    "2026-09-25",
+    "2026-09-26",
+    "2026-09-27",
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-03",
+    "2026-10-04",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07"
+  ],
+  "nominal_issue_time_utc": "20:30",
+  "horizons_days": [
+    1,
+    4,
+    7
+  ],
+  "datasets": {
+    "CHL": "cmems_obs-oc_med_bgc-plankton_nrt_l3-multi-1km_P1D",
+    "SST": "SST_MED_SST_L3S_NRT_OBSERVATIONS_010_012_a",
+    "L4": "cmems_obs-oc_med_bgc-plankton_nrt_l4-gapfree-multi-1km_P1D"
+  },
+  "versions": {
+    "CHL": "202211",
+    "SST": "202311",
+    "L4": "202207"
+  },
+  "features": [
+    "season_sin",
+    "season_cos",
+    "chl_latest",
+    "chl_age_days",
+    "chl_mean_7d",
+    "chl_observations_7d",
+    "latitude_deg",
+    "longitude_deg",
+    "sst_c",
+    "sst_observed"
+  ],
+  "preprocessing": {
+    "chl_availability_lag_days": 1,
+    "sst_availability_lag_days": 0,
+    "chl_history_window_days": 7,
+    "sst_units": "degree_Celsius"
+  },
+  "historical_delivery_verified": false,
+  "l4_is_independent_observational_truth": false
+}

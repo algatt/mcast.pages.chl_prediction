@@ -1,0 +1,80 @@
+[
+  {
+    "Horizon":"+1d",
+    "Input history":"Complete",
+    "Scored issue dates":7,
+    "Scored pixel-days":72038,
+    "Without CHL history":44,
+    "Bias (mg\/m\u00b3)":0.0001800874,
+    "MAE (mg\/m\u00b3)":0.0046868743,
+    "RMSE (mg\/m\u00b3)":0.0073501381,
+    "RMSE (log10)":0.0648881416,
+    "Median relative error (%)":8.8828556966,
+    "RMSE on shared persistence pixels":0.00691734
+  },
+  {
+    "Horizon":"+1d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":51190,
+    "Without CHL history":550,
+    "Bias (mg\/m\u00b3)":0.0031352784,
+    "MAE (mg\/m\u00b3)":0.0067896651,
+    "RMSE (mg\/m\u00b3)":0.0138817114,
+    "RMSE (log10)":0.1047596671,
+    "Median relative error (%)":10.3689540852,
+    "RMSE on shared persistence pixels":0.0080293824
+  },
+  {
+    "Horizon":"+4d",
+    "Input history":"Complete",
+    "Scored issue dates":4,
+    "Scored pixel-days":43487,
+    "Without CHL history":31,
+    "Bias (mg\/m\u00b3)":0.0013291733,
+    "MAE (mg\/m\u00b3)":0.0051645515,
+    "RMSE (mg\/m\u00b3)":0.0075719087,
+    "RMSE (log10)":0.0738891839,
+    "Median relative error (%)":9.8993206731,
+    "RMSE on shared persistence pixels":0.0073154615
+  },
+  {
+    "Horizon":"+4d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":56275,
+    "Without CHL history":573,
+    "Bias (mg\/m\u00b3)":0.0024100803,
+    "MAE (mg\/m\u00b3)":0.0058075695,
+    "RMSE (mg\/m\u00b3)":0.0103295064,
+    "RMSE (log10)":0.0865332378,
+    "Median relative error (%)":9.9700259218,
+    "RMSE on shared persistence pixels":0.0075856511
+  },
+  {
+    "Horizon":"+7d",
+    "Input history":"Complete",
+    "Scored issue dates":1,
+    "Scored pixel-days":12118,
+    "Without CHL history":21,
+    "Bias (mg\/m\u00b3)":0.0001099947,
+    "MAE (mg\/m\u00b3)":0.0051306118,
+    "RMSE (mg\/m\u00b3)":0.0079344171,
+    "RMSE (log10)":0.0682111205,
+    "Median relative error (%)":9.1083321496,
+    "RMSE on shared persistence pixels":0.0078368282
+  },
+  {
+    "Horizon":"+7d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":59920,
+    "Without CHL history":438,
+    "Bias (mg\/m\u00b3)":0.0032264034,
+    "MAE (mg\/m\u00b3)":0.0061617954,
+    "RMSE (mg\/m\u00b3)":0.0088676512,
+    "RMSE (log10)":0.0844507038,
+    "Median relative error (%)":11.7464748975,
+    "RMSE on shared persistence pixels":0.0080784455
+  }
+]

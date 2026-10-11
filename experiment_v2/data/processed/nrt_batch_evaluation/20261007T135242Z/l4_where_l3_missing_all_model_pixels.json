@@ -1,0 +1,74 @@
+[
+  {
+    "Horizon":"+1d",
+    "Input history":"Complete",
+    "Scored issue dates":7,
+    "Scored pixel-days":14370,
+    "Without CHL history":822,
+    "Bias (mg\/m\u00b3)":0.0079618848,
+    "MAE (mg\/m\u00b3)":0.0115152131,
+    "RMSE (mg\/m\u00b3)":0.035688674,
+    "RMSE (log10)":0.1291668963,
+    "Median relative error (%)":6.8587339173
+  },
+  {
+    "Horizon":"+1d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":22874,
+    "Without CHL history":1442,
+    "Bias (mg\/m\u00b3)":0.0075688703,
+    "MAE (mg\/m\u00b3)":0.0118175808,
+    "RMSE (mg\/m\u00b3)":0.0350459291,
+    "RMSE (log10)":0.1337335099,
+    "Median relative error (%)":8.5532409718
+  },
+  {
+    "Horizon":"+4d",
+    "Input history":"Complete",
+    "Scored issue dates":4,
+    "Scored pixel-days":5889,
+    "Without CHL history":496,
+    "Bias (mg\/m\u00b3)":0.0087757796,
+    "MAE (mg\/m\u00b3)":0.0123627528,
+    "RMSE (mg\/m\u00b3)":0.0296784597,
+    "RMSE (log10)":0.1320952769,
+    "Median relative error (%)":9.7184879587
+  },
+  {
+    "Horizon":"+4d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":17789,
+    "Without CHL history":1419,
+    "Bias (mg\/m\u00b3)":0.0067784157,
+    "MAE (mg\/m\u00b3)":0.0100155234,
+    "RMSE (mg\/m\u00b3)":0.0262567177,
+    "RMSE (log10)":0.1175365855,
+    "Median relative error (%)":7.7026480043
+  },
+  {
+    "Horizon":"+7d",
+    "Input history":"Complete",
+    "Scored issue dates":1,
+    "Scored pixel-days":226,
+    "Without CHL history":119,
+    "Bias (mg\/m\u00b3)":0.0318119653,
+    "MAE (mg\/m\u00b3)":0.0376319245,
+    "RMSE (mg\/m\u00b3)":0.0477113265,
+    "RMSE (log10)":0.2205648697,
+    "Median relative error (%)":52.5258020442
+  },
+  {
+    "Horizon":"+7d",
+    "Input history":"Partial",
+    "Scored issue dates":6,
+    "Scored pixel-days":14144,
+    "Without CHL history":1554,
+    "Bias (mg\/m\u00b3)":0.0060169765,
+    "MAE (mg\/m\u00b3)":0.0088418553,
+    "RMSE (mg\/m\u00b3)":0.0175846721,
+    "RMSE (log10)":0.1084292866,
+    "Median relative error (%)":8.6055782614
+  }
+]
