@@ -1,7 +1,7 @@
 {
-  "name": "chl-forecasting-site",
+  "name": "chl-forecasting-v2-site",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,7 @@
     "deploy": "npm run build && node scripts/deploy-pages.cjs"
   },
   "dependencies": {
-    "chart.js": "^4.4.4",
     "vue": "^3.4.38",
-    "vue-chartjs": "^5.3.2",
     "vue-router": "^4.4.3"
   },
   "devDependencies": {

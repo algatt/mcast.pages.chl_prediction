@@ -9,13 +9,16 @@ Daily chl-a forecasting (H+1 → H+7) for the central Mediterranean, built on **
 ## Repository layout
 
 ```
-mcast.pages.ai.v2/
-├── experiment/    # 13 Jupyter notebooks + data + models + figures
-└── website/       # Vue 3 + Vite + Tailwind site that explains it all
+mcast.pages.chl_prediction/
+├── experiment_v2/        # current experiment: notebooks 01–08, model, small results
+├── website/              # site for experiment v2, one page per notebook
+├── experiment/           # earlier experiment (v1)
+└── archive/website_v1/   # the v1 site, kept as source
 ```
 
-- **`experiment/`** — the science. Twelve validation-gated stages from data download → walk-forward evaluation → bloom detection. See [`experiment/EXPLANATION.md`](experiment/EXPLANATION.md) for the full walkthrough or [`experiment/PLAN.md`](experiment/PLAN.md) for the original methodology plan.
-- **`website/`** — the explainer. A Vue 3 site with interactive charts, a glossary, worked examples, and expandable primers. Deployed to GitHub Pages via `npm run deploy`.
+- **`experiment_v2/`** — the current experiment: L3 chlorophyll forecasts 1, 4 and 7 days ahead, trained on 2017–2024 and tested on 2025, with a live near-real-time check and a daily NRT archive.
+- **`website/`** — explains experiment v2 notebook by notebook for an interested reader. See [`website/README.md`](website/README.md). Deployed to GitHub Pages via `npm run deploy`.
+- **`experiment/`** and **`archive/website_v1/`** — the earlier experiment and its site. The sections below describe that earlier experiment.
 
 ## Headline results
 

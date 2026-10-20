@@ -1,10 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// For GitHub Pages project pages, set `base` to '/<repo-name>/'.
-// If deploying at the repo root or a custom domain, use '/' or './'.
-// We use './' so assets resolve relative to the HTML wherever it's hosted;
-// vue-router HashHistory (see src/router.js) then handles the client-side routes.
+// './' keeps asset paths relative, so the build works under the GitHub Pages
+// project path; vue-router's hash history (src/router.js) handles the routes.
 export default defineConfig({
   base: './',
   plugins: [vue()],
