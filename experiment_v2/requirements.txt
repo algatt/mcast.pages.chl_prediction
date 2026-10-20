@@ -1,0 +1,21 @@
+# Exact versions used for experiment v2 (Python 3.14).
+# Install into a fresh environment from experiment_v2/:
+#   uv venv --python 3.14 .venv
+#   uv pip install --python .venv/bin/python -r requirements.txt
+numpy==2.5.4
+pandas==3.0.6
+xarray==2026.9.0
+netcdf4==1.7.5
+h5netcdf==1.8.1
+cftime==1.6.6.1
+dask==2026.8.0
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
+pillow==13.0.0
+copernicusmarine==2.5.0
+jinja2==3.1.6
+ipykernel==7.4.0
+ipyleaflet==0.20.0
+ipywidgets==8.1.9

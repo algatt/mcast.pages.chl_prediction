@@ -1,0 +1,57 @@
+[
+  {
+    "Horizon":"+1d",
+    "Method":"Forecast model",
+    "Scored issue days":2,
+    "Scored pixel-days":10900.0,
+    "Bias (mg\/m\u00b3)":0.0030549089,
+    "MAE (mg\/m\u00b3)":0.0048445856,
+    "RMSE (mg\/m\u00b3)":0.0082980794,
+    "RMSE (log10)":0.0641429259,
+    "Median relative error (%)":7.6466033564
+  },
+  {
+    "Horizon":"+1d",
+    "Method":"Blend rule",
+    "Scored issue days":2,
+    "Scored pixel-days":10900.0,
+    "Bias (mg\/m\u00b3)":0.0032213402,
+    "MAE (mg\/m\u00b3)":0.004836309,
+    "RMSE (mg\/m\u00b3)":0.0082310563,
+    "RMSE (log10)":0.0637803744,
+    "Median relative error (%)":7.8516750742
+  },
+  {
+    "Horizon":"+1d",
+    "Method":"No change",
+    "Scored issue days":2,
+    "Scored pixel-days":10900.0,
+    "Bias (mg\/m\u00b3)":0.0012348067,
+    "MAE (mg\/m\u00b3)":0.0051662897,
+    "RMSE (mg\/m\u00b3)":0.0097962277,
+    "RMSE (log10)":0.0718806638,
+    "Median relative error (%)":8.1487962312
+  },
+  {
+    "Horizon":"+4d",
+    "Method":"\u2014",
+    "Scored issue days":0,
+    "Scored pixel-days":null,
+    "Bias (mg\/m\u00b3)":null,
+    "MAE (mg\/m\u00b3)":null,
+    "RMSE (mg\/m\u00b3)":null,
+    "RMSE (log10)":null,
+    "Median relative error (%)":null
+  },
+  {
+    "Horizon":"+7d",
+    "Method":"\u2014",
+    "Scored issue days":0,
+    "Scored pixel-days":null,
+    "Bias (mg\/m\u00b3)":null,
+    "MAE (mg\/m\u00b3)":null,
+    "RMSE (mg\/m\u00b3)":null,
+    "RMSE (log10)":null,
+    "Median relative error (%)":null
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "saved_utc": "2026-10-20T15:40:48.754811+00:00",
+  "calendar": [
+    "2026-10-10",
+    "2026-10-20"
+  ],
+  "chl_archive_days": [
+    "2026-10-10",
+    "2026-10-19"
+  ],
+  "first_complete_issue_day": "2026-10-17",
+  "horizons_days": [
+    1,
+    4,
+    7
+  ],
+  "model_file": "chl_forecast_1_4_7d.joblib",
+  "model_training_issue_dates": [
+    "2017-01-01",
+    "2024-12-24"
+  ],
+  "inputs": "Local NRT archive (step 08); features from chlforecast.features",
+  "l4_is_independent_observational_truth": false
+}
