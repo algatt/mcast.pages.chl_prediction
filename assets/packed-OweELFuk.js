@@ -1,0 +1,1 @@
+function b(o,u,n){const f=Uint8Array.from(atob(o.data),r=>r.charCodeAt(0)),[a,i]=o.range,e=[];for(let r=0;r<u;r++){const c=new Array(n);for(let t=0;t<n;t++){const s=f[r*n+t];c[t]=s===255?null:a+s/254*(i-a)}e.push(c)}return e}export{b as u};
