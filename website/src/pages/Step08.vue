@@ -33,6 +33,7 @@ const hover = ref(null)
 const firstRun = runs[0]
 const runTime = (r) => `${shortDate(r.retrieved_utc.slice(0, 10))}, ${r.retrieved_utc.slice(11, 16)} UTC`
 const step07 = steps.find((s) => s.number === '07')
+const step09 = steps.find((s) => s.number === '09')
 </script>
 
 <template>
@@ -221,7 +222,7 @@ const step07 = steps.find((s) => s.number === '07')
     <section id="end" class="mt-14 scroll-mt-24">
       <div class="article">
         <h2>Where the experiment stands</h2>
-        <p>Across the eight steps, the experiment has established three things.</p>
+        <p>Across the first eight steps, the experiment established three things.</p>
       </div>
       <div class="mt-4 grid gap-4">
         <div class="card">
@@ -236,6 +237,7 @@ const step07 = steps.find((s) => s.number === '07')
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
             Clearly better than “no change”; better than a simple persistence–climatology blend at 1 day, marginally at 4, not
             demonstrably at 7; best in the open channel and in spring and autumn; no skill on blooms (steps 05–06).
+            Step 09 has since improved on this.
           </p>
         </div>
         <div class="card">
@@ -249,6 +251,7 @@ const step07 = steps.find((s) => s.number === '07')
       <div class="mt-8 flex flex-wrap gap-3">
         <router-link to="/" class="button-light">Back to the overview</router-link>
         <router-link :to="stepPath(step07)" class="button-light">Step 07 · Live data validation</router-link>
+        <router-link :to="stepPath(step09)" class="button-light">Step 09 · Model improvements</router-link>
       </div>
     </section>
   </StepLayout>

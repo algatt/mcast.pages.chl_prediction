@@ -60,3 +60,20 @@ def make_samples(model_data, splits, horizon, predictors, fraction=1.0, seed=0):
         "pixel": (i, j),
         "target_month": (pd.DatetimeIndex(subset.time.values[t]) + pd.Timedelta(days=horizon)).month.to_numpy(),
     }
+
+
+def rows_from_arrays(arrays, target, days, mask, fraction=1.0, seed=0):
+    """Rows of (issue day, pixel) from in-memory arrays (step 09).
+
+    `arrays` maps input names to arrays shaped (time, latitude, longitude) (or
+    broadcastable to it); `target` is the observed chlorophyll `horizon` days
+    later on the same calendar; `days` is a boolean selection of issue days.
+    Returns the inputs `X`, the `observed` target and the row positions.
+    """
+    valid = np.isfinite(target) & (target > 0) & mask[None] & np.asarray(days)[:, None, None]
+    t, i, j = np.nonzero(valid)
+    if fraction < 1.0:
+        keep = np.random.default_rng(seed).random(t.size) < fraction
+        t, i, j = t[keep], i[keep], j[keep]
+    X = pd.DataFrame({name: np.broadcast_to(values, target.shape)[t, i, j] for name, values in arrays.items()})
+    return {"X": X.astype("float32"), "observed": target[t, i, j].astype("float64"), "t": t, "i": i, "j": j}

@@ -61,6 +61,8 @@ live = {
     "sst_date": inputs.attrs["sst_date"],
     "versions": json.loads(forecast.attrs["source_versions_json"]),
     "datasets": json.loads(forecast.attrs["source_datasets_json"]),
+    "model_file": forecast.attrs["model_file"],
+    "n_inputs": len(json.loads(forecast.attrs["feature_names_json"])),
     "pixels": int(mask.sum()),
     "pixels_with_history": int((mask & history).sum()),
     "pixels_with_sst": int((mask & (forecast["sst_available"].values == 1)).sum()),

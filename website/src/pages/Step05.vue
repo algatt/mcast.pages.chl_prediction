@@ -394,7 +394,8 @@ const sections = [
       <div class="article mt-8">
         <p>
           All of this is for the reprocessed archive, where data is consistent and complete. Step 07 checks whether the model
-          still behaves on the near-real-time data a live forecast would actually receive.
+          still behaves on the near-real-time data a live forecast would actually receive. Step 09 later returns to the model,
+          and improves on these results.
         </p>
       </div>
     </section>

@@ -2,9 +2,11 @@
 
 1. Rebuilds the model inputs from the collated observations with
    chlforecast.features and compares them with the prepared file from step 04.
-2. Re-scores the saved model and the simple rules on the 2025 test year with
+2. Re-scores the step 05 model and the simple rules on the 2025 test year with
    chlforecast.samples, .baselines and .scoring, and compares the scores with
-   those saved in the model file by step 05.
+   those saved in that model file.
+3. Re-scores the model in use (step 09) on 2025 with inputs built by
+   chlforecast.features.model_inputs, and compares with its saved scores.
 
 Run from experiment_v2/ after any change to chlforecast/:
 
@@ -20,7 +22,7 @@ import pandas as pd
 import xarray as xr
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from chlforecast import baselines, config, features, samples, scoring  # noqa: E402
+from chlforecast import baselines, config, features, forecast, samples, scoring  # noqa: E402
 
 failures = []
 
@@ -70,7 +72,7 @@ for h in config.FORECAST_HORIZONS:
             prepared[f"chl_target_{h}d"].transpose("time", "latitude", "longitude").values)
 
 print("\n2. Test-year scores against the saved model (step 05)")
-bundle = joblib.load(config.MODEL_PATH)
+bundle = joblib.load(config.STEP05_MODEL_PATH)
 saved_scores = bundle["test_results"]
 for h in config.FORECAST_HORIZONS:
     test = samples.make_samples(prepared, "test", h, bundle["feature_names"])
@@ -85,8 +87,22 @@ for h in config.FORECAST_HORIZONS:
         if not ok:
             failures.append(f"+{h}d {method}")
 
+print("\n3. The model in use (step 09) against its saved 2025 test scores")
+if config.MODEL_PATH.exists():
+    in_use = joblib.load(config.MODEL_PATH)
+    rerun = forecast.test_year_scores(in_use)
+    for h in config.FORECAST_HORIZONS:
+        saved = next(r for r in in_use["test_scores"] if r["Horizon"] == f"+{h}d" and r["Method"] == "New model")
+        rmse, n = rerun[h]
+        ok = abs(rmse - saved["RMSE (log10)"]) < 1e-6 and n == saved["Scored pixel-days"]
+        print(f"  {'ok  ' if ok else 'FAIL'} +{h}d model in use  {n:,} pixel-days  saved {saved['RMSE (log10)']:.6f}  re-run {rmse:.6f}")
+        if not ok:
+            failures.append(f"+{h}d model in use")
+else:
+    print(f"  skipped: {config.MODEL_PATH.name} not found (run scripts/promote_step09_model.py)")
+
 print()
 if failures:
     print(f"FAILED: {len(failures)} check(s): {', '.join(failures)}")
     sys.exit(1)
-print("All checks passed: the shared code reproduces steps 04 and 05.")
+print("All checks passed: the shared code reproduces steps 04, 05 and the model in use.")

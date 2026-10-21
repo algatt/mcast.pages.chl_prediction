@@ -15,12 +15,16 @@ import xarray as xr
 from . import config
 
 
-def quality_control(chl):
+def quality_control(chl, minimum=None):
     """Treat implausible chlorophyll as missing (step 04): values above
-    MAX_PLAUSIBLE_CHL become NaN. Returns a new array."""
+    MAX_PLAUSIBLE_CHL become NaN, and values below `minimum` if one is given
+    (step 09 tests config.MIN_PLAUSIBLE_CHL). Returns a new array."""
     chl = np.asarray(chl, dtype="float32")
     with np.errstate(invalid="ignore"):
-        return np.where(chl <= config.MAX_PLAUSIBLE_CHL, chl, np.nan).astype("float32")
+        keep = chl <= config.MAX_PLAUSIBLE_CHL
+        if minimum is not None:
+            keep &= chl >= minimum
+        return np.where(keep, chl, np.nan).astype("float32")
 
 
 def shift_to_issue_days(values, lag_days):
@@ -151,3 +155,89 @@ def forecast_inputs(chl, sst, dates, mask, monthly_log_clim, latitude, longitude
         **sst_features(sst, mask),
     }
     return {name: inputs[name] for name in config.FINAL_FEATURES}
+
+
+# --- Extra inputs tested in step 09 ----------------------------------------------
+
+
+def neighbourhood_mean(values, size):
+    """Mean of the valid values within a size × size block of pixels around each
+    pixel, day by day (NaN where the block has none)."""
+    from scipy.ndimage import uniform_filter
+
+    values = np.asarray(values, dtype="float32")
+    finite = np.isfinite(values)
+    window = (1, size, size) if values.ndim == 3 else (size, size)
+    total = uniform_filter(np.where(finite, values, 0).astype("float32"), size=window, mode="constant")
+    share = uniform_filter(finite.astype("float32"), size=window, mode="constant")
+    with np.errstate(invalid="ignore", divide="ignore"):
+        return np.where(share > 0.5 / size ** 2, total / share, np.nan).astype("float32")
+
+
+def coast_distance_km(sea, latitude, longitude):
+    """Distance from each pixel to the nearest land pixel, in km."""
+    from scipy.ndimage import distance_transform_edt
+
+    latitude = np.asarray(latitude)
+    dy = 111.2 * float(np.median(np.abs(np.diff(latitude))))
+    dx = 111.2 * float(np.median(np.abs(np.diff(longitude)))) * np.cos(np.deg2rad(latitude.mean()))
+    return distance_transform_edt(np.asarray(sea, dtype=bool), sampling=(dy, dx)).astype("float32")
+
+
+def monthly_climatology(values, dates, mask, period=None):
+    """Median of `values` for each calendar month at each pixel, training period only
+    (like monthly_log_climatology, but on the values as given)."""
+    dates = pd.DatetimeIndex(dates)
+    start, end = period or config.SPLIT_PERIODS["train"]
+    in_period = (dates >= pd.Timestamp(start)) & (dates <= pd.Timestamp(end))
+    selected = np.where(mask[None], values[in_period], np.nan)
+    months = dates[in_period].month.to_numpy()
+    clim = np.empty((12,) + selected.shape[1:], dtype="float32")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        overall = np.nanmedian(selected, axis=0)
+        for m in range(1, 13):
+            clim[m - 1] = np.nanmedian(selected[months == m], axis=0)
+    return np.where(np.isfinite(clim), clim, overall[None]).astype("float32")
+
+
+def extra_inputs(chl, sst, dates, base, sea, latitude, longitude, mask, monthly_sst_clim, coast_km=None):
+    """The candidate inputs of step 09, from observation-day `chl` and `sst` and
+    the step 04 inputs in `base` (from forecast_inputs). All use only data
+    available at issue time. Distance to the coast comes from `coast_km` if
+    given, otherwise it is computed from the `sea` mask."""
+    available = shift_to_issue_days(np.asarray(chl, dtype="float32"), config.CHL_LAG_DAYS)
+    sst_issue = shift_to_issue_days(np.asarray(sst, dtype="float32"), config.SST_LAG_DAYS)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        latest_log = np.log10(base["chl_latest"])
+        mean_log = np.log10(base["chl_mean_7d"])
+
+    # Temperature change: today's value minus the mean of the previous 7 days.
+    previous = xr.DataArray(shift_to_issue_days(sst_issue, 1), dims=("time", "y", "x"))
+    sst_week = previous.rolling(time=config.CHL_HISTORY_DAYS, min_periods=1).mean().values
+
+    shape = available.shape
+    out = {
+        "chl_nbr5_yesterday": neighbourhood_mean(available, 5),
+        "chl_nbr15_7d": neighbourhood_mean(base["chl_mean_7d"], 15),
+        "chl_trend_log": (latest_log - mean_log).astype("float32"),
+        "chl_anomaly_log": (latest_log - base["chl_clim_log"]).astype("float32"),
+        "sst_anomaly": (sst_issue - climatology_for_dates(monthly_sst_clim, dates)).astype("float32"),
+        "sst_change_7d": (sst_issue - sst_week).astype("float32"),
+        "coast_distance_km": np.broadcast_to(
+            (coast_km if coast_km is not None else coast_distance_km(sea, latitude, longitude))[None], shape),
+    }
+    return {k: (np.where(mask[None], v, np.nan).astype("float32") if k != "coast_distance_km" else v)
+            for k, v in out.items()}
+
+
+def model_inputs(chl, sst, dates, mask, monthly_log_clim, monthly_sst_clim, coast_km, latitude, longitude):
+    """All inputs of the model in use (config.MODEL_FEATURES), for every issue day.
+
+    Used by the live forecast (step 07) and by the checks. `chl` should already
+    have the quality rule applied (quality_control with MIN_PLAUSIBLE_CHL)."""
+    base = forecast_inputs(chl, sst, dates, mask, monthly_log_clim, latitude, longitude)
+    extra = extra_inputs(chl, sst, dates, base, None, latitude, longitude, mask, monthly_sst_clim,
+                         coast_km=np.asarray(coast_km, dtype="float32"))
+    inputs = {**base, **extra}
+    return {name: inputs[name] for name in config.MODEL_FEATURES}

@@ -61,7 +61,7 @@ const rules = [
     <section id="steps" class="border-y border-slate-200 bg-white">
       <div class="container-page py-14 md:py-20">
         <div class="label-caps">The steps</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">Eight steps, each answering one question</h2>
+        <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">Ten steps, each answering one question</h2>
         <p class="mt-3 max-w-2xl text-slate-600">
           Each page explains what one step did, why, and what it found. Every step is one Jupyter notebook in the experiment. Live scores will be added to steps 07–08 once enough live data has been collected.
         </p>
@@ -93,7 +93,7 @@ const rules = [
           <div class="label-caps">Where the story ends up</div>
           <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">A short preview of the results</h2>
           <p class="mt-3 text-slate-600 leading-relaxed">
-            The details belong to steps 05–07, but a reader may want to know the destination first.
+            The details belong to steps 05–10, but a reader may want to know the destination first.
             All figures are for 2025, a year the model never saw while it was being built.
           </p>
         </div>
@@ -101,20 +101,23 @@ const rules = [
           <li class="card">
             <div class="font-semibold text-ink-950">Clearly better than “no change”</div>
             <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-              Forecast errors are 13–17% smaller than simply repeating the latest observation, at every lead time.
+              Forecast errors are 15–18% smaller than simply repeating the latest observation, at every lead time.
             </p>
           </li>
           <li class="card">
-            <div class="font-semibold text-ink-950">Only a little better than a smarter simple rule</div>
+            <div class="font-semibold text-ink-950">Modestly better than a smarter simple rule</div>
             <p class="mt-1 text-sm text-slate-600 leading-relaxed">
               Against a rule that blends the latest observation with the usual value for the time of year, the
-              model gains about 5% at 1 day and 3% at 4 days. At 7 days the difference is within the uncertainty.
+              model in use gains about 7% at 1 day, 4% at 4 days and 3% at 7 days — the last only just clear of
+              the uncertainty. Letting the model see the neighbourhood and recent change (step 09) added about a
+              third to the first model’s gains.
             </p>
           </li>
           <li class="card">
-            <div class="font-semibold text-ink-950">Blooms are still missed</div>
+            <div class="font-semibold text-ink-950">Blooms are still hard</div>
             <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-              On days when chlorophyll is well above normal, every method — the model included — underestimates it by around 40–50%.
+              On days when chlorophyll is well above normal, every forecast of the amount underestimates it. Forecasting
+              the <em>chance</em> of a bloom instead helps a day ahead — but a simple rule does as well as a trained model (step 10).
             </p>
           </li>
         </ul>

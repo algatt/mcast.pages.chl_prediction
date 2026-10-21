@@ -126,9 +126,11 @@ Each prints a short summary — check the dates and day counts look right.
 | 02 Collate and Prepare | `build_nb02_data.py`, `build_nb03_data.py` |
 | 04 Forecast Preparation | `build_nb04_data.py` |
 | 05 Baselines and Modelling (new model) | `build_nb05_data.py`, `build_nb06_data.py` |
+| 09 Model Improvements (new candidate), then promoted it | `build_nb09_data.py` (and `build_nb07_data.py` after the next step 07 run) |
+| 10 Bloom Prediction | `build_nb10_data.py` |
 
-The scripts check themselves: `build_nb05_data.py` and `build_nb06_data.py` stop with an error
-if their re-run of the model does not reproduce the scores saved in the model file, and
+The scripts check themselves: `build_nb05_data.py`, `build_nb06_data.py`, `build_nb09_data.py` and `build_nb10_data.py`
+stop with an error if their re-run of the model does not reproduce the scores saved in the model file, and
 `build_nb04_data.py` stops if the inputs it reads do not match the observations. An error there
 means the data and the model are out of step — re-run the notebooks in order (02 → 04 → 05).
 
@@ -166,14 +168,40 @@ the build succeeds.
 
 ---
 
+## The two models
+
+| File | What it is | Used by |
+|---|---|---|
+| `models/chl_forecast_1_4_7d.joblib` | The first model (step 05), 11 inputs. Kept unchanged as the record. | Steps 05–06, their website pages, part 2 of the check |
+| `models/chl_forecast_candidate_step09.joblib` | Saved by step 09; the tested candidate. | The promotion script |
+| `models/chl_forecast_step09.joblib` | **The model in use** since 21 October 2026, 18 inputs. Built from the candidate. | Step 07 (the live forecast), step 09's page, part 3 of the check |
+| `models/bloom_step10.joblib` | The bloom probability model and its results (step 10). Not used live. | Step 10's page |
+
+`config.MODEL_PATH` points to the model in use; `config.STEP05_MODEL_PATH` to the first one.
+
+Re-running step 10 needs the model in use (it uses its inputs and climatology), so re-run it after any promotion.
+
+**If step 09 is ever re-run** and its candidate is to replace the model in use, promote it:
+
+```bash
+cd experiment_v2
+.venv/bin/python scripts/promote_step09_model.py   # saves only if it reproduces the candidate's 2025 scores
+.venv/bin/python scripts/check_shared_code.py
+```
+
+then re-run step 07, and refresh the website data for steps 07 and 09. Re-running step 09 does not
+change the model in use by itself.
+
+---
+
 ## The shared code
 
 The rules used by every step live in one place, `experiment_v2/chlforecast/`: settings
 (`config.py`), the input recipe (`features.py`), the simple rules (`baselines.py`), scoring,
 the archive and forecasting. Notebooks 04, 07 and 08 and the scheduled job all import it.
 
-- **After changing anything in `chlforecast/`**, run the check, which rebuilds step 04's inputs
-  and step 05's test scores and fails if anything differs:
+- **After changing anything in `chlforecast/`**, run the check, which rebuilds step 04's inputs,
+  step 05's test scores and the model in use's test scores, and fails if anything differs:
   ```bash
   cd experiment_v2 && .venv/bin/python scripts/check_shared_code.py
   ```
@@ -216,7 +244,7 @@ the code and the website are committed.
 | Date | What |
 |---|---|
 | **25 October 2026** | Clocks go back. The 22:15 run still lands after 20:00 UTC, so no change is needed (it could move to 21:15). About this date, step 07 can first score a 7-day live forecast. |
-| **Early November 2026** | Enough live issue days for step 07's 95% ranges; time to update the step 07 page (see above). |
+| **Early November 2026** | Enough live issue days for step 07's 95% ranges; time to update the step 07 page (see above). Step 07 re-issues every past live forecast from the archive with the model in use, so all its scores are for the step 09 model. |
 | **24 November 2026** | The archive (multi-year) chlorophyll versions pinned in `01-Data Acquisition.ipynb` (L3 `202411`, L4 `202311`) are retired. Steps 01–06 need moving to the new versions, re-running in order, the check script, and the website data refreshing. |
 | **12 January 2027** | The near-real-time gap-filled chlorophyll (`202207`) and temperature (`202311`) versions are retired. The archive picks up the new versions by itself and records the version in every file, but check the first days after the switch in step 07: compare a few days' values before and after. |
 | **After the winter** | Enough live data to score the forecast in the season that matters most — worth a proper write-up on steps 07–08. |

@@ -37,3 +37,7 @@ export function chlLayer({ id, label, values, ...rest }) {
     ...rest,
   }
 }
+
+// Bloom probability (step 10): one red hue, light → dark.
+export const BLOOM_RAMP = ['#fbe6e4', '#f6c3bf', '#ee9a94', '#e06d66', '#c94b45', '#a33632', '#732623']
+export const BLOOM = '#c94b45'

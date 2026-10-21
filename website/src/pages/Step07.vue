@@ -16,6 +16,8 @@ const shortDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-GB', 
 const fmt = (n) => n.toLocaleString('en-GB')
 const pctOf = (n, total) => `${((100 * n) / total).toFixed(n / total > 0.995 ? 2 : 0)}%`
 const retrievedAt = live.retrieved_utc.slice(11, 16)
+// The live forecast uses the model in use: the step 05 model until 20 October 2026, the step 09 model since.
+const modelName = live.model_file.includes('step09') ? 'step 09 model' : 'step 05 model'
 
 const fallback = map('fallback')
 const chlRange = { decode: (v) => 10 ** v, domain: [0.02, 0.5], ticks: [0.02, 0.05, 0.1, 0.2, 0.5], tickFormat: (t) => `${t}` }
@@ -97,7 +99,7 @@ const sections = [
   <StepLayout number="07" :sections="sections">
     <template #lead>
       Everything so far used the reprocessed archive. A real forecast has to work from the near-real-time feed,
-      published within a day and processed with less information. This step runs the final model on that feed,
+      published within a day and processed with less information. This step runs the model on that feed,
       end to end, and sets out what it would take to check it properly.
     </template>
 
@@ -110,7 +112,7 @@ const sections = [
       </p>
       <ol>
         <li>downloads the latest near-real-time chlorophyll and sea temperature;</li>
-        <li>builds the model’s 11 inputs from them, exactly as step 04 did for the archive;</li>
+        <li>builds the model’s inputs from them, exactly as for training (11 for the step 05 model, 18 since step 09);</li>
         <li>issues a forecast for 1, 4 and 7 days ahead and saves it, with every input it used;</li>
         <li>where enough data exists, re-issues forecasts for past days and scores them against what was later observed.</li>
       </ol>
@@ -123,7 +125,7 @@ const sections = [
       <div class="article">
         <h2>A real forecast, issued {{ longDate(live.issue_date) }}</h2>
         <p>
-          This is the forecast the final model produced from the near-real-time feed for the evening of
+          This is the forecast the {{ modelName }} ({{ live.n_inputs }} inputs) produced from the near-real-time feed for the evening of
           {{ longDate(live.issue_date) }}. The newest chlorophyll it had was from {{ longDate(live.latest_chl_date) }}, and
           the temperature from the night before the issue day. Switch between the three forecasts and the inputs behind them.
         </p>
@@ -255,7 +257,7 @@ const sections = [
           On 7 October 2026, while the live window still held 15 days, this step did score forecasts for
           {{ earlier.n_issue_dates }} issue days ({{ shortDate(earlier.issue_dates[0]) }} – {{ shortDate(earlier.issue_dates[1]) }}).
           That run used the <em>previous</em> version of the model, with {{ earlier.features }} inputs and trained on 2022–2024,
-          so its numbers do not describe the final model:
+          so its numbers do not describe the current one:
         </p>
       </div>
 
@@ -281,7 +283,7 @@ const sections = [
       <div class="article">
         <p>
           What this does show is that the pipeline runs on live data and produces sensible forecasts, which beat “no change” on
-          those days. What it cannot show is how good the final model is live: a handful of autumn days, with between one and
+          those days. What it cannot show is how good the model is live: a handful of autumn days, with between one and
           seven scored issue days per lead time, is far too little.
         </p>
       </div>

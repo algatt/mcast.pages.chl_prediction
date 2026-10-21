@@ -42,3 +42,43 @@ def blend_forecast(bundle, inputs, issue_dates, horizon):
     blended = np.where(np.isfinite(latest_log), a + b * latest_log + c * target_clim, target_clim)
     mask = bundle["model_mask"].values == 1
     return np.where(mask[None], 10.0 ** blended, np.nan).astype("float32")
+
+
+def test_year_scores(bundle, history_start="2016-12-01"):
+    """Re-score a bundle of the model in use on the test year, from the collated
+    observations, with inputs built by the shared recipe (features.model_inputs).
+    Returns {horizon: (log10 RMSE, scored pixel-days)}. Used to verify that the
+    model and the recipe agree; forecasts are stored as float32, so scores agree
+    to about 1e-8, not exactly."""
+    import xarray as xr
+    from . import config
+
+    with xr.open_dataset(config.PROCESSED / "malta_daily_observations.nc") as observations:
+        observations = observations.sel(time=slice(history_start, None)).load()
+    dates = pd.DatetimeIndex(observations.time.values)
+    grid = ("time", "latitude", "longitude")
+    chl = F.quality_control(observations["chl"].transpose(*grid).values,
+                            minimum=bundle["preprocessing"]["min_plausible_chl_mg_m3"])
+    sst = observations["sst_c"].transpose(*grid).values
+    mask = bundle["model_mask"].values == 1
+    inputs = F.model_inputs(chl, sst, dates, mask, bundle["monthly_log_climatology"].values,
+                            bundle["monthly_sst_climatology"].values, bundle["coast_distance_km"].values,
+                            observations.latitude.values, observations.longitude.values)
+
+    horizons = [int(h) for h in bundle["forecast_horizons_days"]]
+    start, end = config.SPLIT_PERIODS["test"]
+    in_test = (dates >= pd.Timestamp(start)) & (dates + pd.Timedelta(days=max(horizons)) <= pd.Timestamp(end))
+    days = np.flatnonzero(in_test)
+    block = slice(days[0], days[-1] + 1)
+    block_inputs = {name: np.broadcast_to(values, chl.shape)[block] for name, values in inputs.items()}
+
+    scores = {}
+    for h in horizons:
+        predicted = model_forecast(bundle, block_inputs, dates[block], h)
+        target = np.full(chl.shape, np.nan, dtype="float32")
+        target[:-h] = chl[h:]
+        target = target[block]
+        valid = np.isfinite(target) & (target > 0) & mask[None] & in_test[block][:, None, None]
+        error = np.log10(predicted[valid]) - np.log10(target[valid])
+        scores[h] = (float(np.sqrt(np.mean(error ** 2))), int(valid.sum()))
+    return scores

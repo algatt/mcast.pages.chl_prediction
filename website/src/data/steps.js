@@ -66,6 +66,22 @@ export const steps = [
     question: 'How do we keep the evidence a live forecast needs?',
     ready: true,
   },
+  {
+    number: '09',
+    slug: '09-model-improvements',
+    notebook: '09-Model-Improvements.ipynb',
+    title: 'Model improvements',
+    question: 'Can the model see more — and is it then good enough to replace the first one?',
+    ready: true,
+  },
+  {
+    number: '10',
+    slug: '10-bloom-prediction',
+    notebook: '10-Bloom-Prediction.ipynb',
+    title: 'Bloom prediction',
+    question: 'Can we forecast the chance of a bloom, rather than the amount of chlorophyll?',
+    ready: true,
+  },
 ]
 
 export const stepPath = (step) => `/steps/${step.slug}`
