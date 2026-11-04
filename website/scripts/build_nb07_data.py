@@ -78,7 +78,8 @@ live = {
     },
 }
 sst_values = inputs["sst_c"].values[mask & np.isfinite(inputs["sst_c"].values)]
-live["sst_range"] = [float(sst_values.min()), float(sst_values.max())]
+# None when the forecast was issued before the issue day's temperature was archived.
+live["sst_range"] = [float(sst_values.min()), float(sst_values.max())] if sst_values.size else None
 
 # --- The local NRT archive ----------------------------------------------------------
 archive = {}

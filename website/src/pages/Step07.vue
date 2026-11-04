@@ -80,7 +80,7 @@ const NEEDED = 15
 const windows = [
   { label: 'Needed for a full check', days: NEEDED, tone: 'need', note: '7 days of history + 1 day delay + 7 days ahead' },
   { label: 'Offered by Copernicus, 7 Oct 2026', days: 15, tone: 'had', note: '22 Sep – 6 Oct' },
-  { label: 'Offered by Copernicus, 19 Oct 2026', days: archive.chl.days, tone: 'short', note: `${shortDate(archive.chl.first)} – ${shortDate(archive.chl.last)}` },
+  { label: 'Offered by Copernicus, 19 Oct 2026', days: 9, tone: 'short', note: '10 – 18 Oct' },
 ]
 
 const earlierRow = (h, method) => earlier.rows.find((r) => r.horizon === `+${h}d` && r.history === 'Complete' && r.method === method)
@@ -150,7 +150,7 @@ const sections = [
         <StatTile label="Recent observation" :value="pctOf(live.pixels_with_history, live.pixels)"
                   :detail="`${fmt(live.pixels_with_history)} of ${fmt(live.pixels)} pixels; the other ${live.pixels - live.pixels_with_history} use the usual value`" />
         <StatTile label="Temperature" :value="pctOf(live.pixels_with_sst, live.pixels)"
-                  :detail="`of pixels had last night’s value (${live.sst_range[0].toFixed(1)}–${live.sst_range[1].toFixed(1)} °C)`" />
+                  :detail="live.sst_range ? `of pixels had last night’s value (${live.sst_range[0].toFixed(1)}–${live.sst_range[1].toFixed(1)} °C)` : 'last night’s temperature was not yet archived'" />
       </div>
 
       <div class="article mt-8">
@@ -235,7 +235,7 @@ const sections = [
           </div>
         </div>
         <figcaption class="figure-caption">
-          Each square is one day of chlorophyll. On 19 October only {{ archive.chl.days }} days were offered, too few for any
+          Each square is one day of chlorophyll. On 19 October only 9 days were offered, too few for any
           complete check at 7 days.
         </figcaption>
       </figure>

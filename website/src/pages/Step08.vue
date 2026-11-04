@@ -96,8 +96,10 @@ const step09 = steps.find((s) => s.number === '09')
       <div class="article">
         <h2>What it holds today</h2>
         <p>
-          The archive was started on {{ longDate(firstRun.retrieved_utc.slice(0, 10)) }}. Its first run saved everything the live
-          feed still offered, {{ firstRun.saved }} days across the three products:
+          The archive was first started on 10 October 2026. On 4 November the experiment moved to a new folder and the archive,
+          which is kept only on the computer that runs it, was lost; it was restarted on
+          {{ longDate(firstRun.retrieved_utc.slice(0, 10)) }}. Its first run saved everything the live feed still offered,
+          {{ firstRun.saved }} days across the three products, so only chlorophyll for 10–18 October was lost for good.
         </p>
       </div>
 
@@ -171,7 +173,7 @@ const step09 = steps.find((s) => s.number === '09')
 
       <div class="my-6 space-y-3">
         <div class="card">
-          <div class="label-caps">From {{ longDate(check.available_from) }}</div>
+          <div class="label-caps">Since {{ longDate(check.available_from) }}</div>
           <div class="mt-1 font-semibold text-ink-950">The first complete live check</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
             A forecast issued on {{ longDate(check.issue_date) }} has seven days of archived history behind it, and its 7-day target,

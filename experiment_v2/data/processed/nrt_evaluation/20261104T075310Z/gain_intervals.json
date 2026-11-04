@@ -1,0 +1,23 @@
+[
+  {
+    "Horizon":"+1d",
+    "Issue days":8,
+    "Gain over blend (%)":null,
+    "95% low":null,
+    "95% high":null
+  },
+  {
+    "Horizon":"+4d",
+    "Issue days":5,
+    "Gain over blend (%)":null,
+    "95% low":null,
+    "95% high":null
+  },
+  {
+    "Horizon":"+7d",
+    "Issue days":2,
+    "Gain over blend (%)":null,
+    "95% low":null,
+    "95% high":null
+  }
+]
