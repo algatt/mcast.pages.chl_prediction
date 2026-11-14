@@ -419,8 +419,9 @@ const sections = [
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
             The model wins on ordinary days and loses heavily on a few days when chlorophyll jumps or drops by a quarter or more overnight. The
             bloom forecasts (<router-link :to="stepPath(step10)" class="font-semibold text-teal-800 hover:underline">step 10</router-link>, now run
-            live) struggle on the same days. Nothing in the current inputs announces such a change. Wind, which mixes the water and is already in the
-            collated data, is the obvious next input to try.
+            live) struggle on the same days. Nothing in the current inputs announces such a change. Step 05 found that daily wind adds little on
+            average, but whether wind <em>events</em>, a few days of strong wind that mix the water, come before these changes has not yet been
+            tested.
           </p>
         </div>
         <div class="card">
