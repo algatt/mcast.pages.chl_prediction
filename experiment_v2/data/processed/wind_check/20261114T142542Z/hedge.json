@@ -1,0 +1,74 @@
+[
+  {
+    "Data":"2019 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":13.6239231285,
+    "Hedge vs blend (%)":8.7006488039
+  },
+  {
+    "Data":"2020 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":12.4503946742,
+    "Hedge vs blend (%)":8.1264905814
+  },
+  {
+    "Data":"2021 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":13.5237928153,
+    "Hedge vs blend (%)":8.6767619263
+  },
+  {
+    "Data":"2022 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":12.8464522916,
+    "Hedge vs blend (%)":8.4884044363
+  },
+  {
+    "Data":"2023 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":9.3642970124,
+    "Hedge vs blend (%)":6.3410712321
+  },
+  {
+    "Data":"2024 (in training)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":13.7618284363,
+    "Hedge vs blend (%)":8.7716363334
+  },
+  {
+    "Data":"2025",
+    "Horizon":"+1d",
+    "Model vs blend (%)":6.612607842,
+    "Hedge vs blend (%)":5.2026688086
+  },
+  {
+    "Data":"2025",
+    "Horizon":"+4d",
+    "Model vs blend (%)":3.8821076675,
+    "Hedge vs blend (%)":3.71735139
+  },
+  {
+    "Data":"2025",
+    "Horizon":"+7d",
+    "Model vs blend (%)":2.5814307565,
+    "Hedge vs blend (%)":2.8911828153
+  },
+  {
+    "Data":"Live 2026 (16 issue days)",
+    "Horizon":"+1d",
+    "Model vs blend (%)":-5.2588160538,
+    "Hedge vs blend (%)":-1.2667848621
+  },
+  {
+    "Data":"Live 2026 (13 issue days)",
+    "Horizon":"+4d",
+    "Model vs blend (%)":-12.9754100698,
+    "Hedge vs blend (%)":-5.2091976321
+  },
+  {
+    "Data":"Live 2026 (10 issue days)",
+    "Horizon":"+7d",
+    "Model vs blend (%)":-11.7558372544,
+    "Hedge vs blend (%)":-4.8167547083
+  }
+]

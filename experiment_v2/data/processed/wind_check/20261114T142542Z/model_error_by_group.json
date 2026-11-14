@@ -1,0 +1,114 @@
+[
+  {
+    "Years":"All years",
+    "Group":"Wind class 1",
+    "Issue days":379,
+    "Gain over blend (%)":12.3690994652,
+    "Hedge gain over blend (%)":8.0459892732,
+    "Share of the overall difference (%)":17.2180805206
+  },
+  {
+    "Years":"All years",
+    "Group":"Wind class 2",
+    "Issue days":376,
+    "Gain over blend (%)":9.1321894313,
+    "Hedge gain over blend (%)":6.3524793805,
+    "Share of the overall difference (%)":13.9834032059
+  },
+  {
+    "Years":"All years",
+    "Group":"Wind class 3",
+    "Issue days":376,
+    "Gain over blend (%)":9.5787338568,
+    "Hedge gain over blend (%)":6.788748072,
+    "Share of the overall difference (%)":13.9229755402
+  },
+  {
+    "Years":"All years",
+    "Group":"Wind class 4",
+    "Issue days":376,
+    "Gain over blend (%)":11.6615592789,
+    "Hedge gain over blend (%)":7.5633992385,
+    "Share of the overall difference (%)":20.9409370422
+  },
+  {
+    "Years":"All years",
+    "Group":"Wind class 5",
+    "Issue days":377,
+    "Gain over blend (%)":14.5439593377,
+    "Hedge gain over blend (%)":9.3176663686,
+    "Share of the overall difference (%)":33.9345817566
+  },
+  {
+    "Years":"All years",
+    "Group":"Sudden-change days",
+    "Issue days":187,
+    "Gain over blend (%)":14.4151165127,
+    "Hedge gain over blend (%)":8.5238998563,
+    "Share of the overall difference (%)":26.2613487244
+  },
+  {
+    "Years":"All years",
+    "Group":"Other days",
+    "Issue days":1697,
+    "Gain over blend (%)":11.0312219193,
+    "Hedge gain over blend (%)":7.5729102324,
+    "Share of the overall difference (%)":73.7386245728
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Wind class 1",
+    "Issue days":72,
+    "Gain over blend (%)":9.6318393558,
+    "Hedge gain over blend (%)":6.3495583016,
+    "Share of the overall difference (%)":29.493139267
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Wind class 2",
+    "Issue days":54,
+    "Gain over blend (%)":4.8155204236,
+    "Hedge gain over blend (%)":4.062224253,
+    "Share of the overall difference (%)":13.8604536057
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Wind class 3",
+    "Issue days":64,
+    "Gain over blend (%)":7.2163844534,
+    "Hedge gain over blend (%)":5.6481027159,
+    "Share of the overall difference (%)":24.2563304901
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Wind class 4",
+    "Issue days":48,
+    "Gain over blend (%)":5.9479961844,
+    "Hedge gain over blend (%)":4.8940344552,
+    "Share of the overall difference (%)":14.5005149841
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Wind class 5",
+    "Issue days":44,
+    "Gain over blend (%)":7.8718434026,
+    "Hedge gain over blend (%)":6.3868450546,
+    "Share of the overall difference (%)":17.8895664215
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Sudden-change days",
+    "Issue days":24,
+    "Gain over blend (%)":6.2129883542,
+    "Hedge gain over blend (%)":4.4483915788,
+    "Share of the overall difference (%)":14.9202251434
+  },
+  {
+    "Years":"2025 (unseen)",
+    "Group":"Other days",
+    "Issue days":258,
+    "Gain over blend (%)":7.3270873821,
+    "Hedge gain over blend (%)":5.6781822289,
+    "Share of the overall difference (%)":85.0797653198
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "saved_utc": "2026-11-14T14:25:42.296040+00:00",
+  "model_file": "chl_forecast_step09.joblib",
+  "model_training_issue_dates": [
+    "2017-01-01",
+    "2024-12-24"
+  ],
+  "years": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "sudden_change_rule": "top 10% of issue days by mean |log10 change| within season, +1 day",
+  "wind": "area mean of both ASCAT passes, days with >= 10% coverage, lag 1 day",
+  "decision_rule": "Strongest of past 3 days: windiest/calmest fifth ratio >= 1.5 and 95% low > 1",
+  "decision": "wind worth a modelling step",
+  "hedge_weight_model": 0.5,
+  "live_chl_archive_days": [
+    "2026-10-19",
+    "2026-11-13"
+  ]
+}

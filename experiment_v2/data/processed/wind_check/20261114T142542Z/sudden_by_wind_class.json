@@ -1,0 +1,37 @@
+[
+  {
+    "Wind class":1,
+    "Issue days":379,
+    "Sudden days (%)":8.9709762533,
+    "Mean next-day change (%)":20.1813044661,
+    "Wind (m\/s), median":4.0375986099
+  },
+  {
+    "Wind class":2,
+    "Issue days":376,
+    "Sudden days (%)":6.1170212766,
+    "Mean next-day change (%)":20.9390803834,
+    "Wind (m\/s), median":5.9661226273
+  },
+  {
+    "Wind class":3,
+    "Issue days":376,
+    "Sudden days (%)":6.3829787234,
+    "Mean next-day change (%)":20.4233686579,
+    "Wind (m\/s), median":7.7018890381
+  },
+  {
+    "Wind class":4,
+    "Issue days":376,
+    "Sudden days (%)":10.9042553191,
+    "Mean next-day change (%)":22.3198894387,
+    "Wind (m\/s), median":9.4110164642
+  },
+  {
+    "Wind class":5,
+    "Issue days":377,
+    "Sudden days (%)":17.2413793103,
+    "Mean next-day change (%)":25.6198955479,
+    "Wind (m\/s), median":11.7019557953
+  }
+]

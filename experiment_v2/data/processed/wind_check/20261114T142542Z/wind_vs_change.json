@@ -1,0 +1,50 @@
+[
+  {
+    "Wind measure":"Yesterday",
+    "Issue days":1522,
+    "Correlation with next-day change":0.2072592249,
+    "95% low":0.1485527788,
+    "95% high":0.2567348281,
+    "Sudden days, windiest fifth (%)":16.0130718954,
+    "Sudden days, calmest fifth (%)":4.9019607843,
+    "Ratio":3.2666666667,
+    "Ratio 95% low":1.8928154352,
+    "Ratio 95% high":6.2464911275
+  },
+  {
+    "Wind measure":"Strongest of past 3 days",
+    "Issue days":1884,
+    "Correlation with next-day change":0.2133432289,
+    "95% low":0.1509797863,
+    "95% high":0.2687548799,
+    "Sudden days, windiest fifth (%)":17.2413793103,
+    "Sudden days, calmest fifth (%)":8.9709762533,
+    "Ratio":1.9219066937,
+    "Ratio 95% low":1.2584162617,
+    "Ratio 95% high":3.0143752487
+  },
+  {
+    "Wind measure":"Mixing energy, past 3 days",
+    "Issue days":1884,
+    "Correlation with next-day change":0.2220203213,
+    "95% low":0.1574214086,
+    "95% high":0.2776120492,
+    "Sudden days, windiest fifth (%)":17.7718832891,
+    "Sudden days, calmest fifth (%)":7.3878627968,
+    "Ratio":2.4055513452,
+    "Ratio 95% low":1.5398994951,
+    "Ratio 95% high":3.8936625874
+  },
+  {
+    "Wind measure":"Rise over the week before",
+    "Issue days":1507,
+    "Correlation with next-day change":0.0828681689,
+    "95% low":0.0249813294,
+    "95% high":0.133656487,
+    "Sudden days, windiest fifth (%)":14.1914191419,
+    "Sudden days, calmest fifth (%)":9.2409240924,
+    "Ratio":1.5357142857,
+    "Ratio 95% low":0.9742540611,
+    "Ratio 95% high":2.5459691252
+  }
+]
