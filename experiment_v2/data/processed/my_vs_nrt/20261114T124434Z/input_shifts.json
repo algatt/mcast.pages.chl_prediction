@@ -1,0 +1,164 @@
+[
+  {
+    "Input":"sst_anomaly",
+    "Live NRT mean":-0.7460944653,
+    "MY mean":0.233878091,
+    "MY yearly means":"-1.67 to 1.48",
+    "Shift (MY s.d.)":-0.7477004528,
+    "Live missing (%)":50.0963774192,
+    "MY missing (%)":43.5173981506
+  },
+  {
+    "Input":"chl_observations_7d",
+    "Live NRT mean":2.8493746272,
+    "MY mean":3.764900192,
+    "MY yearly means":"1.73 to 5.68",
+    "Shift (MY s.d.)":-0.5449556163,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"sst_c",
+    "Live NRT mean":22.1599655151,
+    "MY mean":22.7041664124,
+    "MY yearly means":"21.4 to 23.9",
+    "Shift (MY s.d.)":-0.4647895396,
+    "Live missing (%)":48.6368861882,
+    "MY missing (%)":43.5173981506
+  },
+  {
+    "Input":"sst_change_7d",
+    "Live NRT mean":-0.5456769466,
+    "MY mean":-0.3337985873,
+    "MY yearly means":"-0.542 to -0.184",
+    "Shift (MY s.d.)":-0.4505034685,
+    "Live missing (%)":48.6368861882,
+    "MY missing (%)":44.5875885548
+  },
+  {
+    "Input":"chl_age_days",
+    "Live NRT mean":2.6617412567,
+    "MY mean":2.1557202339,
+    "MY yearly means":"1.44 to 4.15",
+    "Shift (MY s.d.)":0.2748534977,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"chl_trend_log",
+    "Live NRT mean":0.0125398496,
+    "MY mean":-0.000182325,
+    "MY yearly means":"-0.0112 to 0.0118",
+    "Shift (MY s.d.)":0.1775356978,
+    "Live missing (%)":1.3782403126,
+    "MY missing (%)":2.34846006
+  },
+  {
+    "Input":"chl_anomaly_log",
+    "Live NRT mean":0.0016888618,
+    "MY mean":-0.0199355911,
+    "MY yearly means":"-0.0781 to 0.0617",
+    "Shift (MY s.d.)":0.1605062634,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"sst_observed",
+    "Live NRT mean":0.5136311381,
+    "MY mean":0.5648260185,
+    "MY yearly means":"0.241 to 0.89",
+    "Shift (MY s.d.)":-0.1032613324,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"chl_latest",
+    "Live NRT mean":0.0647324771,
+    "MY mean":0.0602232926,
+    "MY yearly means":"0.048 to 0.0829",
+    "Shift (MY s.d.)":0.072004199,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"chl_nbr5_yesterday",
+    "Live NRT mean":0.0589629598,
+    "MY mean":0.0573117286,
+    "MY yearly means":"0.0479 to 0.0811",
+    "Shift (MY s.d.)":0.0357768945,
+    "Live missing (%)":48.6425046028,
+    "MY missing (%)":37.687964604
+  },
+  {
+    "Input":"chl_nbr15_7d",
+    "Live NRT mean":0.0592328869,
+    "MY mean":0.0579978935,
+    "MY yearly means":"0.0484 to 0.0775",
+    "Shift (MY s.d.)":0.0330775343,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.6804196321
+  },
+  {
+    "Input":"chl_mean_7d",
+    "Live NRT mean":0.0597105324,
+    "MY mean":0.0584702007,
+    "MY yearly means":"0.0486 to 0.0794",
+    "Shift (MY s.d.)":0.0239414275,
+    "Live missing (%)":1.3782403126,
+    "MY missing (%)":2.34846006
+  },
+  {
+    "Input":"season_cos",
+    "Live NRT mean":0.5392474532,
+    "MY mean":0.5397374034,
+    "MY yearly means":"0.539 to 0.542",
+    "Shift (MY s.d.)":-0.0062015825,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"season_sin",
+    "Live NRT mean":-0.8368722796,
+    "MY mean":-0.836561203,
+    "MY yearly means":"-0.837 to -0.835",
+    "Shift (MY s.d.)":-0.0060922909,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"coast_distance_km",
+    "Live NRT mean":27.9549674988,
+    "MY mean":27.9319248199,
+    "MY yearly means":"27.9 to 27.9",
+    "Shift (MY s.d.)":0.0016038273,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"chl_clim_log",
+    "Live NRT mean":-1.2577795982,
+    "MY mean":-1.2575931549,
+    "MY yearly means":"-1.26 to -1.26",
+    "Shift (MY s.d.)":-0.0013891594,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"latitude_deg",
+    "Live NRT mean":36.1873893738,
+    "MY mean":36.1873474121,
+    "MY yearly means":"36.2 to 36.2",
+    "Shift (MY s.d.)":0.0001132725,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  },
+  {
+    "Input":"longitude_deg",
+    "Live NRT mean":14.5329999924,
+    "MY mean":14.5330038071,
+    "MY yearly means":"14.5 to 14.5",
+    "Shift (MY s.d.)":-0.0000100251,
+    "Live missing (%)":0.0,
+    "MY missing (%)":0.0
+  }
+]

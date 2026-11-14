@@ -1,0 +1,31 @@
+{
+  "saved_utc": "2026-11-14T12:44:34.828964+00:00",
+  "model_file": "chl_forecast_step09.joblib",
+  "model_training_issue_dates": [
+    "2017-01-01",
+    "2024-12-24"
+  ],
+  "window_first_issue_to_last_target": [
+    "10-26",
+    "11-13"
+  ],
+  "live_chl_archive_days": [
+    "2026-10-19",
+    "2026-11-13"
+  ],
+  "my_years_in_training": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "my_years_unseen": [
+    2025
+  ],
+  "my_source": "malta_daily_observations.nc",
+  "scoring_rules": "As step 07: observed target, usable latest observation, modelled pixel"
+}
