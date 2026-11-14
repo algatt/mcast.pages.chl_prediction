@@ -1,0 +1,154 @@
+[
+  {
+    "Date":"2026-10-19T00:00:00.000",
+    "NRT pixels":6,
+    "MY pixels":6,
+    "Both":6,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-20T00:00:00.000",
+    "NRT pixels":1094,
+    "MY pixels":1091,
+    "Both":1090,
+    "NRT only":4,
+    "MY only":1
+  },
+  {
+    "Date":"2026-10-21T00:00:00.000",
+    "NRT pixels":962,
+    "MY pixels":962,
+    "Both":962,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-22T00:00:00.000",
+    "NRT pixels":12152,
+    "MY pixels":12151,
+    "Both":12151,
+    "NRT only":1,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-23T00:00:00.000",
+    "NRT pixels":11955,
+    "MY pixels":11955,
+    "Both":11955,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-24T00:00:00.000",
+    "NRT pixels":0,
+    "MY pixels":0,
+    "Both":0,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-25T00:00:00.000",
+    "NRT pixels":39,
+    "MY pixels":39,
+    "Both":38,
+    "NRT only":1,
+    "MY only":1
+  },
+  {
+    "Date":"2026-10-26T00:00:00.000",
+    "NRT pixels":2773,
+    "MY pixels":2772,
+    "Both":2772,
+    "NRT only":1,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-27T00:00:00.000",
+    "NRT pixels":1904,
+    "MY pixels":1890,
+    "Both":1890,
+    "NRT only":14,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-28T00:00:00.000",
+    "NRT pixels":10021,
+    "MY pixels":11222,
+    "Both":10018,
+    "NRT only":3,
+    "MY only":1204
+  },
+  {
+    "Date":"2026-10-29T00:00:00.000",
+    "NRT pixels":10907,
+    "MY pixels":10905,
+    "Both":10903,
+    "NRT only":4,
+    "MY only":2
+  },
+  {
+    "Date":"2026-10-30T00:00:00.000",
+    "NRT pixels":6795,
+    "MY pixels":6795,
+    "Both":6795,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-10-31T00:00:00.000",
+    "NRT pixels":6703,
+    "MY pixels":6702,
+    "Both":6702,
+    "NRT only":1,
+    "MY only":0
+  },
+  {
+    "Date":"2026-11-01T00:00:00.000",
+    "NRT pixels":6147,
+    "MY pixels":7991,
+    "Both":6147,
+    "NRT only":0,
+    "MY only":1844
+  },
+  {
+    "Date":"2026-11-02T00:00:00.000",
+    "NRT pixels":4862,
+    "MY pixels":4874,
+    "Both":4844,
+    "NRT only":18,
+    "MY only":30
+  },
+  {
+    "Date":"2026-11-03T00:00:00.000",
+    "NRT pixels":10851,
+    "MY pixels":10850,
+    "Both":10850,
+    "NRT only":1,
+    "MY only":0
+  },
+  {
+    "Date":"2026-11-04T00:00:00.000",
+    "NRT pixels":9617,
+    "MY pixels":9617,
+    "Both":9617,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-11-05T00:00:00.000",
+    "NRT pixels":301,
+    "MY pixels":301,
+    "Both":301,
+    "NRT only":0,
+    "MY only":0
+  },
+  {
+    "Date":"2026-11-06T00:00:00.000",
+    "NRT pixels":384,
+    "MY pixels":384,
+    "Both":384,
+    "NRT only":0,
+    "MY only":0
+  }
+]

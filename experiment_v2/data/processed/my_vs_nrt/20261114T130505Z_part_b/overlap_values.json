@@ -1,0 +1,172 @@
+[
+  {
+    "Days":"All overlap",
+    "Pixel-days":97425,
+    "Bias (log10)":-0.002236777,
+    "S.d. (log10)":0.0258326661,
+    "RMSD (log10)":0.0259293225,
+    "Correlation":0.9865787724,
+    "NRT\/MY median ratio":1.0005760193,
+    "Share within \u00b10.05 log10 (%)":96.263792661
+  },
+  {
+    "Days":"2026-10-20",
+    "Pixel-days":1090,
+    "Bias (log10)":-0.0022550453,
+    "S.d. (log10)":0.0042168433,
+    "RMSD (log10)":0.0047819451,
+    "Correlation":0.997521841,
+    "NRT\/MY median ratio":0.9962345362,
+    "Share within \u00b10.05 log10 (%)":99.9082568807
+  },
+  {
+    "Days":"2026-10-21",
+    "Pixel-days":962,
+    "Bias (log10)":-0.0003336423,
+    "S.d. (log10)":0.000250309,
+    "RMSD (log10)":0.0004170992,
+    "Correlation":0.9999946905,
+    "NRT\/MY median ratio":0.9993404746,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-10-22",
+    "Pixel-days":12151,
+    "Bias (log10)":-0.0004982947,
+    "S.d. (log10)":0.0100581674,
+    "RMSD (log10)":0.0100705028,
+    "Correlation":0.9969307731,
+    "NRT\/MY median ratio":1.0,
+    "Share within \u00b10.05 log10 (%)":99.8107151675
+  },
+  {
+    "Days":"2026-10-23",
+    "Pixel-days":11955,
+    "Bias (log10)":0.0008897608,
+    "S.d. (log10)":0.0011666213,
+    "RMSD (log10)":0.0014672012,
+    "Correlation":0.9999529927,
+    "NRT\/MY median ratio":1.0017789602,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-10-26",
+    "Pixel-days":2772,
+    "Bias (log10)":0.0014276386,
+    "S.d. (log10)":0.0040242095,
+    "RMSD (log10)":0.0042699426,
+    "Correlation":0.9996021597,
+    "NRT\/MY median ratio":1.003305912,
+    "Share within \u00b10.05 log10 (%)":99.9639249639
+  },
+  {
+    "Days":"2026-10-27",
+    "Pixel-days":1890,
+    "Bias (log10)":0.0038403538,
+    "S.d. (log10)":0.0030898701,
+    "RMSD (log10)":0.0049290583,
+    "Correlation":0.9992331504,
+    "NRT\/MY median ratio":1.0103268623,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-10-28",
+    "Pixel-days":10018,
+    "Bias (log10)":-0.0085968385,
+    "S.d. (log10)":0.04523829,
+    "RMSD (log10)":0.0460478924,
+    "Correlation":0.8915691601,
+    "NRT\/MY median ratio":0.9898512959,
+    "Share within \u00b10.05 log10 (%)":88.4507885806
+  },
+  {
+    "Days":"2026-10-29",
+    "Pixel-days":10903,
+    "Bias (log10)":0.0000268953,
+    "S.d. (log10)":0.0048556039,
+    "RMSD (log10)":0.0048556784,
+    "Correlation":0.9983069638,
+    "NRT\/MY median ratio":1.0005987883,
+    "Share within \u00b10.05 log10 (%)":99.9633128497
+  },
+  {
+    "Days":"2026-10-30",
+    "Pixel-days":6795,
+    "Bias (log10)":-0.0005376067,
+    "S.d. (log10)":0.0016715119,
+    "RMSD (log10)":0.0017558398,
+    "Correlation":0.9995358203,
+    "NRT\/MY median ratio":0.9986613989,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-10-31",
+    "Pixel-days":6702,
+    "Bias (log10)":-0.0341949761,
+    "S.d. (log10)":0.0615100339,
+    "RMSD (log10)":0.0703759938,
+    "Correlation":0.8250332052,
+    "NRT\/MY median ratio":0.9915362,
+    "Share within \u00b10.05 log10 (%)":75.5446135482
+  },
+  {
+    "Days":"2026-11-01",
+    "Pixel-days":6147,
+    "Bias (log10)":0.0062707267,
+    "S.d. (log10)":0.0308877472,
+    "RMSD (log10)":0.0315178521,
+    "Correlation":0.8872876679,
+    "NRT\/MY median ratio":0.9936329722,
+    "Share within \u00b10.05 log10 (%)":92.3702619164
+  },
+  {
+    "Days":"2026-11-02",
+    "Pixel-days":4844,
+    "Bias (log10)":0.0148160923,
+    "S.d. (log10)":0.0197748318,
+    "RMSD (log10)":0.0247095227,
+    "Correlation":0.9930158464,
+    "NRT\/MY median ratio":1.0193579197,
+    "Share within \u00b10.05 log10 (%)":92.9397192403
+  },
+  {
+    "Days":"2026-11-03",
+    "Pixel-days":10850,
+    "Bias (log10)":-0.0021956037,
+    "S.d. (log10)":0.0050432039,
+    "RMSD (log10)":0.0055004163,
+    "Correlation":0.9998476438,
+    "NRT\/MY median ratio":0.9977442026,
+    "Share within \u00b10.05 log10 (%)":99.9631336406
+  },
+  {
+    "Days":"2026-11-04",
+    "Pixel-days":9617,
+    "Bias (log10)":0.0001025755,
+    "S.d. (log10)":0.0010524965,
+    "RMSD (log10)":0.0010574831,
+    "Correlation":0.999978239,
+    "NRT\/MY median ratio":1.0006153584,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-11-05",
+    "Pixel-days":301,
+    "Bias (log10)":0.0001774989,
+    "S.d. (log10)":0.0018678395,
+    "RMSD (log10)":0.0018762542,
+    "Correlation":0.9996545278,
+    "NRT\/MY median ratio":1.0008672476,
+    "Share within \u00b10.05 log10 (%)":100.0
+  },
+  {
+    "Days":"2026-11-06",
+    "Pixel-days":384,
+    "Bias (log10)":0.0002694713,
+    "S.d. (log10)":0.000519882,
+    "RMSD (log10)":0.0005855699,
+    "Correlation":0.999924132,
+    "NRT\/MY median ratio":1.0008347034,
+    "Share within \u00b10.05 log10 (%)":100.0
+  }
+]

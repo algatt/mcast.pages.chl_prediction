@@ -1,0 +1,178 @@
+[
+  {
+    "Issue day":"2026-10-26",
+    "Pixel-days":1904,
+    "Observed change (log10)":0.0372350998,
+    "RMSE: model":0.0371274762,
+    "RMSE: blend":0.0546709932,
+    "Bias: model":-0.0056674359,
+    "Bias: blend":-0.0348403528,
+    "Better":"Model",
+    "Excess error share (%)":-1.7366968582
+  },
+  {
+    "Issue day":"2026-10-27",
+    "Pixel-days":10017,
+    "Observed change (log10)":0.0056714225,
+    "RMSE: model":0.058598794,
+    "RMSE: blend":0.0491526127,
+    "Bias: model":0.0260158964,
+    "Bias: blend":-0.01399507,
+    "Better":"Blend",
+    "Excess error share (%)":5.7745995192
+  },
+  {
+    "Issue day":"2026-10-28",
+    "Pixel-days":10901,
+    "Observed change (log10)":-0.079161942,
+    "RMSE: model":0.1495018303,
+    "RMSE: blend":0.1192523688,
+    "Bias: model":0.105220452,
+    "Bias: blend":0.0668989643,
+    "Better":"Blend",
+    "Excess error share (%)":50.1931292204
+  },
+  {
+    "Issue day":"2026-10-29",
+    "Pixel-days":6795,
+    "Observed change (log10)":-0.0185691938,
+    "RMSE: model":0.0649151132,
+    "RMSE: blend":0.0536854155,
+    "Bias: model":0.031828396,
+    "Bias: blend":0.0048291888,
+    "Better":"Blend",
+    "Excess error share (%)":5.1256512727
+  },
+  {
+    "Issue day":"2026-10-30",
+    "Pixel-days":6703,
+    "Observed change (log10)":0.046656128,
+    "RMSE: model":0.1012037471,
+    "RMSE: blend":0.1080016941,
+    "Bias: model":0.0007752053,
+    "Bias: blend":-0.025716899,
+    "Better":"Model",
+    "Excess error share (%)":-5.3991460499
+  },
+  {
+    "Issue day":"2026-10-31",
+    "Pixel-days":6146,
+    "Observed change (log10)":0.0729741603,
+    "RMSE: model":0.0624312088,
+    "RMSE: blend":0.0679580718,
+    "Bias: model":-0.0402398556,
+    "Bias: blend":0.0016866057,
+    "Better":"Model",
+    "Excess error share (%)":-2.5085233586
+  },
+  {
+    "Issue day":"2026-11-01",
+    "Pixel-days":4862,
+    "Observed change (log10)":0.1571685821,
+    "RMSE: model":0.1478586942,
+    "RMSE: blend":0.1345921457,
+    "Bias: model":-0.1073569879,
+    "Bias: blend":-0.0926711783,
+    "Better":"Blend",
+    "Excess error share (%)":10.3185951527
+  },
+  {
+    "Issue day":"2026-11-02",
+    "Pixel-days":10849,
+    "Observed change (log10)":0.1479548514,
+    "RMSE: model":0.2492529452,
+    "RMSE: blend":0.2342304289,
+    "Bias: model":-0.1121159419,
+    "Bias: blend":-0.092272602,
+    "Better":"Blend",
+    "Excess error share (%)":44.6291977358
+  },
+  {
+    "Issue day":"2026-11-03",
+    "Pixel-days":9617,
+    "Observed change (log10)":0.1089742407,
+    "RMSE: model":0.1337828934,
+    "RMSE: blend":0.1422270834,
+    "Bias: model":-0.075442858,
+    "Bias: blend":-0.0796054676,
+    "Better":"Model",
+    "Excess error share (%)":-12.6948456295
+  },
+  {
+    "Issue day":"2026-11-04",
+    "Pixel-days":301,
+    "Observed change (log10)":-0.0043541901,
+    "RMSE: model":0.0698290765,
+    "RMSE: blend":0.0893217921,
+    "Bias: model":-0.009369581,
+    "Bias: blend":0.025694238,
+    "Better":"Model",
+    "Excess error share (%)":-0.5288747965
+  },
+  {
+    "Issue day":"2026-11-05",
+    "Pixel-days":384,
+    "Observed change (log10)":-0.009425859,
+    "RMSE: model":0.0289284978,
+    "RMSE: blend":0.0320480093,
+    "Bias: model":-0.0088371923,
+    "Bias: blend":0.0084137898,
+    "Better":"Model",
+    "Excess error share (%)":-0.0413699752
+  },
+  {
+    "Issue day":"2026-11-08",
+    "Pixel-days":288,
+    "Observed change (log10)":0.0243053045,
+    "RMSE: model":0.0306900069,
+    "RMSE: blend":0.0429491438,
+    "Bias: model":-0.0229070149,
+    "Bias: blend":-0.0378048308,
+    "Better":"Model",
+    "Excess error share (%)":-0.1472536551
+  },
+  {
+    "Issue day":"2026-11-09",
+    "Pixel-days":10734,
+    "Observed change (log10)":-0.1293729693,
+    "RMSE: model":0.1824110299,
+    "RMSE: blend":0.1676231921,
+    "Bias: model":0.1300272793,
+    "Bias: blend":0.1031711102,
+    "Better":"Blend",
+    "Excess error share (%)":31.4689450617
+  },
+  {
+    "Issue day":"2026-11-10",
+    "Pixel-days":6332,
+    "Observed change (log10)":0.0046291202,
+    "RMSE: model":0.1035514101,
+    "RMSE: blend":0.1135850623,
+    "Bias: model":-0.0197456181,
+    "Bias: blend":-0.0278372131,
+    "Better":"Model",
+    "Excess error share (%)":-7.8133542154
+  },
+  {
+    "Issue day":"2026-11-11",
+    "Pixel-days":685,
+    "Observed change (log10)":0.0165661089,
+    "RMSE: model":0.0630523562,
+    "RMSE: blend":0.0632491633,
+    "Bias: model":-0.0312906206,
+    "Bias: blend":-0.0279826783,
+    "Better":"Model",
+    "Excess error share (%)":-0.0096435431
+  },
+  {
+    "Issue day":"2026-11-12",
+    "Pixel-days":6401,
+    "Observed change (log10)":-0.0488686599,
+    "RMSE: model":0.0662344322,
+    "RMSE: blend":0.0947323889,
+    "Bias: model":0.023500571,
+    "Bias: blend":0.04879798,
+    "Better":"Model",
+    "Excess error share (%)":-16.630409881
+  }
+]

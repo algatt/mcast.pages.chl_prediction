@@ -1,0 +1,22 @@
+{
+  "saved_utc": "2026-11-14T13:05:05.880028+00:00",
+  "model_file": "chl_forecast_step09.joblib",
+  "model_training_issue_dates": [
+    "2017-01-01",
+    "2024-12-24"
+  ],
+  "live_chl_archive_days": [
+    "2026-10-19",
+    "2026-11-13"
+  ],
+  "first_complete_issue_day": "2026-10-26",
+  "my_dataset_id": "cmems_obs-oc_med_bgc-plankton_my_l3-multi-1km_P1D",
+  "my_copy": "data/raw/my_recent/chl_my_20261114T130506Z.nc",
+  "my_retrieved_utc": "2026-11-14T13:05:06.499736+00:00",
+  "my_complete_to": "2026-11-06",
+  "overlap_days": [
+    "2026-10-19",
+    "2026-11-06"
+  ],
+  "decisive_test_temperature": "NRT in all four combinations"
+}
