@@ -115,6 +115,12 @@ const behindRange = H.map((h) => -gainOf(h).gain)
 const allBehind = H.every((h) => gainOf(h).gain !== null && gainOf(h).gain < 0)
 const clearlyBehind = H.filter((h) => withRange(gainOf(h)) && gainOf(h).high < 0)
 
+// --- The hedge trial (step 12) --------------------------------------------------------------
+const hedgeTest = evaluation.hedge_test ?? null
+const hedgeScore = (h, method) => hedgeTest?.scores.find((r) => r.horizon === `+${h}d` && r.method === method)
+const hedgeDays = hedgeTest ? Math.max(0, ...H.map((h) => hedgeScore(h, 'Forecast model')?.issue_days ?? 0)) : 0
+const step12 = steps.find((s) => s.number === '12')
+
 // --- Live blooms -----------------------------------------------------------------------
 const blooms = live.blooms
 const probabilityLayer = (h, date) => ({
@@ -320,6 +326,40 @@ const sections = [
           more overnight. A few weeks of one autumn are still a small sample, and the ranges above treat neighbouring days as independent,
           so they are, if anything, too narrow.
         </p>
+      </div>
+
+      <div v-if="hedgeTest" class="article mt-8">
+        <h3 class="text-lg font-semibold text-ink-950">A hedge, on trial from {{ longDate(hedgeTest.test_from) }}</h3>
+        <p>
+          One remedy needs no new data: average the model’s forecast and the blend rule’s, on the log scale
+          (<router-link v-if="step12" :to="stepPath(step12)" class="font-semibold text-teal-800 hover:underline">step 12</router-link><span v-else>step 12</span>).
+          On the archive it gives up a little of the model’s gain in a normal year and limits the damage on days like the ones above. Because
+          those days prompted it, it is judged only on forecasts issued from {{ longDate(hedgeTest.test_from) }}, alongside the model and the
+          blend rule.
+        </p>
+        <p>
+          The rule, fixed before the trial: once the 1-day forecast has {{ hedgeTest.decision_days }} scored issue days, publish the hedge or
+          the blend rule instead of the model only if its gain over the model has a 95% range above zero (the larger gain if both do);
+          otherwise keep the model.
+        </p>
+        <p class="font-semibold text-ink-950">{{ hedgeTest.decision.text }}</p>
+      </div>
+
+      <div v-if="hedgeTest && hedgeDays > 0" class="overflow-x-auto my-6">
+        <table class="data-table">
+          <thead><tr><th>Lead time</th><th class="text-right">Issue days</th><th class="text-right">Model</th>
+            <th class="text-right">Hedge</th><th class="text-right">Blend rule</th></tr></thead>
+          <tbody>
+            <tr v-for="h in H" :key="h">
+              <td class="font-semibold text-ink-950">{{ days(h) }}</td>
+              <td class="num">{{ hedgeScore(h, 'Forecast model')?.issue_days ?? 0 }}</td>
+              <td v-for="m in ['Forecast model', 'Hedge', 'Blend rule']" :key="m" class="num">
+                {{ hedgeScore(h, m)?.log_rmse != null ? hedgeScore(h, m).log_rmse.toFixed(3) : '—' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="mt-2 text-xs text-slate-500">Typical log error on the trial’s issue days; lower is better.</p>
       </div>
     </section>
 

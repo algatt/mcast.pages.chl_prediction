@@ -1,0 +1,131 @@
+{
+  "test_from": "2026-11-15",
+  "decision_days": 30,
+  "model_weight": 0.5,
+  "decision": {
+    "status": "waiting",
+    "publish": "Forecast model",
+    "text": "Not decided yet: 0 of 30 issue days at +1 day since 15 November 2026. Keep publishing the model."
+  },
+  "scores": [
+    {
+      "Horizon": "+1d",
+      "Method": "Forecast model",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+1d",
+      "Method": "Hedge",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+1d",
+      "Method": "Blend rule",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Forecast model",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Hedge",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Blend rule",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Forecast model",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Hedge",
+      "Issue days": 0
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Blend rule",
+      "Issue days": 0
+    }
+  ],
+  "gains": [
+    {
+      "Horizon": "+1d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+1d",
+      "Comparison": "Blend vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+1d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Blend vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Blend vs model",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 0,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    }
+  ]
+}

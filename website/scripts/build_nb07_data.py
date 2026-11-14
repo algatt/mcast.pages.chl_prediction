@@ -133,6 +133,18 @@ model_bundle = joblib.load(EXP / "models" / provenance["model_file"])
 evaluation["test_gains"] = [{"horizon": r["Horizon"], "gain": r["Gain (%)"], "low": r["95% low"], "high": r["95% high"]}
                             for r in model_bundle["test_gains"] if r["New model vs"] == "Blend rule"]
 evaluation["test_year"] = int(model_bundle["test_year"])
+# The hedge test (step 12): forecasts issued from its start date only.
+if (run_dir / "hedge_test.json").exists():
+    test = json.loads((run_dir / "hedge_test.json").read_text())
+    evaluation["hedge_test"] = {
+        "test_from": test["test_from"], "decision_days": test["decision_days"], "model_weight": test["model_weight"],
+        "decision": test["decision"],
+        "scores": [{"horizon": r["Horizon"], "method": r["Method"], "issue_days": r["Issue days"],
+                    "log_rmse": clean(r.get("RMSE (log10)"))} for r in test["scores"]],
+        "gains": [{"horizon": r["Horizon"], "comparison": r["Comparison"], "issue_days": r["Issue days"],
+                   "gain": clean(r["Gain (%)"]), "low": clean(r["95% low"]), "high": clean(r["95% high"])}
+                  for r in test["gains"]],
+    }
 if (run_dir / "bloom_scores.json").exists():
     evaluation["blooms"] = [
         {"horizon": r["Horizon"], "method": r["Method"], "issue_days": r["Issue days"], "pixel_days": r["Pixel-days"],

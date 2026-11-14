@@ -65,3 +65,12 @@ MODEL_FEATURES = FINAL_FEATURES + EXTRA_FEATURES
 # the usual value for the month (the "high-chlorophyll days" of steps 05 and 09).
 BLOOM_ANOMALY_LOG10 = 0.2
 BLOOM_MODEL_PATH = BASE / "models" / "bloom_step10.joblib"
+
+# The hedge (step 12): the model's forecast and the blend rule's, averaged on the
+# log scale with this weight on the model. Fixed, not tuned.
+HEDGE_MODEL_WEIGHT = 0.5
+# The live losses that prompted the hedge must not judge it: step 07 tests it on
+# issue days from this date only, and applies the decision rule once the +1-day
+# forecast has this many scored issue days.
+HEDGE_TEST_FROM = "2026-11-15"
+HEDGE_DECISION_DAYS = 30

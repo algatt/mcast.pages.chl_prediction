@@ -44,6 +44,23 @@ def blend_forecast(bundle, inputs, issue_dates, horizon):
     return np.where(mask[None], 10.0 ** blended, np.nan).astype("float32")
 
 
+def hedge(model, blend, weight=None):
+    """The hedge (step 12): the model's and the blend rule's forecasts averaged on
+    the log scale, with `weight` on the model (config.HEDGE_MODEL_WEIGHT)."""
+    from . import config
+
+    weight = config.HEDGE_MODEL_WEIGHT if weight is None else weight
+    with np.errstate(divide="ignore", invalid="ignore"):
+        logs = weight * np.log10(model) + (1 - weight) * np.log10(blend)
+    return (10.0 ** logs).astype("float32")
+
+
+def hedge_forecast(bundle, inputs, issue_dates, horizon, weight=None):
+    """The hedge for every issue day and pixel, like model_forecast."""
+    return hedge(model_forecast(bundle, inputs, issue_dates, horizon),
+                 blend_forecast(bundle, inputs, issue_dates, horizon), weight)
+
+
 def test_year_scores(bundle, history_start="2016-12-01"):
     """Re-score a bundle of the model in use on the test year, from the collated
     observations, with inputs built by the shared recipe (features.model_inputs).

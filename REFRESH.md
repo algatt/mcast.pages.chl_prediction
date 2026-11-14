@@ -19,7 +19,9 @@ from the repository root unless a step says otherwise.
 A scheduled job (a macOS *launch agent*) runs `chlforecast/archive.py` — the same code as
 `08-NRT-Archive.ipynb` — at **07:30 and 15:00** Malta time. Each run saves any new day the live
 Copernicus feed offers, never overwrites a day already saved, and keeps later versions of a day
-separately under `revisions/` if Copernicus changes it.
+separately under `revisions/` if Copernicus changes it. Since 15 November 2026 it also saves both
+ASCAT wind passes (`wind_asc`, `wind_des`, Metop-B, last 30 days each run). No forecast uses wind
+yet; it is kept for a later model (step 12 found that wind events come before sudden changes).
 
 Copernicus publishes yesterday's chlorophyll by 20:00 UTC (in practice often earlier), so the
 07:30 run normally saves it; the 15:00 run picks up the day's temperature (due by 12:00 UTC) and
@@ -102,6 +104,12 @@ Keep at least one run a day: the live feed keeps only about 9 days of chlorophyl
      26 October 2026, the first with a complete 7-day history in the archive.
    - **Live bloom scores** (`bloom_scores.json` in the same folder): the bloom model and the
      anomaly rule against the usual bloom frequency.
+   - **The hedge test** (`hedge_test.json`, same folder): the model, the hedge (model and blend
+     averaged on the log scale) and the blend rule, on issue days from `HEDGE_TEST_FROM`
+     (15 November 2026) only. Its last line says whether the decision rule has been reached:
+     after `HEDGE_DECISION_DAYS` (30) scored issue days at +1 day, publish the hedge or the blend
+     only if its gain over the model has a 95% range above zero. Both settings are in
+     `chlforecast/config.py`; do not change them during the test.
 
    The scores grow by about one issue day per day. As of mid-November 2026 the model beats
    "no change" by about 20% but trails the blend rule; step 11 explains why.
@@ -266,6 +274,7 @@ the code and the website are committed.
 | Date | What |
 |---|---|
 | **24 November 2026** | The archive (multi-year) chlorophyll versions pinned in `01-Data Acquisition.ipynb` (L3 `202411`, L4 `202311`) are retired. Steps 01–06 need moving to the new versions, re-running in order, the check script, and the website data refreshing. Step 11 Part B downloads the archive chlorophyll without a pinned version, so after this date it compares the live feed with the new version. |
+| **About late December 2026** | The hedge test reaches 30 scored issue days at +1 day (fully cloudy days do not count, so possibly later). Step 07's hedge cell then states the decision; if it is the hedge or the blend, ask Claude to switch the published forecast and the website. |
 | **12 January 2027** | The near-real-time gap-filled chlorophyll (`202207`) and temperature (`202311`) versions are retired. The archive's versions are pinned, so it will not switch by itself: when the new versions appear (a `NOTE` in the run log), archive both versions side by side for a couple of weeks, compare them, then change `version` in `SOURCES` in `chlforecast/archive.py`. If the old version disappears first, runs fail with a message naming it. |
 | **After the winter** | Enough live data to score the forecast in the season that matters most — worth a proper write-up on steps 07, 08 and 11. |
 

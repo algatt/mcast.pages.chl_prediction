@@ -1,7 +1,9 @@
 """The daily near-real-time archive (step 08).
 
 Saves every day the live Copernicus feed offers that is not already saved,
-one file per day per product, and never overwrites. Used by
+one file per day per product, and never overwrites. Wind (both ASCAT passes)
+is archived for later use (step 12 found that wind events come before sudden
+changes); no forecast uses it yet. Used by
 08-NRT-Archive.ipynb and by the scheduled job:
 
     cd experiment_v2 && .venv/bin/python -m chlforecast.archive
@@ -42,7 +44,31 @@ SOURCES = {
         "recent_days": 30,  # the SST record goes back to 2008
         "lag_days": config.SST_LAG_DAYS,
     },
+    # ASCAT wind from Metop-B, the satellite of the training data (step 01), one
+    # source per pass. The live feed keeps its whole record, so 30 days suffice.
+    "wind_asc": {
+        "dataset_id": "cmems_obs-wind_glo_phy_nrt_l3-metopb-ascat-asc-0.125deg_P1D-i",
+        "version": "202311",
+        # The first variable is the one counted as "valid pixels" in the log.
+        "variables": ["wind_speed", "eastward_wind", "northward_wind", "measurement_time", "wvc_quality_flag"],
+        "margin": 0.07,  # covers the edge cells of the 0.125° grid
+        "recent_days": 30,
+        "lag_days": config.WIND_LAG_DAYS,
+    },
+    "wind_des": {
+        "dataset_id": "cmems_obs-wind_glo_phy_nrt_l3-metopb-ascat-des-0.125deg_P1D-i",
+        "version": "202311",
+        "variables": ["wind_speed", "eastward_wind", "northward_wind", "measurement_time", "wvc_quality_flag"],
+        "margin": 0.07,
+        "recent_days": 30,
+        "lag_days": config.WIND_LAG_DAYS,
+    },
 }
+
+
+def variables_of(source):
+    """The variables archived for a source (one for most, several for wind)."""
+    return source.get("variables") or [source["variable"]]
 
 
 def open_sources():
@@ -81,7 +107,7 @@ def open_sources():
         data = copernicusmarine.open_dataset(
             dataset_id=source["dataset_id"],
             dataset_version=version,
-            variables=[source["variable"]],
+            variables=variables_of(source),
             minimum_longitude=config.REGION["minimum_longitude"] - source["margin"],
             maximum_longitude=config.REGION["maximum_longitude"] + source["margin"],
             minimum_latitude=config.REGION["minimum_latitude"] - source["margin"],
@@ -123,7 +149,7 @@ def save_new_days(remote, archive_dir=None):
 
     for name, source in SOURCES.items():
         data = remote[name]["data"]
-        variable = source["variable"]
+        names = variables_of(source)
         days = pd.DatetimeIndex(data.time.values)
         if source["recent_days"]:
             newest = days.max().normalize()
@@ -136,15 +162,15 @@ def save_new_days(remote, archive_dir=None):
             path = out_dir / f"{day:%Y-%m-%d}.nc"
             row = {"Source": name, "Date": f"{day:%Y-%m-%d}"}
 
-            field = data[[variable]].sel(time=[day]).load()
-            valid = int(np.isfinite(field[variable]).sum().item())
+            field = data[names].sel(time=[day]).load()
+            valid = int(np.isfinite(field[names[0]]).sum().item())
 
             # The first copy is never overwritten. If the live feed now offers
             # different values for the day (an early file completed later, or a
             # reprocessing), that version is kept too, under revisions/.
             if path.exists():
-                if _same_values(path, field, variable) or _same_as_a_revision(
-                    out_dir, day, field, variable
+                if _same_values(path, field, names) or _same_as_a_revision(
+                    out_dir, day, field, names
                 ):
                     rows.append({**row, "Status": "Already archived"})
                     continue
@@ -167,7 +193,7 @@ def save_new_days(remote, archive_dir=None):
             # leaves a half-written file that looks complete.
             partial = path.with_name(path.name + ".part")
             field.to_netcdf(
-                partial, encoding={variable: {"zlib": True, "complevel": 4}}
+                partial, encoding={v: {"zlib": True, "complevel": 4} for v in names}
             )
             partial.rename(path)
             rows.append({"Status": "Saved", **row, "Valid pixels": valid})
@@ -183,16 +209,17 @@ def save_new_days(remote, archive_dir=None):
     return log
 
 
-def _same_values(path, field, variable):
+def _same_values(path, field, names):
     with xr.open_dataset(path) as stored:
-        return np.array_equal(
-            stored[variable].values, field[variable].values, equal_nan=True
+        return all(
+            np.array_equal(stored[v].values, field[v].values, equal_nan=True)
+            for v in names
         )
 
 
-def _same_as_a_revision(out_dir, day, field, variable):
+def _same_as_a_revision(out_dir, day, field, names):
     return any(
-        _same_values(p, field, variable)
+        _same_values(p, field, names)
         for p in sorted((out_dir / "revisions").glob(f"{day:%Y-%m-%d}_*.nc"))
     )
 
@@ -286,6 +313,10 @@ def load(source, latitude, longitude, archive_dir=None):
         (len(dates), len(latitude), len(longitude)), np.nan, dtype="float32"
     )
     retrieved = {}
+    if "variable" not in SOURCES[source]:
+        raise NotImplementedError(
+            f"{source} is archived for later use; loading it onto the model grid is not written yet"
+        )
     variable = SOURCES[source]["variable"]
 
     for date, path in zip(sorted(chosen), files):
