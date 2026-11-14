@@ -82,6 +82,14 @@ export const steps = [
     question: 'Can we forecast the chance of a bloom, rather than the amount of chlorophyll?',
     ready: true,
   },
+  {
+    number: '11',
+    slug: '11-live-versus-archive',
+    notebook: '11-MY-vs-NRT.ipynb, 11-MY-vs-NRT_part_b.ipynb',
+    title: 'Live versus archive',
+    question: 'Why does the model fall behind a simple rule on live data?',
+    ready: true,
+  },
 ]
 
 export const stepPath = (step) => `/steps/${step.slug}`

@@ -34,6 +34,7 @@ const firstRun = runs[0]
 const runTime = (r) => `${shortDate(r.retrieved_utc.slice(0, 10))}, ${r.retrieved_utc.slice(11, 16)} UTC`
 const step07 = steps.find((s) => s.number === '07')
 const step09 = steps.find((s) => s.number === '09')
+const step11 = steps.find((s) => s.number === '11')
 </script>
 
 <template>
@@ -68,24 +69,29 @@ const step09 = steps.find((s) => s.number === '09')
     <section id="rules" class="mt-14 scroll-mt-24">
       <div class="article">
         <h2>How it works</h2>
-        <p>Five simple rules:</p>
+        <p>Six simple rules:</p>
         <ol>
           <li><strong>One file per day, per product.</strong> Each day is saved on its own, named by its date, for the study
             area only.</li>
-          <li><strong>Never overwrite.</strong> If a day is already saved, it is skipped, even if Copernicus has since revised
-            it. The first copy is what a forecast issued that evening would actually have used.</li>
+          <li><strong>Never overwrite.</strong> If a day is already saved with the same values, it is skipped. If Copernicus has
+            since revised it, the new version is kept alongside, in a <code>revisions</code> folder, and the first copy is never
+            changed. Step 07 then uses, for each forecast, the newest version that had been downloaded by its issue time.</li>
           <li><strong>Record when.</strong> Every file stores the time it was downloaded, and a log lists every save. Over
             time, that shows when data really arrives, instead of assuming the published schedule.</li>
           <li><strong>Never leave half a file.</strong> Each file is written under a temporary name and renamed only when
             complete, so an interrupted run cannot leave a damaged file that looks finished.</li>
           <li><strong>Temperature: only the last 30 days.</strong> The live temperature product already reaches back to 2008,
             so there is no need to copy all of it.</li>
+          <li><strong>Pinned versions.</strong> Each product is downloaded in one fixed version. When Copernicus announces a new
+            version or a retirement date, every run says so in its log, but the archive keeps using the pinned version until the new one
+            has been checked. A silent switch would mix two versions in one record.</li>
         </ol>
       </div>
 
       <div class="my-6 rounded-xl border border-slate-200 bg-white p-4 font-mono text-[12px] leading-relaxed text-slate-700 overflow-x-auto">
         <div>data/raw/nrt_archive/</div>
-        <div>├── chl/        <span class="text-slate-400">2026-10-10.nc, 2026-10-11.nc, …</span></div>
+        <div>├── chl/        <span class="text-slate-400">2026-10-19.nc, 2026-10-20.nc, …</span></div>
+        <div>│   └── revisions/  <span class="text-slate-400">later versions of a day, stamped with their download time</span></div>
         <div>├── chl_l4/     <span class="text-slate-400">2026-10-07.nc, …</span></div>
         <div>├── sst/        <span class="text-slate-400">2026-09-20.nc, …</span></div>
         <div>└── archive_log.csv  <span class="text-slate-400">source, date, saved or skipped, pixels, download time</span></div>
@@ -191,11 +197,12 @@ const step09 = steps.find((s) => s.number === '09')
           </p>
         </div>
         <div class="card">
-          <div class="label-caps">After about a month</div>
+          <div class="label-caps">Done · step 11</div>
           <div class="mt-1 font-semibold text-ink-950">Live versus archive values</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The archive’s interim updates run about a month behind. Once they cover the archived days, the two versions of the same
-            day can be compared directly: how much the values and the gaps differ, and whether the model behaves differently on each.
+            The archive’s interim updates turned out to run about ten days behind, not a month, so the two versions of the same day could
+            be compared within weeks. They are practically identical, in values and in gaps, and the model behaves the same on both
+            (<router-link :to="stepPath(step11)" class="font-semibold text-teal-800 hover:underline">step 11</router-link>).
           </p>
         </div>
         <div class="card">
@@ -212,8 +219,9 @@ const step09 = steps.find((s) => s.number === '09')
     <section id="running" class="mt-14 scroll-mt-24 article">
       <h2>Keeping it going</h2>
       <ul>
-        <li><strong>Run it daily, in the evening.</strong> After 20:00 UTC the previous day’s chlorophyll should be available. Each run
-          takes a few minutes, most of it spent connecting to the Copernicus catalogue.</li>
+        <li><strong>It runs by itself.</strong> A scheduled job on the computer that holds the archive runs it twice a day. Each run takes a
+          few minutes, most of it spent connecting to the Copernicus catalogue, and tries again twice, five minutes apart, if Copernicus
+          cannot be reached.</li>
         <li><strong>Missing a day is fine; missing a week is not.</strong> A later run catches up on anything the live feed still offers,
           but once a day falls out of the window (about 9 days for observed chlorophyll at the moment) it is gone for good.</li>
         <li><strong>Back it up.</strong> The archive lives on one computer and is deliberately not in the code repository. Copying the
@@ -245,8 +253,8 @@ const step09 = steps.find((s) => s.number === '09')
         <div class="card">
           <div class="font-semibold text-ink-950">A working live pipeline, not yet a validated one</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The model runs on the live feed end to end (step 07), and the archive (this step) is collecting what is needed to check it.
-            The live scores will be added to this site when there is enough data to make them meaningful.
+            The model runs on the live feed every day (step 07), and the archive (this step) now holds enough to score it. The first weeks
+            of live scores are in step 07; step 11 explains why the model fell behind a simple rule in them.
           </p>
         </div>
       </div>
@@ -254,6 +262,7 @@ const step09 = steps.find((s) => s.number === '09')
         <router-link to="/" class="button-light">Back to the overview</router-link>
         <router-link :to="stepPath(step07)" class="button-light">Step 07 · Live data validation</router-link>
         <router-link :to="stepPath(step09)" class="button-light">Step 09 · Model improvements</router-link>
+        <router-link :to="stepPath(step11)" class="button-light">Step 11 · Live versus archive</router-link>
       </div>
     </section>
   </StepLayout>

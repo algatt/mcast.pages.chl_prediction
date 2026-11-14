@@ -5,9 +5,10 @@ from the repository root unless a step says otherwise.
 
 | How often | What | Time needed |
 |---|---|---|
-| Automatic, twice a day | The live archive (step 08) saves new data at 09:00 and 22:15 | — |
+| Automatic, twice a day | The live archive (step 08) saves new data at 07:30 and 15:00 | — |
 | Every few days | Glance at the archive log | 1 min |
 | About once a week | Run `07-NRT-Input-Validation.ipynb`, then refresh the website data | ~10 min |
+| Every week or two | Run the two step 11 notebooks (live versus archive), then refresh their page | ~5 min |
 | When you want the site to change | Build, check and deploy the website | ~5 min |
 | Every so often | Back up the archive, commit | ~2 min |
 
@@ -16,13 +17,19 @@ from the repository root unless a step says otherwise.
 ## The live archive runs by itself
 
 A scheduled job (a macOS *launch agent*) runs `chlforecast/archive.py` — the same code as
-`08-NRT-Archive.ipynb` — at **09:00 and 22:15** Malta time. Each run saves any new day the live
+`08-NRT-Archive.ipynb` — at **07:30 and 15:00** Malta time. Each run saves any new day the live
 Copernicus feed offers, never overwrites a day already saved, and keeps later versions of a day
 separately under `revisions/` if Copernicus changes it.
 
-Why those times: Copernicus publishes yesterday's chlorophyll by 20:00 UTC. 22:15 in Malta is
-after that all year (20:15 UTC in summer time, 21:15 UTC in winter time), so the complete file
-is always saved before it is needed. 09:00 is a safety net.
+Copernicus publishes yesterday's chlorophyll by 20:00 UTC (in practice often earlier), so the
+07:30 run normally saves it; the 15:00 run picks up the day's temperature (due by 12:00 UTC) and
+anything the morning run missed. If Copernicus cannot be reached, a run tries again twice, five
+minutes apart, before giving up; the next run then catches up.
+
+Each product is downloaded in a **pinned version** (`SOURCES` in `chlforecast/archive.py`). When
+Copernicus offers a newer version, or announces a retirement date, every run prints a `NOTE`
+line, but keeps using the pinned version. If a pinned version is no longer offered, the run
+fails with a message saying so, rather than switching silently.
 
 - **Mac asleep** at a run time: the job runs as soon as it wakes.
 - **Mac switched off**: that run is skipped; the next one catches up, as long as no more than
@@ -38,6 +45,9 @@ tail -20 experiment_v2/data/raw/nrt_archive/scheduled_runs.log
 # One line per run: how many days each run saved
 grep -E "Archive run started|Saved .* new day|Kept .* later version|FAILED" \
   experiment_v2/data/raw/nrt_archive/scheduled_runs.log | tail -20
+
+# Version notices: newer versions offered, retirement dates
+grep "^NOTE" experiment_v2/data/raw/nrt_archive/scheduled_runs.log | sort | uniq -c
 ```
 
 What good looks like: every run ends with the holdings table, **Missing days: None** for every
@@ -71,8 +81,7 @@ launchctl bootout gui/$(id -u)/com.alangatt.chl-archive
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.alangatt.chl-archive.plist
 ```
 
-Keep one run **after 22:00 Malta time until 24 October 2026** and **after 21:00 from 25 October**
-(after 20:00 UTC either way).
+Keep at least one run a day: the live feed keeps only about 9 days of chlorophyll.
 
 ---
 
@@ -84,16 +93,18 @@ Keep one run **after 22:00 Malta time until 24 October 2026** and **after 21:00 
    prints a NOTE if the archive's newest data is older than today — normally the scheduled job
    has already run.
 3. What it produces:
-   - **Today's live forecast** (cells 4–5), saved in
-     `experiment_v2/data/processed/nrt_forecasts/<run time>/`.
-   - **Scores of past live forecasts** (cell 6) against what the satellite later saw, for the
-     model, the blend rule and "no change". They only count issue days with a complete 7-day
-     history in the archive, so the numbers grow over time:
-     - **+1 day** is scored from 17 October 2026;
-     - **+7 days** from about 25 October;
-     - the **95% ranges** appear once a lead time has 10 or more scored issue days (early November).
+   - **Today's live forecast** and its map, saved in
+     `experiment_v2/data/processed/nrt_forecasts/<run time>/`, with **today's bloom
+     probabilities** (`bloom_probabilities.nc` and `.png`, from the step 10 model).
+   - **Scores of past live forecasts** against what the satellite later saw, for the model, the
+     blend rule and "no change", with the gain over the blend rule and its 95% range, saved in
+     `experiment_v2/data/processed/nrt_evaluation/<run time>/`. Issue days count from
+     26 October 2026, the first with a complete 7-day history in the archive.
+   - **Live bloom scores** (`bloom_scores.json` in the same folder): the bloom model and the
+     anomaly rule against the usual bloom frequency.
 
-   Until then the scores are a handful of days and say nothing about skill.
+   The scores grow by about one issue day per day. As of mid-November 2026 the model beats
+   "no change" by about 20% but trails the blend rule; step 11 explains why.
 
 Each run of step 07 creates new `nrt_forecasts/<run time>/` and `nrt_evaluation/<run time>/`
 folders. If you ran it several times in one day, delete the extras and keep the last one.
@@ -114,9 +125,20 @@ experiment_v2/.venv/bin/python website/scripts/build_nb08_data.py
 
 Each prints a short summary — check the dates and day counts look right.
 
-> **Not done yet:** the step 07 page still shows the 7 October check made with the earlier model.
-> Once the live scores have a couple of weeks of days (early November), ask Claude to update
-> `build_nb07_data.py` and the step 07 page to show the new scores from `nrt_evaluation/`.
+The step 07 page reads the newest folders in `nrt_forecasts/` and `nrt_evaluation/`. Some of its
+sentences describe the live scores in words (which method is ahead, which ranges exclude zero);
+after a refresh, read the "How it has done so far" and "Live bloom forecasts" sections and check
+they still match the figures.
+
+**After re-running the step 11 notebooks** (`11-MY-vs-NRT.ipynb` and `11-MY-vs-NRT_part_b.ipynb`):
+
+```bash
+experiment_v2/.venv/bin/python website/scripts/build_nb11_data.py
+```
+
+It reads the newest Part A and Part B folders in `experiment_v2/data/processed/my_vs_nrt/`. Part B
+downloads the archive's latest interim chlorophyll itself (about ten days behind real time), so
+the overlap with the live archive grows each time it is run.
 
 **Only if you re-ran notebooks 01–06** (for example after a dataset version change):
 
@@ -127,7 +149,7 @@ Each prints a short summary — check the dates and day counts look right.
 | 04 Forecast Preparation | `build_nb04_data.py` |
 | 05 Baselines and Modelling (new model) | `build_nb05_data.py`, `build_nb06_data.py` |
 | 09 Model Improvements (new candidate), then promoted it | `build_nb09_data.py` (and `build_nb07_data.py` after the next step 07 run) |
-| 10 Bloom Prediction | `build_nb10_data.py` |
+| 10 Bloom Prediction | `build_nb10_data.py` (and `build_nb07_data.py` after the next step 07 run) |
 
 The scripts check themselves: `build_nb05_data.py`, `build_nb06_data.py`, `build_nb09_data.py` and `build_nb10_data.py`
 stop with an error if their re-run of the model does not reproduce the scores saved in the model file, and
@@ -175,7 +197,7 @@ the build succeeds.
 | `models/chl_forecast_1_4_7d.joblib` | The first model (step 05), 11 inputs. Kept unchanged as the record. | Steps 05–06, their website pages, part 2 of the check |
 | `models/chl_forecast_candidate_step09.joblib` | Saved by step 09; the tested candidate. | The promotion script |
 | `models/chl_forecast_step09.joblib` | **The model in use** since 21 October 2026, 18 inputs. Built from the candidate. | Step 07 (the live forecast), step 09's page, part 3 of the check |
-| `models/bloom_step10.joblib` | The bloom probability model and its results (step 10). Not used live. | Step 10's page |
+| `models/bloom_step10.joblib` | The bloom probability model and its results (step 10). | Step 07 (live bloom probabilities), step 10's page |
 
 `config.MODEL_PATH` points to the model in use; `config.STEP05_MODEL_PATH` to the first one.
 
@@ -243,11 +265,9 @@ the code and the website are committed.
 
 | Date | What |
 |---|---|
-| **25 October 2026** | Clocks go back. The 22:15 run still lands after 20:00 UTC, so no change is needed (it could move to 21:15). About this date, step 07 can first score a 7-day live forecast. |
-| **Early November 2026** | Enough live issue days for step 07's 95% ranges; time to update the step 07 page (see above). Step 07 re-issues every past live forecast from the archive with the model in use, so all its scores are for the step 09 model. |
-| **24 November 2026** | The archive (multi-year) chlorophyll versions pinned in `01-Data Acquisition.ipynb` (L3 `202411`, L4 `202311`) are retired. Steps 01–06 need moving to the new versions, re-running in order, the check script, and the website data refreshing. |
-| **12 January 2027** | The near-real-time gap-filled chlorophyll (`202207`) and temperature (`202311`) versions are retired. The archive picks up the new versions by itself and records the version in every file, but check the first days after the switch in step 07: compare a few days' values before and after. |
-| **After the winter** | Enough live data to score the forecast in the season that matters most — worth a proper write-up on steps 07–08. |
+| **24 November 2026** | The archive (multi-year) chlorophyll versions pinned in `01-Data Acquisition.ipynb` (L3 `202411`, L4 `202311`) are retired. Steps 01–06 need moving to the new versions, re-running in order, the check script, and the website data refreshing. Step 11 Part B downloads the archive chlorophyll without a pinned version, so after this date it compares the live feed with the new version. |
+| **12 January 2027** | The near-real-time gap-filled chlorophyll (`202207`) and temperature (`202311`) versions are retired. The archive's versions are pinned, so it will not switch by itself: when the new versions appear (a `NOTE` in the run log), archive both versions side by side for a couple of weeks, compare them, then change `version` in `SOURCES` in `chlforecast/archive.py`. If the old version disappears first, runs fail with a message naming it. |
+| **After the winter** | Enough live data to score the forecast in the season that matters most — worth a proper write-up on steps 07, 08 and 11. |
 
 ## If something goes wrong
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import nb10 from '../data/nb10.json'
+import { steps, stepPath } from '../data/steps.js'
 import { unpack } from '../data/packed.js'
 import { BLOOM, BLOOM_RAMP } from '../data/ramps.js'
 import StepLayout from '../components/StepLayout.vue'
@@ -12,6 +13,7 @@ import ReliabilityChart from '../components/ReliabilityChart.vue'
 import StatTile from '../components/StatTile.vue'
 
 const H = [1, 4, 7]
+const step07 = steps.find((s) => s.number === '07')
 const { grid } = nb10
 const rows = grid.latitude.length
 const cols = grid.longitude.length
@@ -508,6 +510,15 @@ const sections = [
             The natural next step is to correct the model’s confidence using recent data, with the rule fixed in advance and checked on
             live data rather than on 2025, which has now been used. Blooms that start under cloud will remain out of reach of any
             forecast built only on satellite chlorophyll.
+          </p>
+        </div>
+        <div class="card">
+          <div class="font-semibold text-ink-950">Now run live</div>
+          <p class="mt-1 text-sm text-slate-600 leading-relaxed">
+            Since November 2026 the bloom model runs every day with the live forecast, and its probabilities are scored like the chlorophyll
+            forecasts (<router-link :to="stepPath(step07)" class="font-semibold text-teal-800 hover:underline">step 07</router-link>). In its first
+            weeks, an autumn of sudden rises and falls, the usual frequency did better at 1 and 4 days than either the model or the anomaly rule,
+            so the live bloom maps are treated as an experiment, not a warning service.
           </p>
         </div>
       </div>

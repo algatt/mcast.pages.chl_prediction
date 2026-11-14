@@ -1,9 +1,9 @@
 """Build the data behind the Step 07 page (07-NRT-Input-Validation.ipynb).
 
-Reads the most recent live (near-real-time) forecast the notebook saved, the
-local NRT archive written by 08-NRT-Archive.ipynb, and the earlier batch check
-from 7 October 2026 (made with the previous model), and saves
-website/src/data/nb07.json.
+Reads the most recent live (near-real-time) forecast the notebook saved, with
+its bloom probabilities, the most recent live evaluation (scores of past live
+forecasts, chlorophyll and blooms), and the local NRT archive written by
+08-NRT-Archive.ipynb, and saves website/src/data/nb07.json.
 
 Run from the repository root with the experiment environment:
 
@@ -14,6 +14,7 @@ from pathlib import Path
 import base64
 import json
 
+import joblib
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -21,8 +22,8 @@ import xarray as xr
 ROOT = Path(__file__).resolve().parents[2]
 EXP = ROOT / "experiment_v2"
 FORECASTS = EXP / "data/processed/nrt_forecasts"
+EVALUATIONS = EXP / "data/processed/nrt_evaluation"
 ARCHIVE = EXP / "data/raw/nrt_archive"
-EARLIER = EXP / "data/processed/nrt_batch_evaluation/20261007T135242Z"
 L4 = EXP / "data/chl_l3_l4_comparison/chl_L4_2022-01-01_2025-12-31_13.9_15.2_35.55_36.9.nc"
 OUT_PATH = ROOT / "website/src/data/nb07.json"
 
@@ -77,6 +78,24 @@ live = {
         "fallback": pack(np.where(mask & ~history, 1.0, np.where(mask, 0.0, np.nan)), 0.0, 1.0),
     },
 }
+# When the newest chlorophyll was first downloaded, to compare with the 20:00 UTC schedule.
+with xr.open_dataset(ARCHIVE / "chl" / f"{live['latest_chl_date']}.nc") as ds:
+    live["chl_retrieved_utc"] = ds.attrs.get("retrieved_utc", "")
+
+# Today's bloom probabilities (step 10's model, run by step 07).
+blooms_path = latest / "bloom_probabilities.nc"
+if blooms_path.exists():
+    with xr.open_dataset(blooms_path) as b:
+        live["blooms"] = {
+            "model_file": b.attrs.get("bloom_model_file", ""),
+            "thresholds": {str(int(h)): float(b["warning_threshold"].sel(horizon=h)) for h in b.horizon.values},
+            "area_warned_pct": {str(int(h)): float(100 * b["bloom_warning"].sel(horizon=h).values[mask].mean())
+                                for h in b.horizon.values},
+            "highest_pct": {str(int(h)): float(100 * np.nanmax(b["bloom_probability"].sel(horizon=h).values[mask]))
+                            for h in b.horizon.values},
+        }
+        live["maps"].update({f"bloom_{int(h)}": pack(np.where(mask, b["bloom_probability"].sel(horizon=h).values, np.nan), 0.0, 1.0)
+                             for h in b.horizon.values})
 sst_values = inputs["sst_c"].values[mask & np.isfinite(inputs["sst_c"].values)]
 # None when the forecast was issued before the issue day's temperature was archived.
 live["sst_range"] = [float(sst_values.min()), float(sst_values.max())] if sst_values.size else None
@@ -91,17 +110,38 @@ for source in ["chl", "chl_l4", "sst"]:
 log = pd.read_csv(ARCHIVE / "archive_log.csv")
 archive["runs"] = int(log["Retrieved (UTC)"].nunique())
 
-# --- The earlier check, with the earlier model ---------------------------------------
-earlier_rows = json.loads((EARLIER / "l3_shared_pixels.json").read_text())
-provenance = json.loads((EARLIER / "provenance.json").read_text())
-earlier = {
-    "issue_dates": [provenance["issue_dates"][0], provenance["issue_dates"][-1]],
-    "n_issue_dates": len(provenance["issue_dates"]),
-    "features": len(provenance["features"]),
-    "rows": [{"horizon": r["Horizon"], "history": r["Input history"], "method": r["Method"],
-              "issue_dates": r["Scored issue dates"], "pixel_days": r["Scored pixel-days"],
-              "log_rmse": r["RMSE (log10)"]} for r in earlier_rows],
+# --- Scores of past live forecasts (the most recent run of step 07) ------------------
+run_dir = sorted(p for p in EVALUATIONS.iterdir() if (p / "scores.json").exists())[-1]
+provenance = json.loads((run_dir / "provenance.json").read_text())
+clean = lambda v: None if v is None or (isinstance(v, float) and not np.isfinite(v)) else v
+evaluation = {
+    "run": run_dir.name,
+    "saved_utc": provenance["saved_utc"],
+    "first_issue_day": provenance["first_complete_issue_day"],
+    "last_target_day": provenance["chl_archive_days"][1],
+    "model_file": provenance["model_file"],
+    "scores": [{"horizon": r["Horizon"], "method": r["Method"], "issue_days": r["Scored issue days"],
+                "pixel_days": r["Scored pixel-days"], "log_rmse": r["RMSE (log10)"],
+                "median_error_pct": r["Median relative error (%)"]}
+               for r in json.loads((run_dir / "scores.json").read_text())],
+    "gains": [{"horizon": r["Horizon"], "issue_days": r["Issue days"], "gain": clean(r["Gain over blend (%)"]),
+               "low": clean(r["95% low"]), "high": clean(r["95% high"])}
+              for r in json.loads((run_dir / "gain_intervals.json").read_text())],
 }
+# For comparison: the same gain on the 2025 test year, saved with the model in use (step 09).
+model_bundle = joblib.load(EXP / "models" / provenance["model_file"])
+evaluation["test_gains"] = [{"horizon": r["Horizon"], "gain": r["Gain (%)"], "low": r["95% low"], "high": r["95% high"]}
+                            for r in model_bundle["test_gains"] if r["New model vs"] == "Blend rule"]
+evaluation["test_year"] = int(model_bundle["test_year"])
+if (run_dir / "bloom_scores.json").exists():
+    evaluation["blooms"] = [
+        {"horizon": r["Horizon"], "method": r["Method"], "issue_days": r["Issue days"], "pixel_days": r["Pixel-days"],
+         "bloom_pct": r["Bloom share (%)"], "mean_probability_pct": r["Mean probability (%)"],
+         "skill_vs_usual": clean(r["Skill vs usual frequency (%)"]),
+         "low_vs_usual": clean(r["vs usual frequency: 95% low"]), "high_vs_usual": clean(r["vs usual frequency: 95% high"]),
+         "warnings": clean(r.get("Warnings")), "hit_rate_pct": clean(r.get("Hit rate (%)")),
+         "false_alarm_pct": clean(r.get("False alarm ratio (%)"))}
+        for r in json.loads((run_dir / "bloom_scores.json").read_text())]
 
 OUT_PATH.write_text(json.dumps({
     "grid": {
@@ -111,10 +151,12 @@ OUT_PATH.write_text(json.dumps({
     },
     "live": live,
     "archive": archive,
-    "earlier": earlier,
+    "evaluation": evaluation,
 }, separators=(",", ":")))
 
 print(json.dumps({k: v for k, v in live.items() if k != "maps"}, indent=1))
 print(json.dumps(archive, indent=1))
-print(f"Earlier check: {earlier['n_issue_dates']} issue dates, {earlier['features']} inputs")
+print(f"Live evaluation {evaluation['run']}: issue days from {evaluation['first_issue_day']}, "
+      f"targets to {evaluation['last_target_day']}; gains over blend "
+      + ", ".join(f"{g['horizon']} {g['gain']:+.1f}%" for g in evaluation["gains"] if g["gain"] is not None))
 print(f"Wrote {OUT_PATH.relative_to(ROOT)} ({OUT_PATH.stat().st_size / 1024:.0f} KB)")

@@ -24,7 +24,7 @@ const rules = [
       <div class="container-page relative py-14 md:py-20">
         <div class="flex flex-wrap items-center gap-2.5">
           <span class="hero-kicker">Experiment v2</span>
-          <span class="hero-meta">Malta–Sicily Channel · satellite data 2008–2025</span>
+          <span class="hero-meta">Malta–Sicily Channel · satellite data 2008–2025 · live since October 2026</span>
         </div>
         <h1 class="mt-6 max-w-4xl text-[2.4rem] sm:text-5xl lg:text-[3.9rem] leading-[1.02] font-semibold tracking-[-0.045em]">
           Forecasting chlorophyll around Malta, <span class="text-cyan-200">one step at a time.</span>
@@ -61,9 +61,9 @@ const rules = [
     <section id="steps" class="border-y border-slate-200 bg-white">
       <div class="container-page py-14 md:py-20">
         <div class="label-caps">The steps</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">Ten steps, each answering one question</h2>
+        <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">Eleven steps, each answering one question</h2>
         <p class="mt-3 max-w-2xl text-slate-600">
-          Each page explains what one step did, why, and what it found. Every step is one Jupyter notebook in the experiment. Live scores will be added to steps 07–08 once enough live data has been collected.
+          Each page explains what one step did, why, and what it found. Every step is one Jupyter notebook in the experiment (step 11 has two). Steps 07, 08 and 11 follow the live forecast, which has run every day since October 2026.
         </p>
 
         <ol class="mt-8 divide-y divide-slate-200 border-y border-slate-200">
@@ -93,8 +93,9 @@ const rules = [
           <div class="label-caps">Where the story ends up</div>
           <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">A short preview of the results</h2>
           <p class="mt-3 text-slate-600 leading-relaxed">
-            The details belong to steps 05–10, but a reader may want to know the destination first.
-            All figures are for 2025, a year the model never saw while it was being built.
+            The details belong to steps 05–11, but a reader may want to know the destination first.
+            The first three findings are for 2025, a year the model never saw while it was being built; the last is from
+            the first weeks of live forecasting.
           </p>
         </div>
         <ul class="space-y-4">
@@ -118,6 +119,14 @@ const rules = [
             <p class="mt-1 text-sm text-slate-600 leading-relaxed">
               On days when chlorophyll is well above normal, every forecast of the amount underestimates it. Forecasting
               the <em>chance</em> of a bloom instead helps a day ahead — but a simple rule does as well as a trained model (step 10).
+            </p>
+          </li>
+          <li class="card">
+            <div class="font-semibold text-ink-950">Live, so far: good data, hard days</div>
+            <p class="mt-1 text-sm text-slate-600 leading-relaxed">
+              The near-real-time feed a live forecast receives turns out to match the reprocessed archive almost exactly. In its first
+              weeks live, the model still beat “no change” clearly, but fell behind the blend rule, because of a few days when chlorophyll
+              jumped or dropped sharply overnight (steps 07 and 11). A few weeks of one autumn are a small sample.
             </p>
           </li>
         </ul>

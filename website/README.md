@@ -24,6 +24,9 @@ experiment_v2/.venv/bin/python website/scripts/build_nb05_data.py   # → src/da
 experiment_v2/.venv/bin/python website/scripts/build_nb06_data.py   # → src/data/nb06.json
 experiment_v2/.venv/bin/python website/scripts/build_nb07_data.py   # → src/data/nb07.json
 experiment_v2/.venv/bin/python website/scripts/build_nb08_data.py   # → src/data/nb08.json
+experiment_v2/.venv/bin/python website/scripts/build_nb09_data.py   # → src/data/nb09.json
+experiment_v2/.venv/bin/python website/scripts/build_nb10_data.py   # → src/data/nb10.json
+experiment_v2/.venv/bin/python website/scripts/build_nb11_data.py   # → src/data/nb11.json
 ```
 
 The scripts need the files that notebooks 01, 02, 04 and 05 write (05 and 06: the saved model; 07: the latest live forecast and the NRT archive from notebook 08).
