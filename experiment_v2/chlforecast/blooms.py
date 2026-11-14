@@ -132,3 +132,43 @@ def _lagged(values, lag):
     out = np.zeros_like(values, dtype="float64")
     out[lag:] = values[:-lag] if lag else values
     return out
+
+
+def bloom_probabilities(bloom_bundle, inputs, issue_dates, horizon, mask):
+    """Bloom probabilities `horizon` days ahead, for every issue day and every
+    modelled pixel, from inputs built by features.model_inputs (steps 07 and 10).
+
+    Returns {"Bloom model", "Anomaly rule", "Usual frequency"}: arrays shaped
+    (time, latitude, longitude), NaN outside the model mask. The two rules are
+    the references the bloom model is scored against in step 10.
+
+    Pixels with no chlorophyll history get the usual frequency from both the
+    bloom model and the anomaly rule, as model_forecast falls back to the usual
+    value: neither was trained on more than a handful of such pixels (the
+    anomaly rule's no-history entry rests on so few rows that it can be 1.0).
+    """
+    import pandas as pd
+
+    if bloom_bundle["method"] != "Classifier":
+        raise ValueError(f"Live bloom probabilities support the Classifier method, not {bloom_bundle['method']!r}")
+    shape = np.shape(inputs["chl_latest"])
+    t, i, j = np.nonzero(np.broadcast_to(mask, shape))
+    names = bloom_bundle["feature_names"]
+    X = pd.DataFrame({name: np.broadcast_to(inputs[name], shape)[t, i, j] for name in names}).astype("float32")
+    target_month = (pd.DatetimeIndex(issue_dates) + pd.Timedelta(days=int(horizon))).month.to_numpy()
+    anomaly = np.broadcast_to(inputs["chl_anomaly_log"], shape)[t, i, j].astype("float64")
+
+    usual = bloom_bundle["usual_frequency"][horizon][target_month[t] - 1, i, j]
+    has_history = np.isfinite(X["chl_latest"].to_numpy())
+    values = {
+        "Bloom model": np.where(has_history, bloom_bundle["models"][horizon].predict_proba(X[names])[:, 1], usual),
+        "Anomaly rule": np.where(has_history, anomaly_rule(bloom_bundle["anomaly_rule"][horizon], anomaly,
+                                                           bloom_bundle["anomaly_bins"]), usual),
+        "Usual frequency": usual,
+    }
+    out = {}
+    for name, v in values.items():
+        field = np.full(shape, np.nan, dtype="float32")
+        field[t, i, j] = v
+        out[name] = field
+    return out
