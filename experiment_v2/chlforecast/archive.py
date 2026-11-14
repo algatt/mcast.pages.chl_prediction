@@ -20,6 +20,7 @@ from . import config
 SOURCES = {
     "chl": {
         "dataset_id": "cmems_obs-oc_med_bgc-plankton_nrt_l3-multi-1km_P1D",
+        "version": "202211",
         "variable": "CHL",
         "margin": 0.0,
         "recent_days": None,  # keep every day the rolling window offers
@@ -28,12 +29,14 @@ SOURCES = {
     "chl_l4": {
         "dataset_id": "cmems_obs-oc_med_bgc-plankton_nrt_l4-gapfree-multi-1km_P1D",
         "variable": "CHL",
+        "version": "202207",
         "margin": 0.0,
         "recent_days": None,
         "lag_days": config.CHL_LAG_DAYS,
     },
     "sst": {
         "dataset_id": "SST_MED_SST_L3S_NRT_OBSERVATIONS_010_012_a",
+        "version": "202311",
         "variable": "adjusted_sea_surface_temperature",
         "margin": 0.07,  # covers the edge SST cells, as in step 07
         "recent_days": 30,  # the SST record goes back to 2008
@@ -55,7 +58,26 @@ def open_sources():
             for d in product.datasets
             if d.dataset_id == source["dataset_id"]
         )
-        version = dataset.versions[0].label
+        offered_versions = {v.label: v for v in dataset.versions}
+        version = source["version"]
+        if version not in offered_versions:
+            raise RuntimeError(
+                f"{name}: pinned version {version} is no longer offered "
+                f"(offered: {sorted(offered_versions)}). Compare the new version, "
+                "then update SOURCES."
+            )
+        newer = sorted(set(offered_versions) - {version})
+        if newer:
+            print(
+                f"NOTE {name}: other version(s) offered {newer}; still using {version}",
+                flush=True,
+            )
+        retires = [
+            p.retired_date for p in offered_versions[version].parts if p.retired_date
+        ]
+        if retires:
+            print(f"NOTE {name}: version {version} retires {min(retires)}", flush=True)
+
         data = copernicusmarine.open_dataset(
             dataset_id=source["dataset_id"],
             dataset_version=version,
