@@ -396,7 +396,7 @@ const sections = [
           <p>
             Scored in the same way as the chlorophyll forecasts, over the same days, blooms made up
             {{ bloomScore(1, 'Bloom model').bloom_pct.toFixed(1) }}–{{ bloomScore(7, 'Bloom model').bloom_pct.toFixed(1) }}% of observed
-            pixel-days, close to the 2024–2025 rate. Each method is compared with the usual bloom frequency for the pixel and month, using
+            pixel-days, at or a little above the 2024–2025 rate. Each method is compared with the usual bloom frequency for the pixel and month, using
             the Brier score (the mean squared difference between probability and outcome).
           </p>
         </div>
@@ -429,9 +429,10 @@ const sections = [
       <ol>
         <li><strong>A longer live score.</strong> Re-run this step every week or two; the ranges narrow as days accumulate. The score that matters
           most will come after a winter and spring, when chlorophyll is highest and changes fastest.</li>
-        <li><strong>Sudden changes.</strong> The live losses come from a few days of rapid change (step 11). Step 05 found that daily wind
-          adds little on average; whether wind <em>events</em>, a few days of strong wind that mix the water, announce these changes has not
-          yet been tested. Another option is to hedge the model’s forecast towards the blend rule’s.</li>
+        <li><strong>Sudden changes.</strong> The live losses come from a few days of rapid change (step 11). Step 12 found that, in the
+          archive, days of strong wind come before such changes: sudden-change days are about twice as common after the windiest days as
+          after the calmest. But wind says how much chlorophyll is likely to change, not which way, so using it needs a new model. The
+          archive has saved the live wind since 15 November 2026 for that. Meanwhile the hedge is on trial (above).</li>
         <li><strong>Delivery times.</strong> Use the download times recorded by step 08 to check how often chlorophyll really
           arrives before 20:30 UTC, the margin every forecast depends on.</li>
         <li><strong>Version changes.</strong> The archive chlorophyll version used for training retires on 24 November 2026 (step 01), and the

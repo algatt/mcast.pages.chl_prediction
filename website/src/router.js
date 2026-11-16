@@ -15,6 +15,7 @@ const pages = {
   '09': () => import('./pages/Step09.vue'),
   '10': () => import('./pages/Step10.vue'),
   '11': () => import('./pages/Step11.vue'),
+  '12': () => import('./pages/Step12.vue'),
 }
 
 const routes = [

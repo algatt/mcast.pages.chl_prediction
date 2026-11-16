@@ -158,6 +158,7 @@ the overlap with the live archive grows each time it is run.
 | 05 Baselines and Modelling (new model) | `build_nb05_data.py`, `build_nb06_data.py` |
 | 09 Model Improvements (new candidate), then promoted it | `build_nb09_data.py` (and `build_nb07_data.py` after the next step 07 run) |
 | 10 Bloom Prediction | `build_nb10_data.py` (and `build_nb07_data.py` after the next step 07 run) |
+| 12 Wind Event Check | `build_nb12_data.py` (it stops if it cannot reproduce the notebook's saved results) |
 
 The scripts check themselves: `build_nb05_data.py`, `build_nb06_data.py`, `build_nb09_data.py` and `build_nb10_data.py`
 stop with an error if their re-run of the model does not reproduce the scores saved in the model file, and

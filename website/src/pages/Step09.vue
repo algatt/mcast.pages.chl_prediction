@@ -405,10 +405,10 @@ const sections = [
           </p>
         </div>
         <div class="card">
-          <div class="font-semibold text-ink-950">Live scores still to come</div>
+          <div class="font-semibold text-ink-950">Live scores</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The archive (step 08) keeps collecting the live data needed to score the new model on the live feed. Those scores will be
-            added to step 07 when there are enough days to mean something.
+            Step 07 now scores this model on the live feed. In its first weeks it beat “no change” clearly but fell behind the blend rule,
+            because of a few days of sudden change (step 11).
           </p>
         </div>
       </div>

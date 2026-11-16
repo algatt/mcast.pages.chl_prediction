@@ -10,7 +10,7 @@ Daily chl-a forecasting (H+1 → H+7) for the central Mediterranean, built on **
 
 ```
 mcast.pages.chl_prediction/
-├── experiment_v2/        # current experiment: notebooks 01–08, model, small results
+├── experiment_v2/        # current experiment: notebooks 01–12, models, small results
 ├── website/              # site for experiment v2, one page per notebook
 ├── experiment/           # earlier experiment (v1)
 └── archive/website_v1/   # the v1 site, kept as source

@@ -90,6 +90,14 @@ export const steps = [
     question: 'Why does the model fall behind a simple rule on live data?',
     ready: true,
   },
+  {
+    number: '12',
+    slug: '12-wind-events',
+    notebook: '12-Wind-Event-Check.ipynb',
+    title: 'Wind events',
+    question: 'Do days of strong wind come before the sudden changes the model misses?',
+    ready: true,
+  },
 ]
 
 export const stepPath = (step) => `/steps/${step.slug}`

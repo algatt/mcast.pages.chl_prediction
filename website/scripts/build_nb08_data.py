@@ -27,7 +27,7 @@ log = pd.read_csv(ARCHIVE / "archive_log.csv")
 saved = log[log["Status"] == "Saved"]
 
 sources = {}
-for source in ["chl", "chl_l4", "sst"]:
+for source in ["chl", "chl_l4", "sst", "wind_asc", "wind_des"]:
     files = sorted((ARCHIVE / source).glob("*.nc"))
     dates = [p.stem for p in files]
     expected = pd.date_range(dates[0], dates[-1], freq="D").strftime("%Y-%m-%d")

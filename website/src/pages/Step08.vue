@@ -21,12 +21,17 @@ const days = computed(() => {
   for (let d = allFirst; d <= allLast; d = addDays(d, 1)) out.push(d)
   return out
 })
+// Wind rows appear once nb08.json includes the wind passes (archived since 15 November 2026).
 const rows = [
   { key: 'chl', label: 'Chlorophyll', note: 'observed (L3)' },
   { key: 'chl_l4', label: 'Chlorophyll', note: 'gap-filled (L4)' },
   { key: 'sst', label: 'Sea temperature', note: 'last 30 days' },
-]
-const held = (key, d) => d >= sources[key].first && d <= sources[key].last && !sources[key].missing.includes(d)
+  { key: 'wind_asc', label: 'Wind', note: 'evening pass, last 30 days' },
+  { key: 'wind_des', label: 'Wind', note: 'morning pass, last 30 days' },
+].filter((r) => sources[r.key])
+const hasWind = Boolean(sources.wind_asc && sources.wind_des)
+const totalKb = Object.values(sources).reduce((s, v) => s + v.size_kb, 0)
+const held = (key, d) => Boolean(sources[key]) && d >= sources[key].first && d <= sources[key].last && !sources[key].missing.includes(d)
 const chlCoverage = (d) => (sources.chl.valid_pixels[d] ?? 0) / SEA_PIXELS
 const hover = ref(null)
 
@@ -48,7 +53,7 @@ const step11 = steps.find((s) => s.number === '11')
   ]">
     <template #lead>
       The live feed forgets. Copernicus keeps only a short, changing window of near-real-time data, so the
-      evidence a live forecast needs disappears within days. This last step keeps it: a small notebook,
+      evidence a live forecast needs disappears within days. This step keeps it: a small notebook,
       run once a day, that saves every new day of live data and never overwrites it.
     </template>
 
@@ -61,8 +66,9 @@ const step11 = steps.find((s) => s.number === '11')
       </p>
       <p>
         So this step builds the history locally. Each time it runs, it looks at what the live feed currently offers for the
-        three products step 07 uses — observed chlorophyll, gap-filled chlorophyll and sea temperature — and saves every day
-        it does not already have.
+        three products step 07 uses — observed chlorophyll, gap-filled chlorophyll and sea temperature — and, since
+        15 November 2026, the two daily wind passes, which no forecast uses yet (step 12), and saves every day it does not
+        already have.
       </p>
     </section>
 
@@ -80,8 +86,8 @@ const step11 = steps.find((s) => s.number === '11')
             time, that shows when data really arrives, instead of assuming the published schedule.</li>
           <li><strong>Never leave half a file.</strong> Each file is written under a temporary name and renamed only when
             complete, so an interrupted run cannot leave a damaged file that looks finished.</li>
-          <li><strong>Temperature: only the last 30 days.</strong> The live temperature product already reaches back to 2008,
-            so there is no need to copy all of it.</li>
+          <li><strong>Temperature and wind: only the last 30 days.</strong> Both live products already reach back years
+            (temperature to 2008, wind to 2016), so there is no need to copy all of it.</li>
           <li><strong>Pinned versions.</strong> Each product is downloaded in one fixed version. When Copernicus announces a new
             version or a retirement date, every run says so in its log, but the archive keeps using the pinned version until the new one
             has been checked. A silent switch would mix two versions in one record.</li>
@@ -94,6 +100,8 @@ const step11 = steps.find((s) => s.number === '11')
         <div>│   └── revisions/  <span class="text-slate-400">later versions of a day, stamped with their download time</span></div>
         <div>├── chl_l4/     <span class="text-slate-400">2026-10-07.nc, …</span></div>
         <div>├── sst/        <span class="text-slate-400">2026-09-20.nc, …</span></div>
+        <div>├── wind_asc/   <span class="text-slate-400">evening pass, 2026-10-16.nc, …</span></div>
+        <div>├── wind_des/   <span class="text-slate-400">morning pass, 2026-10-16.nc, …</span></div>
         <div>└── archive_log.csv  <span class="text-slate-400">source, date, saved or skipped, pixels, download time</span></div>
       </div>
     </section>
@@ -145,7 +153,8 @@ const step11 = steps.find((s) => s.number === '11')
             <strong class="text-ink-950">{{ longDate(hover) }}:</strong>
             chlorophyll {{ held('chl', hover) ? `held, ${Math.round(100 * chlCoverage(hover))}% of the sea observed` : 'not held' }} ·
             gap-filled {{ held('chl_l4', hover) ? 'held' : 'not held' }} ·
-            temperature {{ held('sst', hover) ? 'held' : 'not held' }}
+            temperature {{ held('sst', hover) ? 'held' : 'not held' }}<template v-if="hasWind"> ·
+            wind {{ held('wind_asc', hover) && held('wind_des', hover) ? 'both passes held' : held('wind_asc', hover) || held('wind_des', hover) ? 'one pass held' : 'not held' }}</template>
           </template>
           <template v-else>Hover over a day for details.</template>
         </p>
@@ -155,10 +164,11 @@ const step11 = steps.find((s) => s.number === '11')
         </figcaption>
       </figure>
 
-      <div class="grid gap-4 sm:grid-cols-3">
+      <div class="grid gap-4 sm:grid-cols-2" :class="hasWind ? 'lg:grid-cols-4' : 'lg:grid-cols-3'">
         <StatTile label="Observed chlorophyll" :value="`${sources.chl.days} days`" :detail="`${shortDate(sources.chl.first)} – ${shortDate(sources.chl.last)}`" />
         <StatTile label="Gap-filled chlorophyll" :value="`${sources.chl_l4.days} days`" :detail="`${shortDate(sources.chl_l4.first)} – ${shortDate(sources.chl_l4.last)}`" />
         <StatTile label="Sea temperature" :value="`${sources.sst.days} days`" :detail="`${shortDate(sources.sst.first)} – ${shortDate(sources.sst.last)}`" />
+        <StatTile v-if="hasWind" label="Wind, each pass" :value="`${sources.wind_asc.days} days`" :detail="`${shortDate(sources.wind_asc.first)} – ${shortDate(sources.wind_asc.last)}`" />
       </div>
 
       <div class="article mt-8">
@@ -166,7 +176,7 @@ const step11 = steps.find((s) => s.number === '11')
           The windows differ by product: on the same day, the live feed offered 12 days of gap-filled chlorophyll but only 9 of
           observed chlorophyll. That is one more reason to save every day as it appears rather than rely on any product’s
           window. The whole archive so far is about
-          {{ Math.round((sources.chl.size_kb + sources.chl_l4.size_kb + sources.sst.size_kb) / 100) / 10 }} MB.
+          {{ Math.round(totalKb / 100) / 10 }} MB.
         </p>
       </div>
     </section>

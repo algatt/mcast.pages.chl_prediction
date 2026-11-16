@@ -1,0 +1,362 @@
+{
+ "run": "20261114T142542Z",
+ "saved_utc": "2026-11-14T14:25:42.296040+00:00",
+ "model_file": "chl_forecast_step09.joblib",
+ "trained_until": "2024-12-24",
+ "years": [
+  2019,
+  2025
+ ],
+ "decision": "wind worth a modelling step",
+ "decision_rule": {
+  "measure": "Strongest of past 3 days",
+  "ratio": 1.5
+ },
+ "hedge_weight_model": 0.5,
+ "live_chl_archive_days": [
+  "2026-10-19",
+  "2026-11-13"
+ ],
+ "issue_days": 2134,
+ "sudden_days": 216,
+ "sudden_threshold_pct": {
+  "Winter": 49.8,
+  "Spring": 34.9,
+  "Summer": 22.7,
+  "Autumn": 33.4
+ },
+ "correlation_size": 0.2133,
+ "correlation_signed": 0.0306,
+ "measures": [
+  {
+   "measure": "Yesterday",
+   "issue_days": 1522,
+   "correlation": 0.2073,
+   "correlation_low": 0.1486,
+   "correlation_high": 0.2567,
+   "sudden_windiest_pct": 16.0131,
+   "sudden_calmest_pct": 4.902,
+   "ratio": 3.2667,
+   "ratio_low": 1.8928,
+   "ratio_high": 6.2465
+  },
+  {
+   "measure": "Strongest of past 3 days",
+   "issue_days": 1884,
+   "correlation": 0.2133,
+   "correlation_low": 0.151,
+   "correlation_high": 0.2688,
+   "sudden_windiest_pct": 17.2414,
+   "sudden_calmest_pct": 8.971,
+   "ratio": 1.9219,
+   "ratio_low": 1.2584,
+   "ratio_high": 3.0144
+  },
+  {
+   "measure": "Mixing energy, past 3 days",
+   "issue_days": 1884,
+   "correlation": 0.222,
+   "correlation_low": 0.1574,
+   "correlation_high": 0.2776,
+   "sudden_windiest_pct": 17.7719,
+   "sudden_calmest_pct": 7.3879,
+   "ratio": 2.4056,
+   "ratio_low": 1.5399,
+   "ratio_high": 3.8937
+  },
+  {
+   "measure": "Rise over the week before",
+   "issue_days": 1507,
+   "correlation": 0.0829,
+   "correlation_low": 0.025,
+   "correlation_high": 0.1337,
+   "sudden_windiest_pct": 14.1914,
+   "sudden_calmest_pct": 9.2409,
+   "ratio": 1.5357,
+   "ratio_low": 0.9743,
+   "ratio_high": 2.546
+  }
+ ],
+ "classes": [
+  {
+   "wind_class": 1,
+   "issue_days": 379,
+   "sudden_pct": 8.971,
+   "mean_change_pct": 20.1813,
+   "wind_median_ms": 4.0376,
+   "rising_pct": 47.2296,
+   "sudden_rising_pct": 50.0,
+   "average_change_pct": -1.288
+  },
+  {
+   "wind_class": 2,
+   "issue_days": 376,
+   "sudden_pct": 6.117,
+   "mean_change_pct": 20.9391,
+   "wind_median_ms": 5.9661,
+   "rising_pct": 47.8723,
+   "sudden_rising_pct": 65.2174,
+   "average_change_pct": 0.3188
+  },
+  {
+   "wind_class": 3,
+   "issue_days": 376,
+   "sudden_pct": 6.383,
+   "mean_change_pct": 20.4234,
+   "wind_median_ms": 7.7019,
+   "rising_pct": 44.9468,
+   "sudden_rising_pct": 45.8333,
+   "average_change_pct": -0.6787
+  },
+  {
+   "wind_class": 4,
+   "issue_days": 376,
+   "sudden_pct": 10.9043,
+   "mean_change_pct": 22.3199,
+   "wind_median_ms": 9.411,
+   "rising_pct": 51.8617,
+   "sudden_rising_pct": 63.4146,
+   "average_change_pct": 1.3172
+  },
+  {
+   "wind_class": 5,
+   "issue_days": 377,
+   "sudden_pct": 17.2414,
+   "mean_change_pct": 25.6199,
+   "wind_median_ms": 11.702,
+   "rising_pct": 46.6844,
+   "sudden_rising_pct": 60.0,
+   "average_change_pct": 1.1479
+  }
+ ],
+ "seasons": [
+  {
+   "season": "Winter",
+   "sudden_pct": {
+    "1": 9.2784,
+    "2": 11.4583,
+    "3": 7.2917,
+    "4": 9.375,
+    "5": 14.433
+   }
+  },
+  {
+   "season": "Spring",
+   "sudden_pct": {
+    "1": 8.046,
+    "2": 8.1395,
+    "3": 6.9767,
+    "4": 11.6279,
+    "5": 16.2791
+   }
+  },
+  {
+   "season": "Summer",
+   "sudden_pct": {
+    "1": 10.8911,
+    "2": 1.9802,
+    "3": 7.9208,
+    "4": 11.8812,
+    "5": 14.8515
+   }
+  },
+  {
+   "season": "Autumn",
+   "sudden_pct": {
+    "1": 7.4468,
+    "2": 3.2258,
+    "3": 3.2258,
+    "4": 10.7527,
+    "5": 23.6559
+   }
+  }
+ ],
+ "groups": [
+  {
+   "years": "All years",
+   "group": "Wind class 1",
+   "issue_days": 379,
+   "model_gain": 12.3691,
+   "hedge_gain": 8.046,
+   "share": 17.2181
+  },
+  {
+   "years": "All years",
+   "group": "Wind class 2",
+   "issue_days": 376,
+   "model_gain": 9.1322,
+   "hedge_gain": 6.3525,
+   "share": 13.9834
+  },
+  {
+   "years": "All years",
+   "group": "Wind class 3",
+   "issue_days": 376,
+   "model_gain": 9.5787,
+   "hedge_gain": 6.7887,
+   "share": 13.923
+  },
+  {
+   "years": "All years",
+   "group": "Wind class 4",
+   "issue_days": 376,
+   "model_gain": 11.6616,
+   "hedge_gain": 7.5634,
+   "share": 20.9409
+  },
+  {
+   "years": "All years",
+   "group": "Wind class 5",
+   "issue_days": 377,
+   "model_gain": 14.544,
+   "hedge_gain": 9.3177,
+   "share": 33.9346
+  },
+  {
+   "years": "All years",
+   "group": "Sudden-change days",
+   "issue_days": 187,
+   "model_gain": 14.4151,
+   "hedge_gain": 8.5239,
+   "share": 26.2613
+  },
+  {
+   "years": "All years",
+   "group": "Other days",
+   "issue_days": 1697,
+   "model_gain": 11.0312,
+   "hedge_gain": 7.5729,
+   "share": 73.7386
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Wind class 1",
+   "issue_days": 72,
+   "model_gain": 9.6318,
+   "hedge_gain": 6.3496,
+   "share": 29.4931
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Wind class 2",
+   "issue_days": 54,
+   "model_gain": 4.8155,
+   "hedge_gain": 4.0622,
+   "share": 13.8605
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Wind class 3",
+   "issue_days": 64,
+   "model_gain": 7.2164,
+   "hedge_gain": 5.6481,
+   "share": 24.2563
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Wind class 4",
+   "issue_days": 48,
+   "model_gain": 5.948,
+   "hedge_gain": 4.894,
+   "share": 14.5005
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Wind class 5",
+   "issue_days": 44,
+   "model_gain": 7.8718,
+   "hedge_gain": 6.3868,
+   "share": 17.8896
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Sudden-change days",
+   "issue_days": 24,
+   "model_gain": 6.213,
+   "hedge_gain": 4.4484,
+   "share": 14.9202
+  },
+  {
+   "years": "2025 (unseen)",
+   "group": "Other days",
+   "issue_days": 258,
+   "model_gain": 7.3271,
+   "hedge_gain": 5.6782,
+   "share": 85.0798
+  }
+ ],
+ "hedge": [
+  {
+   "data": "2019 (in training)",
+   "horizon": 1,
+   "model_gain": 13.6239,
+   "hedge_gain": 8.7006
+  },
+  {
+   "data": "2020 (in training)",
+   "horizon": 1,
+   "model_gain": 12.4504,
+   "hedge_gain": 8.1265
+  },
+  {
+   "data": "2021 (in training)",
+   "horizon": 1,
+   "model_gain": 13.5238,
+   "hedge_gain": 8.6768
+  },
+  {
+   "data": "2022 (in training)",
+   "horizon": 1,
+   "model_gain": 12.8465,
+   "hedge_gain": 8.4884
+  },
+  {
+   "data": "2023 (in training)",
+   "horizon": 1,
+   "model_gain": 9.3643,
+   "hedge_gain": 6.3411
+  },
+  {
+   "data": "2024 (in training)",
+   "horizon": 1,
+   "model_gain": 13.7618,
+   "hedge_gain": 8.7716
+  },
+  {
+   "data": "2025",
+   "horizon": 1,
+   "model_gain": 6.6126,
+   "hedge_gain": 5.2027
+  },
+  {
+   "data": "2025",
+   "horizon": 4,
+   "model_gain": 3.8821,
+   "hedge_gain": 3.7174
+  },
+  {
+   "data": "2025",
+   "horizon": 7,
+   "model_gain": 2.5814,
+   "hedge_gain": 2.8912
+  },
+  {
+   "data": "Live 2026 (16 issue days)",
+   "horizon": 1,
+   "model_gain": -5.2588,
+   "hedge_gain": -1.2668
+  },
+  {
+   "data": "Live 2026 (13 issue days)",
+   "horizon": 4,
+   "model_gain": -12.9754,
+   "hedge_gain": -5.2092
+  },
+  {
+   "data": "Live 2026 (10 issue days)",
+   "horizon": 7,
+   "model_gain": -11.7558,
+   "hedge_gain": -4.8168
+  }
+ ]
+}

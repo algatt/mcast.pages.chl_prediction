@@ -17,6 +17,7 @@ const monthDay = (md) => shortDate(`2026-${md}`)
 const pctChange = (log) => 100 * (10 ** log - 1)
 const step07 = steps.find((s) => s.number === '07')
 const step10 = steps.find((s) => s.number === '10')
+const step12 = steps.find((s) => s.number === '12')
 
 const liveYear = nb11.live_chl_days[1].slice(0, 4)
 const unseen = nb11.years_unseen
@@ -420,15 +421,17 @@ const sections = [
             The model wins on ordinary days and loses heavily on a few days when chlorophyll jumps or drops by a quarter or more overnight. The
             bloom forecasts (<router-link :to="stepPath(step10)" class="font-semibold text-teal-800 hover:underline">step 10</router-link>, now run
             live) struggle on the same days. Nothing in the current inputs announces such a change. Step 05 found that daily wind adds little on
-            average, but whether wind <em>events</em>, a few days of strong wind that mix the water, come before these changes has not yet been
-            tested.
+            average, but <router-link :to="stepPath(step12)" class="font-semibold text-teal-800 hover:underline">step 12</router-link> has
+            since found that wind <em>events</em>, a few days of strong wind that mix the water, do come before these
+            changes, though they do not say which way chlorophyll will move.
           </p>
         </div>
         <div class="card">
           <div class="font-semibold text-ink-950">Still a small sample</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            Three weeks of one autumn. The overlap grows by about a day each day, so this step can be re-run every week or two, and the question of
-            whether to publish the model or the blend rule is better answered after a winter.
+            Three weeks of one autumn. The overlap grows by about a day each day, so this step can be re-run every week or two. Whether to
+            publish the model, the blend rule or a hedge of the two is now settled by a trial with a rule fixed in advance
+            (<router-link :to="stepPath(step07)" class="font-semibold text-teal-800 hover:underline">step 07</router-link>).
           </p>
         </div>
       </div>
