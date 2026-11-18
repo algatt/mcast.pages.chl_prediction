@@ -110,7 +110,7 @@ const versions = [
       <div class="article">
         <h2>Observed or gap-filled?</h2>
         <p>
-          Sea-colour satellites measure chlorophyll from the colour of sunlight reflected by the sea.
+          Ocean-colour satellites measure chlorophyll from the colour of sunlight reflected by the sea.
           Clouds block the view, and so do sun glint and haze. On a typical day a large part of the area
           has no measurement at all. Over 2022–2025, only {{ comparison.l3_share_of_sea_pixel_days_pct.toFixed(0) }}%
           of sea pixels had a valid value on an average day.
