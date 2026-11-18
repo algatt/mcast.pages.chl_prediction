@@ -167,8 +167,9 @@ const sections = [
   <StepLayout number="07" :sections="sections">
     <template #lead>
       Everything so far used the reprocessed archive. A real forecast has to work from the near-real-time feed,
-      published within a day and processed with less information. This step runs the model on that feed every day,
-      and scores each live forecast once the satellite has seen the day it predicted.
+      published within a day and processed with less information. That feed is saved automatically every day (step 08).
+      This step, run by hand every week or so, issues the newest forecast from it, re-creates the forecast for each
+      earlier day, and scores each one once the satellite has seen the day it predicted.
     </template>
 
     <section id="what" class="article scroll-mt-24">
@@ -186,8 +187,10 @@ const sections = [
       </ol>
       <p>
         The last part needs patience: a 7-day forecast can only be scored with seven days of history behind it and a week
-        later still. Copernicus keeps only about nine days of the live feed, which is why step 08 saves every day as it
-        appears. Since {{ longDate(evaluation.first_issue_day) }} every forecast has had a complete history.
+        later still. Copernicus keeps only one to two weeks of live chlorophyll, which is why step 08 saves every day as it
+        appears. Since {{ longDate(evaluation.first_issue_day) }} every forecast has had a complete history. The notebook also
+        compares the forecasts with the gap-filled product on days the satellite saw nothing, but only as a consistency check,
+        because that product is an estimate rather than an observation.
       </p>
     </section>
 
@@ -281,7 +284,7 @@ const sections = [
       <div class="article">
         <h2>How the live forecast has done so far</h2>
         <p>
-          Every live forecast issued from {{ longDate(evaluation.first_issue_day) }} has been scored against the near-real-time
+          The forecast for every issue day from {{ longDate(evaluation.first_issue_day) }}, re-created from the saved live data, has been scored against the near-real-time
           observation of the day it predicted, up to {{ longDate(evaluation.last_target_day) }}, with the same rules as the 2025 test:
           only days and pixels the satellite actually saw count.
         </p>
@@ -308,8 +311,8 @@ const sections = [
       <div class="article">
         <p>
           Two results, one expected and one not. The model is clearly better than “no change”, by
-          {{ Math.round(Math.min(...H.map(vsNoChange))) }}–{{ Math.round(Math.max(...H.map(vsNoChange))) }}% at every lead time, much as in
-          the test.
+          {{ Math.round(Math.min(...H.map(vsNoChange))) }}–{{ Math.round(Math.max(...H.map(vsNoChange))) }}% at every lead time
+          (15–18% in the 2025 test).
           <template v-if="allBehind">
             But it is <strong>behind the blend rule</strong>, by {{ Math.round(Math.min(...behindRange)) }}–{{ Math.round(Math.max(...behindRange)) }}%<template v-if="clearlyBehind.length">,
             clearly so at {{ clearlyBehind.map(days).join(' and ') }}</template>, where in {{ evaluation.test_year }} it was ahead at every lead time.
@@ -322,8 +325,8 @@ const sections = [
         <p>
           <router-link v-if="step11" :to="stepPath(step11)" class="font-semibold text-teal-800 hover:underline">Step 11</router-link><span v-else>Step 11</span>
           looks for the reason. It is not the live data, which turns out to match the archive almost exactly, and it is not the season.
-          The model wins on most days but loses heavily on a few days of sudden change, when chlorophyll jumps or drops by a quarter or
-          more overnight. A few weeks of one autumn are still a small sample, and the ranges above treat neighbouring days as independent,
+          The model wins on most days but loses heavily on a few days of sudden change, when chlorophyll jumps or drops sharply
+          overnight. A few weeks of one autumn are still a small sample, and the ranges above treat neighbouring days as independent,
           so they are, if anything, too narrow.
         </p>
       </div>
@@ -435,8 +438,8 @@ const sections = [
           archive has saved the live wind since 15 November 2026 for that. Meanwhile the hedge is on trial (above).</li>
         <li><strong>Delivery times.</strong> Use the download times recorded by step 08 to check how often chlorophyll really
           arrives before 20:30 UTC, the margin every forecast depends on.</li>
-        <li><strong>Version changes.</strong> The archive chlorophyll version used for training retires on 24 November 2026 (step 01), and the
-          live gap-filled chlorophyll and temperature versions on 12 January 2027. The live versions are pinned, so each switch is a decision
+        <li><strong>Version changes.</strong> The archive chlorophyll and wind versions retire on 24 November 2026 (step 01), and the
+          live gap-filled chlorophyll, temperature and wind versions on 12 January 2027. The live versions are pinned, so each switch is a decision
           to be checked, not something that happens unnoticed.</li>
       </ol>
       <p>

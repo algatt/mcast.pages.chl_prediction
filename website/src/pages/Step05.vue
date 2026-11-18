@@ -100,7 +100,8 @@ const sections = [
   <StepLayout number="05" :sections="sections">
     <template #lead>
       This is where the forecast is built and judged. A machine-learning model is trained on 2017–2023,
-      tuned on 2024, and then tested once on 2025 against three simple rules. The result is a real
+      its inputs and training years are chosen on 2024, and it is then retrained on 2017–2024 and tested once
+      on 2025 against three simple rules. The result is a real
       improvement — but a smaller one than “model versus no change” would suggest.
     </template>
 
@@ -386,8 +387,8 @@ const sections = [
         <div class="card">
           <div class="font-semibold text-ink-950">Blooms: no skill</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            Unusually high chlorophyll is underestimated by every method. Forecasting blooms would need a different approach,
-            and is outside what this experiment shows.
+            Unusually high chlorophyll is underestimated by every method. Forecasting blooms needs a different approach,
+            which step 10 tries.
           </p>
         </div>
       </div>

@@ -110,7 +110,9 @@ const sections = [
       </p>
       <p>
         The charts here use the same quality rule as step 04, so the impossible chlorophyll value found in
-        step 02 is already removed.
+        step 02 is already removed. The notebook draws the coverage, gap and seasonal charts; the comparison of the
+        two eras, the within-season correlations and the day-by-day difference curves are calculated from the same
+        file for this page.
       </p>
     </section>
 
@@ -119,7 +121,7 @@ const sections = [
         <h2>How often is the sea visible?</h2>
         <p>
           Each square below is one month of one year, shaded by how much of the sea the satellites saw on an
-          average day. Two patterns stand out. Winter is cloudy: in {{ MONTH_LONG[lowMonth] }} only
+          average day. Two patterns stand out. Late autumn and winter are cloudy: in {{ MONTH_LONG[lowMonth] }} only
           {{ pctOf(monthCoverage[lowMonth]) }} of the sea is observed on a typical day, against
           {{ pctOf(monthCoverage[highMonth]) }} in {{ MONTH_LONG[highMonth] }}. And the rows get darker from
           2017, when an extra generation of satellites joined the record (step 01).
@@ -140,7 +142,7 @@ const sections = [
 
       <div class="article">
         <p>
-          The cloudiest months are also when chlorophyll is highest and changes most, as the next sections
+          The cloudy winter months are also when chlorophyll is highest and changes most, as the next sections
           show. So the forecast has the least information exactly when it matters most.
         </p>
       </div>

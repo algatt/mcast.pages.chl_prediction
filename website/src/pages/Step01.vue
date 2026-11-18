@@ -70,7 +70,7 @@ const versions = [
   { data: 'Chlorophyll L3', id: 'cmems_obs-oc_med_bgc-plankton_my_l3-multi-1km_P1D', version: '202411', note: 'Retires 24 Nov 2026' },
   { data: 'Chlorophyll L4', id: 'cmems_obs-oc_med_bgc-plankton_my_l4-gapfree-multi-1km_P1D', version: '202311', note: 'Retires 24 Nov 2026' },
   { data: 'Sea temperature', id: 'cmems_obs-sst_med_phy_my_l3s_P1D-m', version: '202511', note: '' },
-  { data: 'Wind, two passes', id: 'cmems_obs-wind_glo_phy_my_l3-metopb-ascat-{asc,des}-0.125deg_P1D-i', version: '202311', note: '' },
+  { data: 'Wind, two passes', id: 'cmems_obs-wind_glo_phy_my_l3-metopb-ascat-{asc,des}-0.125deg_P1D-i', version: '202311', note: 'Retires 24 Nov 2026' },
 ]
 </script>
 
@@ -92,7 +92,7 @@ const versions = [
       </p>
       <p>It downloads four things from the
         <a href="https://marine.copernicus.eu/" target="_blank" rel="noopener">Copernicus Marine Service</a>,
-        the EU’s free ocean-data service:</p>
+        the EU’s free sea-data service:</p>
       <ul>
         <li><strong>Chlorophyll, as observed</strong> (called <em>L3</em>): what the satellites saw each day, with gaps where they could not see. This is what we want to forecast.</li>
         <li><strong>Chlorophyll, gap-filled</strong> (called <em>L4</em>): the same data with every gap filled in by interpolation. We download it only to compare it with L3.</li>
@@ -110,7 +110,7 @@ const versions = [
       <div class="article">
         <h2>Observed or gap-filled?</h2>
         <p>
-          Ocean-colour satellites measure chlorophyll from the colour of sunlight reflected by the sea.
+          Sea-colour satellites measure chlorophyll from the colour of sunlight reflected by the sea.
           Clouds block the view, and so do sun glint and haze. On a typical day a large part of the area
           has no measurement at all. Over 2022–2025, only {{ comparison.l3_share_of_sea_pixel_days_pct.toFixed(0) }}%
           of sea pixels had a valid value on an average day.
@@ -173,14 +173,14 @@ const versions = [
         </p>
         <ul>
           <li><strong>Training.</strong> A model trained on L4 would partly learn to reproduce the
-            interpolation method, not the ocean.</li>
+            interpolation method, not the sea.</li>
           <li><strong>Scoring.</strong> Checking a forecast against L4 would partly grade it against
             another estimate. A forecast that resembles the interpolation would look better than it is.</li>
         </ul>
         <p>
           That is the reason for the first ground rule: the experiment forecasts <strong>L3</strong>
           chlorophyll and only scores forecasts on pixels the satellite actually observed. The price is
-          fewer days to learn from. L4 is kept only for comparison, in step 07.
+          fewer days to learn from. L4 is used only for comparison: here, and as a consistency check in step 07.
         </p>
       </div>
     </section>
@@ -189,7 +189,7 @@ const versions = [
       <div class="article">
         <h2>The four datasets</h2>
         <p>
-          Chlorophyll history is the main ingredient, but the ocean’s physics may help: temperature
+          Chlorophyll history is the main ingredient, but the sea’s physics may help: temperature
           hints at mixing and the season, and wind stirs the surface layer. The datasets do not cover
           the same years, which limits how they can be combined.
         </p>
@@ -319,7 +319,7 @@ const versions = [
         </table>
       </div>
       <p>
-        Both chlorophyll versions are due to be retired on 24 November 2026. After that, this step
+        The chlorophyll and wind versions are due to be retired on 24 November 2026. After that, this step
         must move to their replacements, and every later step needs re-running and re-checking.
       </p>
       <p>

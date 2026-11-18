@@ -53,8 +53,8 @@ const step11 = steps.find((s) => s.number === '11')
   ]">
     <template #lead>
       The live feed forgets. Copernicus keeps only a short, changing window of near-real-time data, so the
-      evidence a live forecast needs disappears within days. This step keeps it: a small notebook,
-      run once a day, that saves every new day of live data and never overwrites it.
+      evidence a live forecast needs disappears within days. This step keeps it: a small job,
+      run automatically twice a day, that saves every new day of live data and never overwrites it.
     </template>
 
     <section id="what" class="article scroll-mt-24">
@@ -99,7 +99,7 @@ const step11 = steps.find((s) => s.number === '11')
         <div>├── chl/        <span class="text-slate-400">2026-10-19.nc, 2026-10-20.nc, …</span></div>
         <div>│   └── revisions/  <span class="text-slate-400">later versions of a day, stamped with their download time</span></div>
         <div>├── chl_l4/     <span class="text-slate-400">2026-10-07.nc, …</span></div>
-        <div>├── sst/        <span class="text-slate-400">2026-09-20.nc, …</span></div>
+        <div>├── sst/        <span class="text-slate-400">2026-10-05.nc, …</span></div>
         <div>├── wind_asc/   <span class="text-slate-400">evening pass, 2026-10-16.nc, …</span></div>
         <div>├── wind_des/   <span class="text-slate-400">morning pass, 2026-10-16.nc, …</span></div>
         <div>└── archive_log.csv  <span class="text-slate-400">source, date, saved or skipped, pixels, download time</span></div>
@@ -173,7 +173,7 @@ const step11 = steps.find((s) => s.number === '11')
 
       <div class="article mt-8">
         <p>
-          The windows differ by product: on the same day, the live feed offered 12 days of gap-filled chlorophyll but only 9 of
+          The windows differ by product: on 19 October, the live feed offered 12 days of gap-filled chlorophyll but only 9 of
           observed chlorophyll. That is one more reason to save every day as it appears rather than rely on any product’s
           window. The whole archive so far is about
           {{ Math.round(totalKb / 100) / 10 }} MB.
@@ -233,7 +233,7 @@ const step11 = steps.find((s) => s.number === '11')
           few minutes, most of it spent connecting to the Copernicus catalogue, and tries again twice, five minutes apart, if Copernicus
           cannot be reached.</li>
         <li><strong>Missing a day is fine; missing a week is not.</strong> A later run catches up on anything the live feed still offers,
-          but once a day falls out of the window (about 9 days for observed chlorophyll at the moment) it is gone for good.</li>
+          but once a day falls out of the window (between 8 and 16 days for observed chlorophyll so far) it is gone for good.</li>
         <li><strong>Back it up.</strong> The archive lives on one computer and is deliberately not in the code repository. Copying the
           folder somewhere safe from time to time protects weeks of collection.</li>
       </ul>
@@ -263,7 +263,7 @@ const step11 = steps.find((s) => s.number === '11')
         <div class="card">
           <div class="font-semibold text-ink-950">A working live pipeline, not yet a validated one</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The model runs on the live feed every day (step 07), and the archive (this step) now holds enough to score it. The first weeks
+            The live feed is saved every day (this step), and step 07 runs the model on it and scores the results. The first weeks
             of live scores are in step 07; step 11 explains why the model fell behind a simple rule in them.
           </p>
         </div>

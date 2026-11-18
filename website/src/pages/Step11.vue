@@ -334,7 +334,7 @@ const sections = [
           <GainTable :rows="decisiveRows" />
         </div>
         <figcaption class="figure-caption">
-          {{ testDays(1) }}, {{ testDays(4) }} and {{ testDays(7) }} scored issue days at 1, 4 and 7 days: too few for 95% ranges, but every row is
+          {{ testDays(1) }}, {{ testDays(4) }} and {{ testDays(7) }} scored issue days at 1, 4 and 7 days: too few for reliable 95% ranges, but every row is
           scored on the same pixel-days. Temperature is from the live feed throughout.
         </figcaption>
       </figure>
@@ -418,7 +418,8 @@ const sections = [
         <div class="card">
           <div class="font-semibold text-ink-950">The weakness is sudden change</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The model wins on ordinary days and loses heavily on a few days when chlorophyll jumps or drops by a quarter or more overnight. The
+            The model wins on ordinary days and loses heavily on a few days when chlorophyll jumps or drops sharply, by
+            {{ Math.round(Math.min(...worstDays.map((d) => Math.abs(pctChange(d.change))))) }}–{{ Math.round(Math.max(...worstDays.map((d) => Math.abs(pctChange(d.change))))) }}% on the three worst days. The
             bloom forecasts (<router-link :to="stepPath(step10)" class="font-semibold text-teal-800 hover:underline">step 10</router-link>, now run
             live) struggle on the same days. Nothing in the current inputs announces such a change. Step 05 found that daily wind adds little on
             average, but <router-link :to="stepPath(step12)" class="font-semibold text-teal-800 hover:underline">step 12</router-link> has

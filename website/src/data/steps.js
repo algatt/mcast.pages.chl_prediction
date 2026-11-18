@@ -1,6 +1,6 @@
-// One entry per step of the experiment; each step is one Jupyter notebook in
-// experiment_v2/. A page exists only where `ready` is true; the rest are listed
-// so readers can see where the story goes.
+// One entry per step of the experiment; each step is one Jupyter notebook.
+// A page exists only where `ready` is true; the rest are listed so readers can
+// see where the story goes.
 export const steps = [
   {
     number: '01',

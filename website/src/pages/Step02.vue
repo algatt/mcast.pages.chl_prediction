@@ -309,7 +309,8 @@ const gridRows = [
           model handle them.
         </p>
         <p>
-          Second, wind is missing on about two days in five even after 2019. The satellite’s two measurement
+          Second, even after 2019 each wind pass is missing on about two days in five, and on about one day in
+          five neither pass has a value. The satellite’s two measurement
           strips do not cross this small box on every pass, and the quality filter removes more. That
           sparseness is one reason wind ends up adding little to the forecast in step 05.
         </p>

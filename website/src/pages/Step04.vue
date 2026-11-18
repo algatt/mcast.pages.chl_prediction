@@ -225,7 +225,7 @@ const sections = [
       </div>
       <div class="article">
         <p>
-          Every pixel left out lies within about 2 km of the coast of Malta, Gozo or Sicily. Near the shore, a 1 km
+          Every pixel left out lies within about 2.5 km of the coast of Malta, Gozo or Sicily. Near the shore, a 1 km
           pixel can mix sea with land, surf or shallow sea floor, and the colour-based chlorophyll estimate becomes
           unreliable. That leaves {{ fmt(qc.pixels_included) }} pixels to forecast.
         </p>
@@ -275,7 +275,7 @@ const sections = [
         </div>
         <figcaption class="figure-caption">
           Each period stops issuing forecasts on 24 December, so that a 7-day target never falls in the next period.
-          The +4 and +7-day counts are within 1% of the +1-day counts.
+          The +4 and +7-day counts are within 1.5% of the +1-day counts.
         </figcaption>
       </figure>
 

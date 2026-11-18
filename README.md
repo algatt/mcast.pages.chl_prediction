@@ -11,13 +11,13 @@ Daily chl-a forecasting (H+1 → H+7) for the central Mediterranean, built on **
 ```
 mcast.pages.chl_prediction/
 ├── experiment_v2/        # current experiment: notebooks 01–12, models, small results
-├── website/              # site for experiment v2, one page per notebook
+├── website/              # site for the current experiment, one page per step
 ├── experiment/           # earlier experiment (v1)
 └── archive/website_v1/   # the v1 site, kept as source
 ```
 
 - **`experiment_v2/`** — the current experiment: L3 chlorophyll forecasts 1, 4 and 7 days ahead, trained on 2017–2024 and tested on 2025, with a live near-real-time check and a daily NRT archive.
-- **`website/`** — explains experiment v2 notebook by notebook for an interested reader. See [`website/README.md`](website/README.md). Deployed to GitHub Pages via `npm run deploy`.
+- **`website/`** — explains the current experiment step by step for an interested reader. See [`website/README.md`](website/README.md). Deployed to GitHub Pages via `npm run deploy`.
 - **`experiment/`** and **`archive/website_v1/`** — the earlier experiment and its site. The sections below describe that earlier experiment.
 
 ## Headline results

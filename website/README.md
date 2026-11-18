@@ -1,6 +1,6 @@
-# Observed Ocean — experiment v2 site
+# Observed Sea — website
 
-Explains `experiment_v2/` step by step; each step is one notebook. Vue 3 + Vite + Tailwind, hash routing, no chart libraries:
+Explains the experiment step by step; each step is one notebook. Vue 3 + Vite + Tailwind, hash routing, no chart libraries:
 the figures are small Vue components drawing HTML, SVG or canvas.
 
 ## Run locally

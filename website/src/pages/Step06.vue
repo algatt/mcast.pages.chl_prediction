@@ -163,7 +163,9 @@ const sections = [
       </p>
       <p>
         All maps use the final model from step 05, re-run on the 2025 test year. The re-run reproduces step 05’s scores
-        exactly, so these maps and step 05’s numbers describe the same forecasts.
+        exactly, so these maps and step 05’s numbers describe the same forecasts. The notebook maps the two example days
+        and the winter bias; the comparison with the blend rule, the pixel-by-pixel scores and the monthly chart are
+        calculated from the same forecasts for this page.
       </p>
     </section>
 
@@ -171,7 +173,7 @@ const sections = [
       <div class="article">
         <h2>Two days, three forecasts</h2>
         <p>
-          A forecast covers every one of the study area’s pixels, but it can only be checked where the satellite later
+          A forecast covers all 12,190 modelled pixels, but it can only be checked where the satellite later
           sees the sea. Pick a day and a lead time, then switch between the forecast, what was observed, and the error.
         </p>
       </div>

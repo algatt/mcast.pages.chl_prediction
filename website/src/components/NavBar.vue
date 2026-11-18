@@ -13,8 +13,8 @@ const open = ref(false)
           <span class="w-2.5 h-2.5 rounded-full bg-lime-400"></span>
         </span>
         <span>
-          <span class="block text-sm font-semibold leading-none">Observed Ocean</span>
-          <span class="hidden sm:block mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-slate-500">Chlorophyll forecasting · v2</span>
+          <span class="block text-sm font-semibold leading-none">Observed Sea</span>
+          <span class="hidden sm:block mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-slate-500">Chlorophyll forecasting</span>
         </span>
       </router-link>
 

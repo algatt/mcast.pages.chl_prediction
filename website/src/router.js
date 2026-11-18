@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { steps, stepPath } from './data/steps.js'
 
-const siteTitle = 'Observed Ocean'
+const siteTitle = 'Observed Sea'
 
 const pages = {
   '01': () => import('./pages/Step01.vue'),

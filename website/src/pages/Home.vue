@@ -23,7 +23,7 @@ const rules = [
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="container-page relative py-14 md:py-20">
         <div class="flex flex-wrap items-center gap-2.5">
-          <span class="hero-kicker">Experiment v2</span>
+          <span class="hero-kicker">Research experiment</span>
           <span class="hero-meta">Malta–Sicily Channel · satellite data 2008–2025 · live since October 2026</span>
         </div>
         <h1 class="mt-6 max-w-4xl text-[2.4rem] sm:text-5xl lg:text-[3.9rem] leading-[1.02] font-semibold tracking-[-0.045em]">
@@ -63,7 +63,7 @@ const rules = [
         <div class="label-caps">The steps</div>
         <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink-950">Twelve steps, each answering one question</h2>
         <p class="mt-3 max-w-2xl text-slate-600">
-          Each page explains what one step did, why, and what it found. Every step is one Jupyter notebook in the experiment (step 11 has two). Steps 07, 08 and 11 follow the live forecast, which has run every day since October 2026.
+          Each page explains what one step did, why, and what it found. Every step is one Jupyter notebook in the experiment (step 11 has two). Steps 07, 08 and 11 follow the live forecast, whose data has been collected every day since October 2026.
         </p>
 
         <ol class="mt-8 divide-y divide-slate-200 border-y border-slate-200">

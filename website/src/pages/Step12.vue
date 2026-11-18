@@ -254,7 +254,7 @@ const sections = [
         <p>
           If the model’s weakness were windy, fast-changing days, its gain over the blend rule should shrink on them. In the archive it does not.
           Across all years the model gains most after the windiest days, and more on sudden-change days than on others; in {{ lastYear }} its gain
-          is much the same in every group.
+          varies between groups with no clear pattern.
         </p>
       </div>
 
@@ -328,7 +328,7 @@ const sections = [
         <p>
           The trade is clear. In the archive years the hedge keeps about {{ kept }}% of the model’s 1-day gain
           ({{ signed(trainRange('hedge_gain')[0]) }} to {{ signed(trainRange('hedge_gain')[1]) }}, against {{ signed(trainRange('model_gain')[0]) }} to
-          {{ signed(trainRange('model_gain')[1]) }}). In {{ lastYear }} it costs a little at 1 day and nothing at 4 or 7. On the live weeks it cuts
+          {{ signed(trainRange('model_gain')[1]) }}). In {{ lastYear }} it costs a little at 1 day, almost nothing at 4 and nothing at 7. On the live weeks it cuts
           the loss to the blend rule by more than half at every lead time.
         </p>
         <p>
