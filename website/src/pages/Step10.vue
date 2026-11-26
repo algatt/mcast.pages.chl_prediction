@@ -515,10 +515,9 @@ const sections = [
         <div class="card">
           <div class="font-semibold text-ink-950">Now run live</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            Since November 2026 the bloom model runs alongside the live forecast, and its probabilities are scored like the chlorophyll
-            forecasts (<router-link :to="stepPath(step07)" class="font-semibold text-teal-800 hover:underline">step 07</router-link>). In its first
-            weeks, an autumn of sudden rises and falls, the usual frequency did better at 1 and 4 days than either the model or the anomaly rule,
-            so the live bloom maps are treated as an experiment, not a warning service.
+            The issue-time replay scores the probability of high chlorophyll wherever a valid L3 target is observed.
+            Step 07 reports the Brier skill, hit rate and false-alarm ratio for the latest evaluation
+            (<router-link :to="stepPath(step07)" class="font-semibold text-teal-800 hover:underline">view results</router-link>).
           </p>
         </div>
       </div>

@@ -9,7 +9,7 @@ import StatTile from '../components/StatTile.vue'
 import IntervalChart from '../components/IntervalChart.vue'
 
 const H = [1, 4, 7]
-const { grid, live, archive, evaluation } = nb07
+const { grid, live, evaluation } = nb07
 const rows = grid.latitude.length
 const cols = grid.longitude.length
 const map = (name) => unpack(live.maps[name], rows, cols)
@@ -26,12 +26,6 @@ const step08 = steps.find((s) => s.number === '08')
 
 // The live forecast uses the model in use: the step 05 model until 20 October 2026, the step 09 model since.
 const modelName = live.model_file.includes('step09') ? 'step 09 model' : 'step 05 model'
-
-// When the newest chlorophyll was first downloaded, against the 20:00 UTC schedule of the day after the observation.
-const chlRetrieved = live.chl_retrieved_utc || live.retrieved_utc
-const retrievedAt = chlRetrieved.slice(11, 16)
-const retrievedDay = chlRetrieved.slice(0, 10)
-const beforeSchedule = retrievedDay < live.issue_date || (retrievedDay === live.issue_date && retrievedAt < '20:00')
 
 const fallback = map('fallback')
 const nFallback = live.pixels - live.pixels_with_history
@@ -103,7 +97,7 @@ const vsNoChange = (h) => 100 * (1 - score(h, 'Forecast model').log_rmse / score
 const withRange = (r) => r && r.low !== null && r.high !== null
 const gainGroups = [
   {
-    title: `Live, ${shortDate(evaluation.first_issue_day)} – ${shortDate(evaluation.last_target_day)} ${evaluation.last_target_day.slice(0, 4)}`,
+    title: `Replay, ${shortDate(evaluation.first_issue_day)} – ${shortDate(evaluation.last_target_day)} ${evaluation.last_target_day.slice(0, 4)}`,
     rows: H.filter((h) => withRange(gainOf(h))).map((h) => ({ label: days(h), value: gainOf(h).gain, low: gainOf(h).low, high: gainOf(h).high })),
   },
   {
@@ -158,7 +152,7 @@ const sections = [
   { id: 'live', label: 'A real forecast' },
   { id: 'recipe', label: 'The same recipe as training' },
   { id: 'scores', label: 'How it has done so far' },
-  ...(blooms ? [{ id: 'blooms', label: 'Live bloom forecasts' }] : []),
+  ...(blooms || bloomGroups.length ? [{ id: 'blooms', label: 'Live bloom forecasts' }] : []),
   { id: 'next', label: 'What still needs checking' },
 ]
 </script>
@@ -183,12 +177,12 @@ const sections = [
         <li>reads the latest near-real-time chlorophyll and sea temperature from the local archive (step 08);</li>
         <li>builds the model’s inputs from them, exactly as for training ({{ live.n_inputs }} inputs for the model in use);</li>
         <li>issues a forecast for 1, 4 and 7 days ahead, and the chance of a bloom (step 10), and saves both with every input used;</li>
-        <li>re-issues every past live forecast from the archive and scores it against what the satellite later observed.</li>
+        <li>reconstructs past forecasts using only locally available inputs at each cutoff and scores it against what the satellite later observed.</li>
       </ol>
       <p>
         The last part needs patience: a 7-day forecast can only be scored with seven days of history behind it and a week
         later still. Copernicus keeps only one to two weeks of live chlorophyll, which is why step 08 saves every day as it
-        appears. Since {{ longDate(evaluation.first_issue_day) }} every forecast has had a complete history. The notebook also
+        appears. The replay calendar starts on {{ longDate(evaluation.first_issue_day) }}. Missing inputs remain missing at each cutoff. The notebook also
         compares the forecasts with the gap-filled product on days the satellite saw nothing, but only as a consistency check,
         because that product is an estimate rather than an observation.
       </p>
@@ -196,7 +190,7 @@ const sections = [
 
     <section id="live" class="mt-14 scroll-mt-24">
       <div class="article">
-        <h2>A real forecast, issued {{ longDate(live.issue_date) }}</h2>
+        <h2>Latest saved forecast for {{ longDate(live.issue_date) }}</h2>
         <p>
           This is the forecast the {{ modelName }} ({{ live.n_inputs }} inputs) produced from the near-real-time feed for the evening of
           {{ longDate(live.issue_date) }}. The newest chlorophyll it had was from {{ longDate(live.latest_chl_date) }}, and
@@ -206,7 +200,7 @@ const sections = [
 
       <figure class="figure">
         <div class="figure-title">Live forecast and its inputs</div>
-        <div class="figure-subtitle">Issued {{ longDate(live.issue_date) }}, {{ live.issue_time_utc }} UTC, from Copernicus near-real-time data</div>
+        <div class="figure-subtitle">Generated {{ live.generated_utc.slice(0, 10) }} at {{ live.generated_utc.slice(11, 19) }} UTC · published method at +1 day: {{ live.published_methods[1] }}</div>
         <div class="mt-5">
           <GridMap :latitude="grid.latitude" :longitude="grid.longitude" :sea="grid.sea" :layers="mapLayers"
                    aria-label="Live chlorophyll forecast and its inputs" />
@@ -231,11 +225,8 @@ const sections = [
 
       <div class="article mt-8">
         <p>
-          One honest detail about timing. The forecast is defined as issued at 20:30 UTC. The chlorophyll for
-          {{ longDate(live.latest_chl_date) }} was first downloaded on {{ longDate(retrievedDay) }} at {{ retrievedAt }} UTC<template v-if="beforeSchedule">,
-          earlier than the 20:00 UTC delivery time in Copernicus’s published schedule</template>. The inputs are therefore the ones a
-          20:30 forecast would have used, unless Copernicus revised them later that day. Step 08 keeps a record of when each file
-          was first downloaded, and keeps any later version separately, so that delivery times can be checked rather than assumed.
+          The notebook records the input snapshot and generation time. Each source file is selected by retrieval time and the saved
+          manifest identifies its observation date, product version and archived copy. The nominal evening cutoff is {{ live.issue_time_utc }} UTC.
         </p>
       </div>
     </section>
@@ -282,11 +273,10 @@ const sections = [
 
     <section id="scores" class="mt-14 scroll-mt-24">
       <div class="article">
-        <h2>How the live forecast has done so far</h2>
+        <h2>Near-real-time replay results</h2>
         <p>
           The forecast for every issue day from {{ longDate(evaluation.first_issue_day) }}, re-created from the saved live data, has been scored against the near-real-time
-          observation of the day it predicted, up to {{ longDate(evaluation.last_target_day) }}, with the same rules as the 2025 test:
-          only days and pixels the satellite actually saw count.
+          observation of the day it predicted, up to {{ longDate(evaluation.last_target_day) }}, using the recorded L3 target version. The concentration comparison requires both an observed target and a previous CHL reading for persistence.
         </p>
       </div>
 
@@ -310,7 +300,7 @@ const sections = [
 
       <div class="article">
         <p>
-          Two results, one expected and one not. The model is clearly better than “no change”, by
+          The model reduced log-scale RMSE against “no change” by
           {{ Math.round(Math.min(...H.map(vsNoChange))) }}–{{ Math.round(Math.max(...H.map(vsNoChange))) }}% at every lead time
           (15–18% in the 2025 test).
           <template v-if="allBehind">
@@ -318,16 +308,14 @@ const sections = [
             clearly so at {{ clearlyBehind.map(days).join(' and ') }}</template>, where in {{ evaluation.test_year }} it was ahead at every lead time.
           </template>
           <template v-else>
-            Against the blend rule, the live gains are {{ H.map((h) => `${signed(gainOf(h).gain)} at ${days(h)}`).join(', ') }}, against
+            Against the blend rule, the replay gains are {{ H.map((h) => `${signed(gainOf(h).gain)} at ${days(h)}`).join(', ') }}, against
             {{ H.map((h) => signed(testGainOf(h).gain)).join(', ') }} in {{ evaluation.test_year }}.
           </template>
         </p>
         <p>
           <router-link v-if="step11" :to="stepPath(step11)" class="font-semibold text-teal-800 hover:underline">Step 11</router-link><span v-else>Step 11</span>
-          looks for the reason. It is not the live data, which turns out to match the archive almost exactly, and it is not the season.
-          The model wins on most days but loses heavily on a few days of sudden change, when chlorophyll jumps or drops sharply
-          overnight. A few weeks of one autumn are still a small sample, and the ranges above treat neighbouring days as independent,
-          so they are, if anything, too narrow.
+          examines an earlier autumn window. The replay intervals above resample whole issue days independently.
+          Neighbouring days may share conditions. Collecting forecasts at issuance will provide a separate prospective test.
         </p>
       </div>
 
@@ -337,13 +325,13 @@ const sections = [
           One remedy needs no new data: average the model’s forecast and the blend rule’s, on the log scale
           (<router-link v-if="step12" :to="stepPath(step12)" class="font-semibold text-teal-800 hover:underline">step 12</router-link><span v-else>step 12</span>).
           On the archive it gives up a little of the model’s gain in a normal year and limits the damage on days like the ones above. Because
-          those days prompted it, it is judged only on forecasts issued from {{ longDate(hedgeTest.test_from) }}, alongside the model and the
+          those days prompted it, it is judged on replay issue days from {{ longDate(hedgeTest.test_from) }}, alongside the model and the
           blend rule.
         </p>
         <p>
           The rule, fixed before the trial: once the 1-day forecast has {{ hedgeTest.decision_days }} scored issue days, publish the hedge or
           the blend rule instead of the model only if its gain over the model has a 95% range above zero (the larger gain if both do);
-          otherwise keep the model.
+          otherwise keep the model. The decision applies to +1 day only and is saved once the first 30 eligible dates are scored.
         </p>
         <p class="font-semibold text-ink-950">{{ hedgeTest.decision.text }}</p>
       </div>
@@ -366,7 +354,7 @@ const sections = [
       </div>
     </section>
 
-    <section v-if="blooms" id="blooms" class="mt-14 scroll-mt-24">
+    <section v-if="blooms || bloomGroups.length" id="blooms" class="mt-14 scroll-mt-24">
       <div class="article">
         <h2>Live bloom forecasts</h2>
         <p>
@@ -376,8 +364,8 @@ const sections = [
         </p>
       </div>
 
-      <figure class="figure">
-        <div class="figure-title">Chance of a bloom, issued {{ longDate(live.issue_date) }}</div>
+      <figure v-if="blooms" class="figure">
+        <div class="figure-title">Chance of high chlorophyll for {{ longDate(live.issue_date) }}</div>
         <div class="figure-subtitle">Bloom model (step 10), from the same inputs as the chlorophyll forecast</div>
         <div class="mt-5">
           <GridMap :latitude="grid.latitude" :longitude="grid.longitude" :sea="grid.sea" :layers="bloomLayers"
@@ -388,7 +376,7 @@ const sections = [
         </figcaption>
       </figure>
 
-      <div class="grid gap-4 sm:grid-cols-3">
+      <div v-if="blooms" class="grid gap-4 sm:grid-cols-3">
         <StatTile v-for="h in H" :key="h" :label="`Warning area, ${days(h)}`"
                   :value="`${blooms.area_warned_pct[h].toFixed(1)}%`"
                   :detail="`of pixels at or above ${Math.round(100 * blooms.thresholds[h])}%; highest ${Math.round(blooms.highest_pct[h])}%`" />
@@ -397,9 +385,9 @@ const sections = [
       <template v-if="bloomGroups.length">
         <div class="article mt-8">
           <p>
-            Scored in the same way as the chlorophyll forecasts, over the same days, blooms made up
+            Bloom scoring includes every observed target in the model area. Pixels without CHL history use the usual monthly frequency. High CHL made up
             {{ bloomScore(1, 'Bloom model').bloom_pct.toFixed(1) }}–{{ bloomScore(7, 'Bloom model').bloom_pct.toFixed(1) }}% of observed
-            pixel-days, at or a little above the 2024–2025 rate. Each method is compared with the usual bloom frequency for the pixel and month, using
+            pixel-days, across these horizons. Each method is compared with the usual bloom frequency for the pixel and month, using
             the Brier score (the mean squared difference between probability and outcome).
           </p>
         </div>
@@ -417,11 +405,9 @@ const sections = [
 
         <div class="article">
           <p>
-            So far the usual frequency has been the best bloom forecast at 1 and 4 days: both the model and the anomaly rule, which react
-            to the latest observation, did worse, and about {{ Math.round(bloomScore(1, 'Bloom model').false_alarm_pct) }}% of the model’s
-            1-day warnings were false alarms. At 7 days the model is level with the usual frequency. This is the same pattern as the chlorophyll
-            forecasts: in an autumn of sudden changes, a high reading was often followed by a fall. Until a longer record says otherwise, the
-            bloom maps are an experiment, not a warning service.
+            At +1 day the model detected {{ bloomScore(1, 'Bloom model').hit_rate_pct.toFixed(1) }}% of observed high-chlorophyll
+            pixel-days. {{ bloomScore(1, 'Bloom model').false_alarm_pct.toFixed(1) }}% of its warnings were false alarms.
+            These are satellite chlorophyll exceedances relative to the historical monthly value at each pixel.
           </p>
         </div>
       </template>
@@ -432,15 +418,13 @@ const sections = [
       <ol>
         <li><strong>A longer live score.</strong> Re-run this step every week or two; the ranges narrow as days accumulate. The score that matters
           most will come after a winter and spring, when chlorophyll is highest and changes fastest.</li>
-        <li><strong>Sudden changes.</strong> The live losses come from a few days of rapid change (step 11). Step 12 found that, in the
+        <li><strong>Sudden changes.</strong> Step 11 examined rapid changes in the earlier autumn window. Step 12 found that, in the
           archive, days of strong wind come before such changes: sudden-change days are about twice as common after the windiest days as
           after the calmest. But wind says how much chlorophyll is likely to change, not which way, so using it needs a new model. The
           archive has saved the live wind since 15 November 2026 for that. Meanwhile the hedge is on trial (above).</li>
         <li><strong>Delivery times.</strong> Use the download times recorded by step 08 to check how often chlorophyll really
           arrives before 20:30 UTC, the margin every forecast depends on.</li>
-        <li><strong>Version changes.</strong> The archive chlorophyll and wind versions retire on 24 November 2026 (step 01), and the
-          live gap-filled chlorophyll, temperature and wind versions on 12 January 2027. The live versions are pinned, so each switch is a decision
-          to be checked, not something that happens unnoticed.</li>
+        <li><strong>Version changes.</strong> The live chlorophyll and wind feeds moved to 202611 in November. On 9–22 November, median L3 chlorophyll was 22.7% higher across 88,689 shared valid pixel-days in the replacement copies. The share above the same historical threshold rose from 0.80% to 5.39%. The evaluation records the target files used. SST version 202311 is scheduled to retire on 12 January 2027.</li>
       </ol>
       <p>
         Until those checks are done, the live forecast is a working demonstration, not a validated service.

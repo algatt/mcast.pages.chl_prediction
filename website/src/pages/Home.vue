@@ -1,6 +1,9 @@
 <script setup>
 import { steps, stepPath } from '../data/steps.js'
 
+import nb07 from '../data/nb07.json'
+
+const nextDay = nb07.evaluation.gains.find(row => row.horizon === '+1d')
 const rules = [
   {
     title: 'Only real observations',
@@ -8,7 +11,7 @@ const rules = [
   },
   {
     title: 'Only what a forecaster would know',
-    text: 'Satellite data arrives with a delay. Every forecast uses only the data that would already have been published at 20:30 UTC on the day it is issued.',
+    text: 'Satellite data arrives with a delay. Historical tests use nominal delivery lags. The near-real-time replay selects files recorded in the local archive by each issue cutoff.',
   },
   {
     title: 'Beat the simple rules, or say so',
@@ -24,7 +27,7 @@ const rules = [
       <div class="container-page relative py-14 md:py-20">
         <div class="flex flex-wrap items-center gap-2.5">
           <span class="hero-kicker">Research experiment</span>
-          <span class="hero-meta">Malta–Sicily Channel · satellite data 2008–2025 · live since October 2026</span>
+          <span class="hero-meta">Malta–Sicily Channel · satellite data 2008–2025 · NRT archive since October 2026</span>
         </div>
         <h1 class="mt-6 max-w-4xl text-[2.4rem] sm:text-5xl lg:text-[3.9rem] leading-[1.02] font-semibold tracking-[-0.045em]">
           Forecasting chlorophyll around Malta, <span class="text-cyan-200">one step at a time.</span>
@@ -122,12 +125,11 @@ const rules = [
             </p>
           </li>
           <li class="card">
-            <div class="font-semibold text-ink-950">Live, so far: good data, hard days</div>
+            <div class="font-semibold text-ink-950">Next-day forecast in the near-real-time replay</div>
             <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-              The near-real-time feed a live forecast receives turns out to match the reprocessed archive almost exactly. In its first
-              weeks live, the model still beat “no change” clearly, but fell behind the blend rule, because of a few days when chlorophyll
-              jumped or dropped sharply overnight (steps 07 and 11). A few weeks of one autumn are a small sample. Strong wind tends to
-              come before such days (step 12), and averaging the model with the blend rule is now on trial.
+              Over {{ nextDay.issue_days }} scored issue days, the next-day model’s gain in log-scale RMSE against the blend was
+              {{ nextDay.gain.toFixed(1) }}% (95% interval {{ nextDay.low.toFixed(1) }}% to {{ nextDay.high.toFixed(1) }}%).
+              Step 07 reconstructs forecasts using the files available at each issue time. Scheduled daily forecast issuance is planned.
             </p>
           </li>
         </ul>

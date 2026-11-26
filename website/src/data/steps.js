@@ -87,7 +87,7 @@ export const steps = [
     slug: '11-live-versus-archive',
     notebook: '11-MY-vs-NRT.ipynb, 11-MY-vs-NRT_part_b.ipynb',
     title: 'Live versus archive',
-    question: 'Why does the model fall behind a simple rule on live data?',
+    question: 'Why did the model trail the blend in the first autumn replay?',
     ready: true,
   },
   {

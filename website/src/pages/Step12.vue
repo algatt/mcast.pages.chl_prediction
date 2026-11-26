@@ -84,6 +84,7 @@ const sections = [
 <template>
   <StepLayout number="12" :sections="sections">
     <template #lead>
+      This analysis uses the 14 November 2026 snapshot. Step 07 contains the updated issue-time replay.
       Live, the model loses on a few days when chlorophyll jumps or drops sharply overnight. Before building anything new, this
       step asks a narrow question of {{ lastYear - firstYear + 1 }} years of the archive: do days of strong wind come before those
       changes? It also tests a remedy that needs no new data at all.

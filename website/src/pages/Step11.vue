@@ -129,6 +129,7 @@ const sections = [
 <template>
   <StepLayout number="11" :sections="sections">
     <template #lead>
+      This analysis uses the 14 November 2026 snapshot. Step 07 contains the updated issue-time replay.
       On live data the model has fallen behind a simple rule it beat in every test. This step looks for the reason, one
       suspect at a time, and finds that it is not the live data at all.
     </template>

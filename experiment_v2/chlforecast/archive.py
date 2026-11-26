@@ -22,7 +22,7 @@ from . import config
 SOURCES = {
     "chl": {
         "dataset_id": "cmems_obs-oc_med_bgc-plankton_nrt_l3-multi-1km_P1D",
-        "version": "202211",
+        "version": "202611",
         "variable": "CHL",
         "margin": 0.0,
         "recent_days": None,  # keep every day the rolling window offers
@@ -31,7 +31,7 @@ SOURCES = {
     "chl_l4": {
         "dataset_id": "cmems_obs-oc_med_bgc-plankton_nrt_l4-gapfree-multi-1km_P1D",
         "variable": "CHL",
-        "version": "202207",
+        "version": "202611",
         "margin": 0.0,
         "recent_days": None,
         "lag_days": config.CHL_LAG_DAYS,
@@ -48,17 +48,29 @@ SOURCES = {
     # source per pass. The live feed keeps its whole record, so 30 days suffice.
     "wind_asc": {
         "dataset_id": "cmems_obs-wind_glo_phy_nrt_l3-metopb-ascat-asc-0.125deg_P1D-i",
-        "version": "202311",
+        "version": "202611",
         # The first variable is the one counted as "valid pixels" in the log.
-        "variables": ["wind_speed", "eastward_wind", "northward_wind", "measurement_time", "wvc_quality_flag"],
+        "variables": [
+            "wind_speed",
+            "eastward_wind",
+            "northward_wind",
+            "measurement_time",
+            "wvc_quality_flag",
+        ],
         "margin": 0.07,  # covers the edge cells of the 0.125° grid
         "recent_days": 30,
         "lag_days": config.WIND_LAG_DAYS,
     },
     "wind_des": {
         "dataset_id": "cmems_obs-wind_glo_phy_nrt_l3-metopb-ascat-des-0.125deg_P1D-i",
-        "version": "202311",
-        "variables": ["wind_speed", "eastward_wind", "northward_wind", "measurement_time", "wvc_quality_flag"],
+        "version": "202611",
+        "variables": [
+            "wind_speed",
+            "eastward_wind",
+            "northward_wind",
+            "measurement_time",
+            "wvc_quality_flag",
+        ],
         "margin": 0.07,
         "recent_days": 30,
         "lag_days": config.WIND_LAG_DAYS,
@@ -71,12 +83,13 @@ def variables_of(source):
     return source.get("variables") or [source["variable"]]
 
 
-def open_sources():
+def open_sources(source_names=None):
     """Open each live dataset (lazily; no data is downloaded yet)."""
     import copernicusmarine
 
     remote = {}
-    for name, source in SOURCES.items():
+    for name in SOURCES if source_names is None else source_names:
+        source = SOURCES[name]
         catalogue = copernicusmarine.describe(dataset_id=source["dataset_id"])
         dataset = next(
             d
@@ -144,11 +157,11 @@ def offered(remote):
 def save_new_days(remote, archive_dir=None):
     """Save every offered day not yet in the archive. Returns the log rows."""
     archive_dir = archive_dir or config.ARCHIVE_DIR
-    retrieved_utc = pd.Timestamp.now(tz="UTC")
     rows = []
 
-    for name, source in SOURCES.items():
-        data = remote[name]["data"]
+    for name, opened in remote.items():
+        source = SOURCES[name]
+        data = opened["data"]
         names = variables_of(source)
         days = pd.DatetimeIndex(data.time.values)
         if source["recent_days"]:
@@ -163,6 +176,8 @@ def save_new_days(remote, archive_dir=None):
             row = {"Source": name, "Date": f"{day:%Y-%m-%d}"}
 
             field = data[names].sel(time=[day]).load()
+            retrieved_utc = pd.Timestamp.now(tz="UTC")
+            row["Retrieved (UTC)"] = retrieved_utc.isoformat()
             valid = int(np.isfinite(field[names[0]]).sum().item())
 
             # The first copy is never overwritten. If the live feed now offers
@@ -181,7 +196,7 @@ def save_new_days(remote, archive_dir=None):
             field.attrs.update(
                 {
                     "source_dataset_id": source["dataset_id"],
-                    "source_dataset_version": remote[name]["version"],
+                    "source_dataset_version": opened["version"],
                     "retrieved_utc": retrieved_utc.isoformat(),
                     "archive_note": "First retrieved copy; never overwritten",
                 }
@@ -199,7 +214,6 @@ def save_new_days(remote, archive_dir=None):
             rows.append({"Status": "Saved", **row, "Valid pixels": valid})
 
     log = pd.DataFrame(rows)
-    log["Retrieved (UTC)"] = retrieved_utc.isoformat()
     # Fixed column order: the log file is appended to on every run.
     log = log.reindex(
         columns=["Source", "Date", "Status", "Valid pixels", "Retrieved (UTC)"]
@@ -277,36 +291,48 @@ def holdings(archive_dir=None):
     return pd.DataFrame(rows).set_index("Source")
 
 
-def load(source, latitude, longitude, archive_dir=None):
-    """Load one archived product onto the model grid, as a complete daily calendar.
+def load(source, latitude, longitude, archive_dir=None, *, as_of=None, manifest=None):
+    """Load an archived source onto the model grid and return dates, values, retrieved.
 
-    Returns (dates, values, retrieved): the calendar from the first to the last
-    archived day, an array (time, latitude, longitude) with NaN for days not
-    held, and the download time of the version used for each day. For each day
-    the version is the newest one downloaded before the forecast it first feeds
-    was issued (see issue_cutoff), so inputs match what a live forecast had. Chlorophyll must already be
-    on the model grid; sea temperature (°C) is copied from its coarser grid to
-    the nearest cell within half a cell, as in step 02.
+    With as_of, use the newest copy retrieved by that UTC timestamp, subject
+    to the source's observation lag. Unavailable days remain NaN.
+    Without as_of, use the existing retrospective selection rules.
     """
     archive_dir = archive_dir or config.ARCHIVE_DIR
     all_versions = versions(source, archive_dir)
     if not all_versions:
         raise FileNotFoundError(f"No archived files for {source} in {archive_dir}")
+
+    cutoff = None if as_of is None else pd.to_datetime(as_of, utc=True)
+    held_days = sorted({v["date"] for v in all_versions})
+    dates = pd.date_range(held_days[0], held_days[-1], freq="D")
     chosen = {}
-    for date in sorted({v["date"] for v in all_versions}):
+
+    for date in held_days:
         day_versions = [v for v in all_versions if v["date"] == date]
-        cutoff = issue_cutoff(source, date)
+
+        if cutoff is None:
+            deadline = issue_cutoff(source, date)
+        else:
+            earliest_day = pd.Timestamp(date, tz="UTC") + pd.Timedelta(
+                days=SOURCES[source]["lag_days"]
+            )
+            if earliest_day > cutoff:
+                continue
+            deadline = cutoff
+
         in_time = [
             v
             for v in day_versions
-            if v["retrieved_utc"] and pd.Timestamp(v["retrieved_utc"]) <= cutoff
+            if v["retrieved_utc"] and pd.Timestamp(v["retrieved_utc"]) <= deadline
         ]
-        # The newest version available at issue time; if none was downloaded in
-        # time (days saved later, e.g. by the first run), the first copy.
-        chosen[date] = in_time[-1] if in_time else day_versions[0]
+
+        if in_time:
+            chosen[date] = max(in_time, key=lambda v: pd.Timestamp(v["retrieved_utc"]))
+        elif cutoff is None:
+            chosen[date] = day_versions[0]
+
     files = [chosen[d]["path"] for d in sorted(chosen)]
-    held = pd.DatetimeIndex([pd.Timestamp(d) for d in sorted(chosen)])
-    dates = pd.date_range(held.min(), held.max(), freq="D")
     latitude = np.asarray(latitude)
     longitude = np.asarray(longitude)
     values = np.full(
@@ -325,6 +351,16 @@ def load(source, latitude, longitude, archive_dir=None):
                 ds[variable].isel(time=0).sortby("latitude").sortby("longitude").load()
             )
             retrieved[date] = ds.attrs.get("retrieved_utc")
+            if manifest is not None:
+                manifest.append(
+                    {
+                        "source": source,
+                        "observation_date": date,
+                        "dataset_version": ds.attrs.get("source_dataset_version"),
+                        "retrieved_utc": retrieved[date],
+                        "archive_file": path.relative_to(archive_dir).as_posix(),
+                    }
+                )
         if source == "sst":
             if field.attrs.get("units", "").lower() not in {"kelvin", "k"}:
                 raise ValueError(
@@ -355,37 +391,48 @@ RETRY_WAIT_S = 300
 def main():
     started = datetime.now(UTC)
     print(f"Archive run started {started:%Y-%m-%d %H:%M:%S} UTC", flush=True)
+    pending = list(SOURCES)
+
     for attempt in range(1, ATTEMPTS + 1):
-        try:
-            remote = open_sources()
-            print(offered(remote).to_string(), flush=True)
-            log = save_new_days(remote)
-            saved = log[log["Status"] == "Saved"]
-            revised = log[log["Status"].str.startswith("Revised")]
+        failed = []
+
+        for name in pending:
+            try:
+                remote = open_sources([name])
+                print(offered(remote).to_string(), flush=True)
+                log = save_new_days(remote)
+            except Exception as error:
+                failed.append(name)
+                print(
+                    f"{name} FAILED (attempt {attempt}/{ATTEMPTS}): {error!r}",
+                    flush=True,
+                )
+                continue
+
+            saved = log.loc[log["Status"] == "Saved", "Date"]
+            revised = log.loc[log["Status"].str.startswith("Revised"), "Date"]
             print(
-                f"Saved {len(saved)} new day(s): "
-                + (
-                    ", ".join(f"{r.Source} {r.Date}" for r in saved.itertuples())
-                    or "none"
-                ),
+                f"Saved {len(saved)} new day(s) for {name}: {', '.join(saved) or 'none'}",
                 flush=True,
             )
             if len(revised):
                 print(
-                    f"Kept {len(revised)} later version(s): "
-                    + ", ".join(f"{r.Source} {r.Date}" for r in revised.itertuples()),
+                    f"Kept {len(revised)} revision(s) for {name}: {', '.join(revised)}",
                     flush=True,
                 )
-            print(holdings().to_string(), flush=True)
-            return 0
-        except Exception as error:  # report clearly in the log, then retry or fail
-            print(
-                f"Archive run FAILED (attempt {attempt}/{ATTEMPTS}): {error!r}",
-                flush=True,
-            )
-            if attempt < ATTEMPTS:
-                time.sleep(RETRY_WAIT_S)
-    return 1
+
+        pending = failed
+        if not pending:
+            break
+        if attempt < ATTEMPTS:
+            time.sleep(RETRY_WAIT_S)
+
+    if pending:
+        print(f"Archive run FAILED for: {', '.join(pending)}", flush=True)
+        return 1
+
+    print(holdings().to_string(), flush=True)
+    return 0
 
 
 if __name__ == "__main__":

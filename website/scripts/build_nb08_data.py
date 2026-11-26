@@ -41,8 +41,8 @@ for source in ["chl", "chl_l4", "sst", "wind_asc", "wind_des"]:
         "valid_pixels": {d: int(pixels[d]) for d in dates if d in pixels},
     }
 
-runs = [{"retrieved_utc": t, "saved": int((saved["Retrieved (UTC)"] == t).sum())}
-        for t in sorted(log["Retrieved (UTC)"].unique())]
+first_timestamp = log["Retrieved (UTC)"].min()
+first_run = {"retrieved_utc": first_timestamp, "saved": int((saved["Retrieved (UTC)"] == first_timestamp).sum())}
 
 # A full check of a +7-day forecast needs 7 days of history before the issue
 # day, and the target observation, which is published the day after it.
@@ -53,7 +53,7 @@ first_check = first_target + pd.Timedelta(days=CHL_LAG_DAYS)
 
 OUT_PATH.write_text(json.dumps({
     "sources": sources,
-    "runs": runs,
+    "first_run": first_run,
     "first_full_check": {
         "issue_date": str(first_issue.date()),
         "target_date": str(first_target.date()),
@@ -62,6 +62,6 @@ OUT_PATH.write_text(json.dumps({
 }, indent=1))
 
 print(json.dumps({k: {kk: vv for kk, vv in v.items() if kk != "valid_pixels"} for k, v in sources.items()}, indent=1))
-print("runs:", runs)
+print("first run:", first_run)
 print("first full check:", first_issue.date(), "→", first_target.date(), "available", first_check.date())
 print(f"Wrote {OUT_PATH.relative_to(ROOT)} ({OUT_PATH.stat().st_size / 1024:.0f} KB)")

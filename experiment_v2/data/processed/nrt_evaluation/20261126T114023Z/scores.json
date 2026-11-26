@@ -1,0 +1,134 @@
+[
+  {
+    "Horizon":"+1d",
+    "Method":"Forecast model",
+    "Scored issue days":28,
+    "Scored pixel-days":181150,
+    "Bias (mg\/m\u00b3)":-0.0033861797,
+    "MAE (mg\/m\u00b3)":0.0142229923,
+    "RMSE (mg\/m\u00b3)":0.0464686351,
+    "RMSE (log10)":0.1204747479,
+    "Median relative error (%)":10.9104789346
+  },
+  {
+    "Horizon":"+1d",
+    "Method":"Hedge",
+    "Scored issue days":28,
+    "Scored pixel-days":181150,
+    "Bias (mg\/m\u00b3)":-0.0043766529,
+    "MAE (mg\/m\u00b3)":0.0141051561,
+    "RMSE (mg\/m\u00b3)":0.046721964,
+    "RMSE (log10)":0.1196619407,
+    "Median relative error (%)":10.4845021432
+  },
+  {
+    "Horizon":"+1d",
+    "Method":"Blend rule",
+    "Scored issue days":28,
+    "Scored pixel-days":181150,
+    "Bias (mg\/m\u00b3)":-0.0051607651,
+    "MAE (mg\/m\u00b3)":0.0145074605,
+    "RMSE (mg\/m\u00b3)":0.0475457428,
+    "RMSE (log10)":0.1223545446,
+    "Median relative error (%)":10.8320364424
+  },
+  {
+    "Horizon":"+1d",
+    "Method":"No change",
+    "Scored issue days":28,
+    "Scored pixel-days":181150,
+    "Bias (mg\/m\u00b3)":-0.0055195114,
+    "MAE (mg\/m\u00b3)":0.0183646316,
+    "RMSE (mg\/m\u00b3)":0.0577289117,
+    "RMSE (log10)":0.1549314607,
+    "Median relative error (%)":14.1982945479
+  },
+  {
+    "Horizon":"+4d",
+    "Method":"Forecast model",
+    "Scored issue days":25,
+    "Scored pixel-days":158319,
+    "Bias (mg\/m\u00b3)":-0.0043883001,
+    "MAE (mg\/m\u00b3)":0.0171571414,
+    "RMSE (mg\/m\u00b3)":0.0528899493,
+    "RMSE (log10)":0.1360986524,
+    "Median relative error (%)":12.8567741827
+  },
+  {
+    "Horizon":"+4d",
+    "Method":"Hedge",
+    "Scored issue days":25,
+    "Scored pixel-days":158319,
+    "Bias (mg\/m\u00b3)":-0.0049566641,
+    "MAE (mg\/m\u00b3)":0.0164264791,
+    "RMSE (mg\/m\u00b3)":0.0519570026,
+    "RMSE (log10)":0.1303521983,
+    "Median relative error (%)":11.5274768546
+  },
+  {
+    "Horizon":"+4d",
+    "Method":"Blend rule",
+    "Scored issue days":25,
+    "Scored pixel-days":158319,
+    "Bias (mg\/m\u00b3)":-0.0053252128,
+    "MAE (mg\/m\u00b3)":0.0160831094,
+    "RMSE (mg\/m\u00b3)":0.0513235784,
+    "RMSE (log10)":0.1277326632,
+    "Median relative error (%)":10.7624951122
+  },
+  {
+    "Horizon":"+4d",
+    "Method":"No change",
+    "Scored issue days":25,
+    "Scored pixel-days":158319,
+    "Bias (mg\/m\u00b3)":-0.0055855109,
+    "MAE (mg\/m\u00b3)":0.0223016288,
+    "RMSE (mg\/m\u00b3)":0.0697785934,
+    "RMSE (log10)":0.1796967931,
+    "Median relative error (%)":14.0652539316
+  },
+  {
+    "Horizon":"+7d",
+    "Method":"Forecast model",
+    "Scored issue days":22,
+    "Scored pixel-days":138673,
+    "Bias (mg\/m\u00b3)":-0.0035911164,
+    "MAE (mg\/m\u00b3)":0.0181319383,
+    "RMSE (mg\/m\u00b3)":0.0527605643,
+    "RMSE (log10)":0.1321448556,
+    "Median relative error (%)":14.4288070519
+  },
+  {
+    "Horizon":"+7d",
+    "Method":"Hedge",
+    "Scored issue days":22,
+    "Scored pixel-days":138673,
+    "Bias (mg\/m\u00b3)":-0.0048097491,
+    "MAE (mg\/m\u00b3)":0.0172485561,
+    "RMSE (mg\/m\u00b3)":0.0517468403,
+    "RMSE (log10)":0.1268425004,
+    "Median relative error (%)":12.6749569317
+  },
+  {
+    "Horizon":"+7d",
+    "Method":"Blend rule",
+    "Scored issue days":22,
+    "Scored pixel-days":138673,
+    "Bias (mg\/m\u00b3)":-0.0057736464,
+    "MAE (mg\/m\u00b3)":0.0169494097,
+    "RMSE (mg\/m\u00b3)":0.050994072,
+    "RMSE (log10)":0.1256723284,
+    "Median relative error (%)":11.8616053517
+  },
+  {
+    "Horizon":"+7d",
+    "Method":"No change",
+    "Scored issue days":22,
+    "Scored pixel-days":138673,
+    "Bias (mg\/m\u00b3)":-0.0050390914,
+    "MAE (mg\/m\u00b3)":0.0256971369,
+    "RMSE (mg\/m\u00b3)":0.0727089309,
+    "RMSE (log10)":0.1845976873,
+    "Median relative error (%)":18.591426115
+  }
+]

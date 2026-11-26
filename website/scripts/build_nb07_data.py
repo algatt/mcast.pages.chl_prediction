@@ -56,6 +56,8 @@ ages = age[mask & np.isfinite(age)]
 live = {
     "run": latest.name,
     "issue_date": forecast.attrs["issue_date"],
+    "generated_utc": forecast.attrs.get("generated_utc", ""),
+    "published_methods": json.loads(forecast.attrs.get("published_method_by_horizon_json", "{}")),
     "issue_time_utc": forecast.attrs["nominal_issue_time_utc"],
     "retrieved_utc": forecast.attrs["retrieval_finished_utc"],
     "latest_chl_date": inputs.attrs["chl_latest_eligible_date"],
@@ -84,6 +86,13 @@ with xr.open_dataset(ARCHIVE / "chl" / f"{live['latest_chl_date']}.nc") as ds:
 
 # Today's bloom probabilities (step 10's model, run by step 07).
 blooms_path = latest / "bloom_probabilities.nc"
+if not blooms_path.exists():
+    # A map-only rerun may follow a full run for exactly the same issue and inputs.
+    for candidate in sorted(FORECASTS.glob("*/bloom_probabilities.nc"), reverse=True):
+        with xr.open_dataset(candidate.parent / "nrt_features.nc") as prior:
+            if inputs.equals(prior):
+                blooms_path = candidate
+                break
 if blooms_path.exists():
     with xr.open_dataset(blooms_path) as b:
         live["blooms"] = {
@@ -107,8 +116,7 @@ for source in ["chl", "chl_l4", "sst"]:
     expected = pd.date_range(dates[0], dates[-1], freq="D").strftime("%Y-%m-%d")
     archive[source] = {"days": len(dates), "first": dates[0], "last": dates[-1],
                        "missing": sorted(set(expected) - set(dates))}
-log = pd.read_csv(ARCHIVE / "archive_log.csv")
-archive["runs"] = int(log["Retrieved (UTC)"].nunique())
+
 
 # --- Scores of past live forecasts (the most recent run of step 07) ------------------
 run_dir = sorted(p for p in EVALUATIONS.iterdir() if (p / "scores.json").exists())[-1]

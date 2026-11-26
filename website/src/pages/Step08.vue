@@ -5,7 +5,7 @@ import { steps, stepPath } from '../data/steps.js'
 import StepLayout from '../components/StepLayout.vue'
 import StatTile from '../components/StatTile.vue'
 
-const { sources, runs } = nb08
+const { sources } = nb08
 const check = nb08.first_full_check
 const SEA_PIXELS = 12380
 
@@ -35,7 +35,7 @@ const held = (key, d) => Boolean(sources[key]) && d >= sources[key].first && d <
 const chlCoverage = (d) => (sources.chl.valid_pixels[d] ?? 0) / SEA_PIXELS
 const hover = ref(null)
 
-const firstRun = runs[0]
+const firstRun = nb08.first_run
 const runTime = (r) => `${shortDate(r.retrieved_utc.slice(0, 10))}, ${r.retrieved_utc.slice(11, 16)} UTC`
 const step07 = steps.find((s) => s.number === '07')
 const step09 = steps.find((s) => s.number === '09')
@@ -230,10 +230,10 @@ const step11 = steps.find((s) => s.number === '11')
       <h2>Keeping it going</h2>
       <ul>
         <li><strong>It runs by itself.</strong> A scheduled job on the computer that holds the archive runs it twice a day. Each run takes a
-          few minutes, most of it spent connecting to the Copernicus catalogue, and tries again twice, five minutes apart, if Copernicus
-          cannot be reached.</li>
+          few minutes. Healthy feeds finish even if one fails. Failed feeds receive up to two retries, five minutes apart.</li>
         <li><strong>Missing a day is fine; missing a week is not.</strong> A later run catches up on anything the live feed still offers,
           but once a day falls out of the window (between 8 and 16 days for observed chlorophyll so far) it is gone for good.</li>
+        <li><strong>November 2026 product change.</strong> Collection resumed on 26 November after the chlorophyll and both wind passes moved to version 202611. The archive recovered 13 product-days and preserved 28 revised chlorophyll files. New downloads are timestamped individually.</li>
         <li><strong>Back it up.</strong> The archive lives on one computer and is deliberately not in the code repository. Copying the
           folder somewhere safe from time to time protects weeks of collection.</li>
       </ul>
@@ -263,8 +263,7 @@ const step11 = steps.find((s) => s.number === '11')
         <div class="card">
           <div class="font-semibold text-ink-950">A working live pipeline, not yet a validated one</div>
           <p class="mt-1 text-sm text-slate-600 leading-relaxed">
-            The live feed is saved every day (this step), and step 07 runs the model on it and scores the results. The first weeks
-            of live scores are in step 07; step 11 explains why the model fell behind a simple rule in them.
+            The live feed is saved every day (this step), and step 07 runs the model on it and scores the results. Step 07 reports the updated issue-time replay. Step 11 examines losses seen in an earlier autumn sample.
           </p>
         </div>
       </div>

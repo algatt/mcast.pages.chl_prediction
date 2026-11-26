@@ -1,0 +1,185 @@
+{
+  "test_from": "2026-11-15",
+  "decision_days": 30,
+  "model_weight": 0.5,
+  "decision": {
+    "status": "waiting",
+    "publish": "Forecast model",
+    "text": "Not decided yet: 10 of 30 issue days at +1 day since 15 November 2026. Keep publishing the model."
+  },
+  "scores": [
+    {
+      "Horizon": "+1d",
+      "Method": "Forecast model",
+      "Issue days": 10,
+      "Scored pixel-days": 65496,
+      "Bias (mg/m\u00b3)": -0.0066254929,
+      "MAE (mg/m\u00b3)": 0.0137119538,
+      "RMSE (mg/m\u00b3)": 0.036611967,
+      "RMSE (log10)": 0.1033427541,
+      "Median relative error (%)": 9.4076202834
+    },
+    {
+      "Horizon": "+1d",
+      "Method": "Hedge",
+      "Issue days": 10,
+      "Scored pixel-days": 65496,
+      "Bias (mg/m\u00b3)": -0.0084606243,
+      "MAE (mg/m\u00b3)": 0.0142491591,
+      "RMSE (mg/m\u00b3)": 0.0393391009,
+      "RMSE (log10)": 0.1098545311,
+      "Median relative error (%)": 9.2557899191
+    },
+    {
+      "Horizon": "+1d",
+      "Method": "Blend rule",
+      "Issue days": 10,
+      "Scored pixel-days": 65496,
+      "Bias (mg/m\u00b3)": -0.0100749302,
+      "MAE (mg/m\u00b3)": 0.0152355403,
+      "RMSE (mg/m\u00b3)": 0.0423416225,
+      "RMSE (log10)": 0.1190640409,
+      "Median relative error (%)": 9.9368733036
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Forecast model",
+      "Issue days": 7,
+      "Scored pixel-days": 53954,
+      "Bias (mg/m\u00b3)": -0.009161969,
+      "MAE (mg/m\u00b3)": 0.0169304092,
+      "RMSE (mg/m\u00b3)": 0.0460092504,
+      "RMSE (log10)": 0.1193830131,
+      "Median relative error (%)": 11.4869388748
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Hedge",
+      "Issue days": 7,
+      "Scored pixel-days": 53954,
+      "Bias (mg/m\u00b3)": -0.0104779574,
+      "MAE (mg/m\u00b3)": 0.0170745764,
+      "RMSE (mg/m\u00b3)": 0.0464444961,
+      "RMSE (log10)": 0.122216229,
+      "Median relative error (%)": 10.9885999853
+    },
+    {
+      "Horizon": "+4d",
+      "Method": "Blend rule",
+      "Issue days": 7,
+      "Scored pixel-days": 53954,
+      "Bias (mg/m\u00b3)": -0.0116657603,
+      "MAE (mg/m\u00b3)": 0.0175401039,
+      "RMSE (mg/m\u00b3)": 0.0472273241,
+      "RMSE (log10)": 0.1268490447,
+      "Median relative error (%)": 11.1541676941
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Forecast model",
+      "Issue days": 4,
+      "Scored pixel-days": 33021,
+      "Bias (mg/m\u00b3)": -0.012111745,
+      "MAE (mg/m\u00b3)": 0.0207873936,
+      "RMSE (mg/m\u00b3)": 0.0532756413,
+      "RMSE (log10)": 0.132553801,
+      "Median relative error (%)": 14.594196508
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Hedge",
+      "Issue days": 4,
+      "Scored pixel-days": 33021,
+      "Bias (mg/m\u00b3)": -0.0160037553,
+      "MAE (mg/m\u00b3)": 0.021338805,
+      "RMSE (mg/m\u00b3)": 0.0550536426,
+      "RMSE (log10)": 0.1395757877,
+      "Median relative error (%)": 13.013356097
+    },
+    {
+      "Horizon": "+7d",
+      "Method": "Blend rule",
+      "Issue days": 4,
+      "Scored pixel-days": 33021,
+      "Bias (mg/m\u00b3)": -0.0195580851,
+      "MAE (mg/m\u00b3)": 0.0229038486,
+      "RMSE (mg/m\u00b3)": 0.0571009392,
+      "RMSE (log10)": 0.1517349903,
+      "Median relative error (%)": 13.9101149246
+    }
+  ],
+  "gains": [
+    {
+      "Horizon": "+1d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 10,
+      "Gain (%)": -6.3011450675,
+      "95% low": -8.6090970861,
+      "95% high": 0.9163899153
+    },
+    {
+      "Horizon": "+1d",
+      "Comparison": "Blend vs model",
+      "Issue days": 10,
+      "Gain (%)": -15.212761413,
+      "95% low": -19.1203202839,
+      "95% high": -4.1701252076
+    },
+    {
+      "Horizon": "+1d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 10,
+      "Gain (%)": 7.7349212328,
+      "95% low": 4.5675819178,
+      "95% high": 8.8202962296
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 7,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Blend vs model",
+      "Issue days": 7,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+4d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 7,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Hedge vs model",
+      "Issue days": 4,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Blend vs model",
+      "Issue days": 4,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    },
+    {
+      "Horizon": "+7d",
+      "Comparison": "Hedge vs blend",
+      "Issue days": 4,
+      "Gain (%)": null,
+      "95% low": null,
+      "95% high": null
+    }
+  ]
+}
