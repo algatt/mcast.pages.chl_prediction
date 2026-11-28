@@ -1,0 +1,282 @@
+[
+  {
+    "Days":"All overlap",
+    "Pixel-days":156314,
+    "Bias (log10)":-0.1029426232,
+    "S.d. (log10)":0.0500032231,
+    "RMSD (log10)":0.1144443378,
+    "Correlation":0.960076655,
+    "NRT\/MY median ratio":0.8006656766,
+    "Share within \u00b10.05 log10 (%)":6.5912202362
+  },
+  {
+    "Days":"2026-10-20",
+    "Pixel-days":884,
+    "Bias (log10)":-0.0822718516,
+    "S.d. (log10)":0.017811738,
+    "RMSD (log10)":0.084177874,
+    "Correlation":0.9298787956,
+    "NRT\/MY median ratio":0.8318637013,
+    "Share within \u00b10.05 log10 (%)":2.7149321267
+  },
+  {
+    "Days":"2026-10-21",
+    "Pixel-days":716,
+    "Bias (log10)":-0.0868599191,
+    "S.d. (log10)":0.0090377657,
+    "RMSD (log10)":0.0873288438,
+    "Correlation":0.9866397164,
+    "NRT\/MY median ratio":0.8127067685,
+    "Share within \u00b10.05 log10 (%)":0.6983240223
+  },
+  {
+    "Days":"2026-10-22",
+    "Pixel-days":12062,
+    "Bias (log10)":-0.0783511177,
+    "S.d. (log10)":0.0289687756,
+    "RMSD (log10)":0.0835349485,
+    "Correlation":0.9738068586,
+    "NRT\/MY median ratio":0.838799417,
+    "Share within \u00b10.05 log10 (%)":5.1483999337
+  },
+  {
+    "Days":"2026-10-23",
+    "Pixel-days":11749,
+    "Bias (log10)":-0.1004039049,
+    "S.d. (log10)":0.0352923684,
+    "RMSD (log10)":0.106426008,
+    "Correlation":0.95404219,
+    "NRT\/MY median ratio":0.77806288,
+    "Share within \u00b10.05 log10 (%)":10.341305643
+  },
+  {
+    "Days":"2026-10-26",
+    "Pixel-days":1976,
+    "Bias (log10)":-0.0884492472,
+    "S.d. (log10)":0.0333303064,
+    "RMSD (log10)":0.0945207849,
+    "Correlation":0.9743154135,
+    "NRT\/MY median ratio":0.8137202859,
+    "Share within \u00b10.05 log10 (%)":1.5182186235
+  },
+  {
+    "Days":"2026-10-27",
+    "Pixel-days":1904,
+    "Bias (log10)":-0.0856246203,
+    "S.d. (log10)":0.0894037038,
+    "RMSD (log10)":0.1237925664,
+    "Correlation":0.898567314,
+    "NRT\/MY median ratio":0.8501731157,
+    "Share within \u00b10.05 log10 (%)":26.7331932773
+  },
+  {
+    "Days":"2026-10-28",
+    "Pixel-days":10021,
+    "Bias (log10)":-0.0809413865,
+    "S.d. (log10)":0.0601444133,
+    "RMSD (log10)":0.1008407623,
+    "Correlation":0.8664080597,
+    "NRT\/MY median ratio":0.8491117358,
+    "Share within \u00b10.05 log10 (%)":23.8099990021
+  },
+  {
+    "Days":"2026-10-29",
+    "Pixel-days":10544,
+    "Bias (log10)":-0.1174065173,
+    "S.d. (log10)":0.0271496326,
+    "RMSD (log10)":0.1205047518,
+    "Correlation":0.9534104152,
+    "NRT\/MY median ratio":0.7659595013,
+    "Share within \u00b10.05 log10 (%)":1.0337632777
+  },
+  {
+    "Days":"2026-10-30",
+    "Pixel-days":6448,
+    "Bias (log10)":-0.0860372707,
+    "S.d. (log10)":0.020496374,
+    "RMSD (log10)":0.0884449705,
+    "Correlation":0.9478035373,
+    "NRT\/MY median ratio":0.8291971087,
+    "Share within \u00b10.05 log10 (%)":0.6203473945
+  },
+  {
+    "Days":"2026-10-31",
+    "Pixel-days":5829,
+    "Bias (log10)":-0.1093966439,
+    "S.d. (log10)":0.0184841566,
+    "RMSD (log10)":0.1109472364,
+    "Correlation":0.982610273,
+    "NRT\/MY median ratio":0.7781000137,
+    "Share within \u00b10.05 log10 (%)":0.4632012352
+  },
+  {
+    "Days":"2026-11-01",
+    "Pixel-days":4260,
+    "Bias (log10)":-0.0943794921,
+    "S.d. (log10)":0.0167345256,
+    "RMSD (log10)":0.0958516151,
+    "Correlation":0.9575829343,
+    "NRT\/MY median ratio":0.8066281676,
+    "Share within \u00b10.05 log10 (%)":1.220657277
+  },
+  {
+    "Days":"2026-11-02",
+    "Pixel-days":1091,
+    "Bias (log10)":-0.0530715249,
+    "S.d. (log10)":0.0397290774,
+    "RMSD (log10)":0.0662946925,
+    "Correlation":0.968482013,
+    "NRT\/MY median ratio":0.869427979,
+    "Share within \u00b10.05 log10 (%)":33.8221814849
+  },
+  {
+    "Days":"2026-11-03",
+    "Pixel-days":10135,
+    "Bias (log10)":-0.1757010072,
+    "S.d. (log10)":0.0841534808,
+    "RMSD (log10)":0.1948144287,
+    "Correlation":0.9965986905,
+    "NRT\/MY median ratio":0.710278213,
+    "Share within \u00b10.05 log10 (%)":0.1184015787
+  },
+  {
+    "Days":"2026-11-04",
+    "Pixel-days":9384,
+    "Bias (log10)":-0.1685709804,
+    "S.d. (log10)":0.0546845086,
+    "RMSD (log10)":0.1772190034,
+    "Correlation":0.9637526455,
+    "NRT\/MY median ratio":0.6861709952,
+    "Share within \u00b10.05 log10 (%)":1.1189258312
+  },
+  {
+    "Days":"2026-11-05",
+    "Pixel-days":284,
+    "Bias (log10)":-0.1447443962,
+    "S.d. (log10)":0.0235493667,
+    "RMSD (log10)":0.1466475874,
+    "Correlation":0.9401290741,
+    "NRT\/MY median ratio":0.7064110637,
+    "Share within \u00b10.05 log10 (%)":0.3521126761
+  },
+  {
+    "Days":"2026-11-06",
+    "Pixel-days":375,
+    "Bias (log10)":-0.1197848991,
+    "S.d. (log10)":0.0116913617,
+    "RMSD (log10)":0.1203541011,
+    "Correlation":0.9964861654,
+    "NRT\/MY median ratio":0.7616523504,
+    "Share within \u00b10.05 log10 (%)":0.0
+  },
+  {
+    "Days":"2026-11-09",
+    "Pixel-days":145,
+    "Bias (log10)":-0.1446468085,
+    "S.d. (log10)":0.0142638506,
+    "RMSD (log10)":0.1453483999,
+    "Correlation":0.9126415192,
+    "NRT\/MY median ratio":0.716301918,
+    "Share within \u00b10.05 log10 (%)":0.0
+  },
+  {
+    "Days":"2026-11-10",
+    "Pixel-days":10609,
+    "Bias (log10)":-0.0992490873,
+    "S.d. (log10)":0.0375959054,
+    "RMSD (log10)":0.1061312109,
+    "Correlation":0.9287051653,
+    "NRT\/MY median ratio":0.7917947769,
+    "Share within \u00b10.05 log10 (%)":7.8801018004
+  },
+  {
+    "Days":"2026-11-11",
+    "Pixel-days":6225,
+    "Bias (log10)":-0.088089563,
+    "S.d. (log10)":0.0371364169,
+    "RMSD (log10)":0.095597513,
+    "Correlation":0.9316426812,
+    "NRT\/MY median ratio":0.8127126694,
+    "Share within \u00b10.05 log10 (%)":11.3092369478
+  },
+  {
+    "Days":"2026-11-12",
+    "Pixel-days":440,
+    "Bias (log10)":-0.123109974,
+    "S.d. (log10)":0.0260008816,
+    "RMSD (log10)":0.125825718,
+    "Correlation":0.9838234934,
+    "NRT\/MY median ratio":0.7486908436,
+    "Share within \u00b10.05 log10 (%)":1.3636363636
+  },
+  {
+    "Days":"2026-11-13",
+    "Pixel-days":6267,
+    "Bias (log10)":-0.0923368633,
+    "S.d. (log10)":0.0167036112,
+    "RMSD (log10)":0.0938355252,
+    "Correlation":0.9838034614,
+    "NRT\/MY median ratio":0.8076117039,
+    "Share within \u00b10.05 log10 (%)":0.9893090793
+  },
+  {
+    "Days":"2026-11-14",
+    "Pixel-days":11418,
+    "Bias (log10)":-0.093643263,
+    "S.d. (log10)":0.0166073721,
+    "RMSD (log10)":0.0951044932,
+    "Correlation":0.9823637914,
+    "NRT\/MY median ratio":0.8098996878,
+    "Share within \u00b10.05 log10 (%)":0.5517603783
+  },
+  {
+    "Days":"2026-11-15",
+    "Pixel-days":11053,
+    "Bias (log10)":-0.0903446302,
+    "S.d. (log10)":0.0323428325,
+    "RMSD (log10)":0.0959594399,
+    "Correlation":0.9375953695,
+    "NRT\/MY median ratio":0.8178390861,
+    "Share within \u00b10.05 log10 (%)":5.3831538949
+  },
+  {
+    "Days":"2026-11-16",
+    "Pixel-days":533,
+    "Bias (log10)":-0.1018886045,
+    "S.d. (log10)":0.0272495747,
+    "RMSD (log10)":0.1054695547,
+    "Correlation":0.9547143774,
+    "NRT\/MY median ratio":0.7761906385,
+    "Share within \u00b10.05 log10 (%)":9.0056285178
+  },
+  {
+    "Days":"2026-11-17",
+    "Pixel-days":3063,
+    "Bias (log10)":-0.057456594,
+    "S.d. (log10)":0.0468422174,
+    "RMSD (log10)":0.0741313249,
+    "Correlation":0.8002130032,
+    "NRT\/MY median ratio":0.8794798851,
+    "Share within \u00b10.05 log10 (%)":42.3114593536
+  },
+  {
+    "Days":"2026-11-18",
+    "Pixel-days":7171,
+    "Bias (log10)":-0.0809360221,
+    "S.d. (log10)":0.0269991495,
+    "RMSD (log10)":0.0853205323,
+    "Correlation":0.9213125737,
+    "NRT\/MY median ratio":0.8290987611,
+    "Share within \u00b10.05 log10 (%)":10.6121879794
+  },
+  {
+    "Days":"2026-11-19",
+    "Pixel-days":11684,
+    "Bias (log10)":-0.1030984297,
+    "S.d. (log10)":0.0332193747,
+    "RMSD (log10)":0.1083181128,
+    "Correlation":0.9703806471,
+    "NRT\/MY median ratio":0.7958520651,
+    "Share within \u00b10.05 log10 (%)":3.6545703526
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "Horizon":"+1d",
+    "Data":"MY 2026, long history",
+    "Issue days":24,
+    "Pixel-days per issue day":6989.9166666667,
+    "RMSE log10: Forecast model":0.1440580724,
+    "RMSE log10: Blend rule":0.1523759082,
+    "RMSE log10: No change":0.1777582429,
+    "Gain over blend (%)":5.4587603538,
+    "95% low":0.7489332989,
+    "95% high":13.0987254943
+  },
+  {
+    "Horizon":"+4d",
+    "Data":"MY 2026, long history",
+    "Issue days":21,
+    "Pixel-days per issue day":6408.1904761905,
+    "RMSE log10: Forecast model":0.1699686837,
+    "RMSE log10: Blend rule":0.1664469933,
+    "RMSE log10: No change":0.2180713316,
+    "Gain over blend (%)":-2.1158029836,
+    "95% low":-6.0558042632,
+    "95% high":10.9910747903
+  },
+  {
+    "Horizon":"+7d",
+    "Data":"MY 2026, long history",
+    "Issue days":18,
+    "Pixel-days per issue day":6455.6666666667,
+    "RMSE log10: Forecast model":0.171149943,
+    "RMSE log10: Blend rule":0.1632071173,
+    "RMSE log10: No change":0.2123848707,
+    "Gain over blend (%)":-4.8667151402,
+    "95% low":-9.4582933806,
+    "95% high":7.9872120144
+  }
+]

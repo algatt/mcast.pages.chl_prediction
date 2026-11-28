@@ -253,6 +253,7 @@ def versions(source, archive_dir=None):
                 {
                     "date": date,
                     "retrieved_utc": ds.attrs.get("retrieved_utc"),
+                    "version": ds.attrs.get("source_dataset_version"),
                     "path": path,
                 }
             )
@@ -291,7 +292,16 @@ def holdings(archive_dir=None):
     return pd.DataFrame(rows).set_index("Source")
 
 
-def load(source, latitude, longitude, archive_dir=None, *, as_of=None, manifest=None):
+def load(
+    source,
+    latitude,
+    longitude,
+    archive_dir=None,
+    *,
+    as_of=None,
+    manifest=None,
+    version=None,
+):
     """Load an archived source onto the model grid and return dates, values, retrieved.
 
     With as_of, use the newest copy retrieved by that UTC timestamp, subject
@@ -300,6 +310,8 @@ def load(source, latitude, longitude, archive_dir=None, *, as_of=None, manifest=
     """
     archive_dir = archive_dir or config.ARCHIVE_DIR
     all_versions = versions(source, archive_dir)
+    if version is not None:
+        all_versions = [v for v in all_versions if v["version"] == version]
     if not all_versions:
         raise FileNotFoundError(f"No archived files for {source} in {archive_dir}")
 

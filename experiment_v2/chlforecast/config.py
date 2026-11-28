@@ -43,18 +43,25 @@ SPLIT_PERIODS = {
 }
 
 CORE_FEATURES = [
-    "season_sin", "season_cos",
-    "chl_latest", "chl_age_days",
-    "chl_mean_7d", "chl_observations_7d",
-    "latitude_deg", "longitude_deg",
+    "season_sin",
+    "season_cos",
+    "chl_latest",
+    "chl_age_days",
+    "chl_mean_7d",
+    "chl_observations_7d",
+    "latitude_deg",
+    "longitude_deg",
 ]
 # Inputs of the step 05 model.
 FINAL_FEATURES = CORE_FEATURES + ["chl_clim_log", "sst_c", "sst_observed"]
 
 EXTRA_FEATURES = [
-    "chl_nbr5_yesterday", "chl_nbr15_7d",
-    "chl_trend_log", "chl_anomaly_log",
-    "sst_anomaly", "sst_change_7d",
+    "chl_nbr5_yesterday",
+    "chl_nbr15_7d",
+    "chl_trend_log",
+    "chl_anomaly_log",
+    "sst_anomaly",
+    "sst_change_7d",
     "coast_distance_km",
 ]
 
@@ -72,5 +79,5 @@ HEDGE_MODEL_WEIGHT = 0.5
 # The live losses that prompted the hedge must not judge it: step 07 tests it on
 # issue days from this date only, and applies the decision rule once the +1-day
 # forecast has this many scored issue days.
-HEDGE_TEST_FROM = "2026-11-15"
+HEDGE_TEST_FROM = "2026-11-26"
 HEDGE_DECISION_DAYS = 30
